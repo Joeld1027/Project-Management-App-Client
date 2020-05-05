@@ -4,14 +4,14 @@ export const CardContainer = styled.div`
 	width: 300px;
 	height: 400px;
 	display: flex;
+	width: 100%;
 	flex-direction: column;
 	justify-self: center;
 	grid-column-start: 1;
 	grid-column-end: 3;
 	grid-row-start: 2;
 	grid-row-end: 4;
-	/* background-color: white; */
-	padding: 10px;
+	color: #a7b1c2;
 
 	img {
 		width: 100%;
@@ -21,6 +21,10 @@ export const CardContainer = styled.div`
 	}
 
 	ul {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 		margin-left: 20px;
 		list-style: none;
 		li {

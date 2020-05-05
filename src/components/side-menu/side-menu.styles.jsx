@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const SideMenuContainer = styled.div`
 	height: 100%;
-	width: 20%;
+	width: 240px;
 	/* max-width: 260px; */
 	position: fixed;
 	z-index: 1;
@@ -14,19 +14,19 @@ export const SideMenuContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	transition: all 0.3s ease-in;
-	@media screen and (min-width: 1600px) {
+	/* @media screen and (min-width: 1600px) {
 		width: 15%;
 		transition: all 0.3s ease-in;
 	}
 	@media screen and (min-width: 2200px) {
 		width: 10%;
 		transition: all 0.3s ease-in;
-	}
+	} */
 `;
 
 export const LogoContainer = styled.div`
 	max-height: 100px;
-	max-width: 220px;
+	max-width: 200px;
 	margin-bottom: 100px;
 	img {
 		width: 160px;
