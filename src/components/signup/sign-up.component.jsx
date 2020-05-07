@@ -37,7 +37,7 @@ const SignUp = ({ history, authUser }) => {
 		const authType = 'signup';
 		authUser(authType, userCredentials)
 			.then(() => {
-				history.push('/');
+				history.push('/user');
 			})
 			.catch((err) => console.log(err));
 	};

@@ -15,19 +15,19 @@ const SignInPage = ({ isLoading }) => {
 		<SignInPageContainer>
 			{isLoading ? (
 				<Dimmer active>
-					<Loader size='massive'>Loading User</Loader>
+					<Loader size='massive'>...Loading</Loader>
 				</Dimmer>
 			) : (
 				<Switch>
 					<Route exact path={`${path}`} component={SignIn} />
 					<Route exact path={`${path}/signup`} component={SignUp} />
+					<Route component={NoMatch} />
 				</Switch>
 			)}
 		</SignInPageContainer>
 	);
 };
-// <Route component={NoMatch} />
-// const NoMatch = () => <h1>404 page not found</h1>;
+const NoMatch = () => <h1>404 page not found</h1>;
 
 const mapStateToProps = (state) => ({
 	isLoading: state.user.isLoading,

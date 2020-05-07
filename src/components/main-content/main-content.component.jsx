@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from '../header/header.component';
 import SideMenu from '../side-menu/side-menu.component';
 import PageContent from '../page-content/page-content.component';
 
-export default class MainContent extends Component {
-	render() {
+const MainContent = ({ isAuthenticated }) => {
+	if (isAuthenticated) {
 		return (
 			<div>
 				<Header />
@@ -13,4 +15,11 @@ export default class MainContent extends Component {
 			</div>
 		);
 	}
-}
+	return <Redirect to='/auth' />;
+};
+
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.user.isAuthenticated,
+});
+
+export default connect(mapStateToProps, null)(MainContent);

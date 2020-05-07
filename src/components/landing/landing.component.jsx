@@ -16,16 +16,15 @@ function Landing(props) {
 					<Menu.Item as='a' header>
 						<Image
 							size='mini'
-							src='/logo.png'
+							src='https://toppng.com/uploads/preview/services-icons-implementation-01-01-project-implementation-icon-11563038221vwvtsitw9h.png'
 							style={{ marginRight: '1.5em' }}
 						/>
-						Project Name
+						Project Tracker
 					</Menu.Item>
 					<Menu.Item as='a'>Home</Menu.Item>
 
 					<Dropdown item simple text='Dropdown'>
 						<Dropdown.Menu>
-							<Dropdown.Item>List Item</Dropdown.Item>
 							<Dropdown.Item>List Item</Dropdown.Item>
 							<Dropdown.Divider />
 							<Dropdown.Header>Header Item</Dropdown.Header>
@@ -33,7 +32,6 @@ function Landing(props) {
 								<i className='dropdown icon' />
 								<span className='text'>Submenu</span>
 								<Dropdown.Menu>
-									<Dropdown.Item>List Item</Dropdown.Item>
 									<Dropdown.Item>List Item</Dropdown.Item>
 								</Dropdown.Menu>
 							</Dropdown.Item>
