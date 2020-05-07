@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import landingComponent from '../../components/landing/landing.component';
-import SignInPage from '../Signin&Singup/SignIn&SignUp-page.component';
-import MainContent from '../../components/main-content/main-content.component';
+
+const landingComponent = lazy(() =>
+	import('../../components/landing/landing.component')
+);
+const SignInPage = lazy(() =>
+	import('../Signin&Singup/SignIn&SignUp-page.component')
+);
+const MainContent = lazy(() =>
+	import('../../components/main-content/main-content.component')
+);
 
 const Main = () => {
 	return (
 		<div>
 			<Switch>
-				<Route exact path='/' component={landingComponent} />
-				<Route path='/auth' component={SignInPage} />
-				<Route path='/user' component={MainContent} />
+				<Suspense fallback={<div>...Loading</div>}>
+					<Route exact path='/' component={landingComponent} />
+					<Route path='/auth' component={SignInPage} />
+					<Route path='/user' component={MainContent} />
+				</Suspense>
 			</Switch>
 		</div>
 	);

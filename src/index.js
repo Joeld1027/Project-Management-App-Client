@@ -14,15 +14,15 @@ import {
 import './index.css';
 
 const store = configureStore();
-if (localStorage.jwToken) {
-	setAuthorizationToken(localStorage.jwToken);
-	// prevent someone from manually tempering with the token
-	try {
-		store.dispatch(setCurrentUser(jwtDecode(localStorage.jwToken)));
-	} catch (err) {
-		store.dispatch(setCurrentUser({}));
-	}
-}
+// if (localStorage.jwToken) {
+// 	setAuthorizationToken(localStorage.jwToken);
+// 	// prevent someone from manually tempering with the token
+// 	try {
+// 		store.dispatch(setCurrentUser(jwtDecode(localStorage.jwToken)));
+// 	} catch (err) {
+// 		store.dispatch(setCurrentUser({}));
+// 	}
+// }
 
 ReactDOM.render(
 	<Provider store={store}>
