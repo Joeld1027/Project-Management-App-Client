@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import ErrorBoundary from '../../components/error-boundary/error-boundary.component';
 
 const landingComponent = lazy(() =>
 	import('../../components/landing/landing.component')
@@ -15,11 +16,13 @@ const Main = () => {
 	return (
 		<div>
 			<Switch>
-				<Suspense fallback={<div>...Loading</div>}>
-					<Route exact path='/' component={landingComponent} />
-					<Route path='/auth' component={SignInPage} />
-					<Route path='/user' component={MainContent} />
-				</Suspense>
+				<ErrorBoundary>
+					<Suspense fallback={<div>...Loading</div>}>
+						<Route exact path='/' component={landingComponent} />
+						<Route path='/auth' component={SignInPage} />
+						<Route path='/user' component={MainContent} />
+					</Suspense>
+				</ErrorBoundary>
 			</Switch>
 		</div>
 	);
