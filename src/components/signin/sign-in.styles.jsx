@@ -16,6 +16,10 @@ export const SignInContainer = styled.div`
 			font-size: 18px;
 		}
 	}
+	@media screen and (max-width: 600px) {
+		width: 360px;
+		padding: 60px;
+	}
 `;
 
 export const SignInTitle = styled.h2`

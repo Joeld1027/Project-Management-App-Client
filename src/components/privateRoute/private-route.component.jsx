@@ -11,8 +11,9 @@ function PrivateRoute({ children, isAuthenticated, ...rest }) {
 				) : (
 					<Redirect
 						to={{
-							pathname: '/signin',
+							pathname: '/auth',
 							state: { from: location },
+							alert: 'Need to Sing in first',
 						}}
 					/>
 				)

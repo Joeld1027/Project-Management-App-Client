@@ -13,6 +13,10 @@ const MainContent = lazy(() =>
 	import('../../components/main-content/main-content.component')
 );
 
+const NoMatch = lazy(() =>
+	import('../../components/noMatch/noMatch')
+);
+
 const Main = () => {
 	return (
 		<div>
@@ -28,14 +32,12 @@ const Main = () => {
 						<Route exact path='/' component={landingComponent} />
 						<Route path='/auth' component={SignInPage} />
 						<Route path='/user' component={MainContent} />
-						<Route component={NoMatch} />
 					</Suspense>
 				</ErrorBoundary>
+				<Route component={NoMatch} />
 			</Switch>
 		</div>
 	);
 };
-
-const NoMatch = () => <h1>404 page not found</h1>;
 
 export default Main;
