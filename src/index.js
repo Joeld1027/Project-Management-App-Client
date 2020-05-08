@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
-import configureStore from './redux/store';
+// import jwtDecode from 'jwt-decode';
+import { store, persistor } from './redux/store';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
-import {
-	setAuthorizationToken,
-	setCurrentUser,
-} from './redux/user/user.actions';
+// import {
+// 	setAuthorizationToken,
+// 	setCurrentUser,
+// } from './redux/user/user.actions';
 
 import './index.css';
 
-const store = configureStore();
 // if (localStorage.jwToken) {
 // 	setAuthorizationToken(localStorage.jwToken);
 // 	// prevent someone from manually tempering with the token
@@ -28,7 +28,9 @@ ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
 			<React.StrictMode>
-				<App />
+				<PersistGate persistor={persistor}>
+					<App />
+				</PersistGate>
 			</React.StrictMode>
 		</BrowserRouter>
 	</Provider>,

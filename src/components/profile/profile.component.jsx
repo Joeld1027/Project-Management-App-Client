@@ -3,7 +3,8 @@ import { ProfileContainer } from './profile.styles';
 import UserCard from '../user-card/user-card.component';
 import desk from '../../assets/desk.jpg';
 
-const Profile = () => {
+const Profile = ({ currentUser }) => {
+	const { firstName, email } = currentUser.userInfo;
 	return (
 		<ProfileContainer>
 			<UserCard />
@@ -13,8 +14,8 @@ const Profile = () => {
 			<div className='bottom-div'></div>
 			<div className='user-info'>
 				<ul>
-					<li>name</li>
-					<li>email</li>
+					<li>{firstName}</li>
+					<li>{email}</li>
 					<li>position</li>
 					<li>department</li>
 					<li>phone number</li>

@@ -48,7 +48,7 @@ export const ProfileContainer = styled.section`
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		color: #a7b1c2;
+		color: #fff;
 		ul {
 			list-style: none;
 			width: 80%;

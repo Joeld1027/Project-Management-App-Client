@@ -11,13 +11,14 @@ export const CardContainer = styled.div`
 	grid-column-end: 3;
 	grid-row-start: 2;
 	grid-row-end: 4;
-	color: #a7b1c2;
+	color: #fff;
 
 	img {
 		width: 100%;
 		height: 60%;
 		margin-bottom: 20px;
 		z-index: 2;
+		padding: 10px;
 	}
 
 	ul {

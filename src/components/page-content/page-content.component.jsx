@@ -7,7 +7,8 @@ import Dashboard from '../../pages/dashboard-page/Dashboard-page.component';
 
 import { ContentContainer } from './page-content.styles';
 
-const PageContent = () => {
+const PageContent = ({ currentUser }) => {
+	console.log(currentUser);
 	let { path } = useRouteMatch();
 	return (
 		<ContentContainer>
@@ -17,12 +18,12 @@ const PageContent = () => {
 					path={`${path}/projects`}
 					component={ProjectPage}
 				/>
-				<Route
-					exact
-					path={`${path}/dashboard`}
-					component={Dashboard}
-				/>
-				<Route exact path={`${path}`} component={Profile} />
+				<Route exact path={`${path}/dashboard`}>
+					<Dashboard currentUser={currentUser} />
+				</Route>
+				<Route exact path={`${path}`}>
+					<Profile currentUser={currentUser} />
+				</Route>
 			</Switch>
 		</ContentContainer>
 	);

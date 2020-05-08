@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../header/header.component';
 import SideMenu from '../side-menu/side-menu.component';
 import PageContent from '../page-content/page-content.component';
 import PrivateRoute from '../privateRoute/private-route.component';
 
-const MainContent = ({ isAuthenticated }) => {
+const MainContent = ({ isAuthenticated, currentUser }) => {
+	console.log(currentUser);
 	return (
 		<div>
 			<PrivateRoute isAuthenticated={isAuthenticated}>
 				<Header />
 				<SideMenu />
-				<PageContent />
+				<PageContent currentUser={currentUser} />
 			</PrivateRoute>
 		</div>
 	);
@@ -20,6 +20,7 @@ const MainContent = ({ isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.user.isAuthenticated,
+	currentUser: state.user.currentUser,
 });
 
 export default connect(mapStateToProps, null)(MainContent);

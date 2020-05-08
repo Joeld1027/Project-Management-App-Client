@@ -5,7 +5,6 @@ import {
 	Switch,
 	useRouteMatch,
 	Redirect,
-	useLocation,
 } from 'react-router-dom';
 
 import { SignInPageContainer } from './Signin-page.styles';
