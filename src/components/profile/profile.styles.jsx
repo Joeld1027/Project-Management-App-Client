@@ -47,16 +47,6 @@ export const ProfileContainer = styled.section`
 		padding: 20px;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		color: #fff;
-		ul {
-			list-style: none;
-			width: 80%;
-			li {
-				font-size: 22px;
-				margin: 30px auto;
-				border-bottom: 1px solid #2f4050;
-			}
-		}
+		color: red;
 	}
 `;

@@ -4,7 +4,7 @@ export const ContentContainer = styled.div`
 	position: fixed;
 	width: auto;
 	/* overflow: scroll; */
-	height: 90vh;
+	height: 100vh;
 	margin-left: 240px;
 	padding: 10px;
 	background-color: #f5f5f5;

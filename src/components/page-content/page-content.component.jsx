@@ -8,7 +8,6 @@ import Dashboard from '../../pages/dashboard-page/Dashboard-page.component';
 import { ContentContainer } from './page-content.styles';
 
 const PageContent = ({ currentUser }) => {
-	console.log(currentUser);
 	let { path } = useRouteMatch();
 	return (
 		<ContentContainer>

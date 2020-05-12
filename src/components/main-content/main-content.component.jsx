@@ -1,16 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from '../header/header.component';
 import SideMenu from '../side-menu/side-menu.component';
 import PageContent from '../page-content/page-content.component';
 import PrivateRoute from '../privateRoute/private-route.component';
 
 const MainContent = ({ isAuthenticated, currentUser }) => {
-	console.log(currentUser);
 	return (
 		<div>
 			<PrivateRoute isAuthenticated={isAuthenticated}>
-				<Header />
 				<SideMenu />
 				<PageContent currentUser={currentUser} />
 			</PrivateRoute>
