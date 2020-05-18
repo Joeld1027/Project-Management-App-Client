@@ -1,38 +1,57 @@
 import React from 'react';
 import { ProfileContainer } from './profile.styles';
-import UserCard from '../user-card/user-card.component';
-import { List } from 'semantic-ui-react';
-import desk from '../../assets/desk.jpg';
+import {
+	Header,
+	Icon,
+	List,
+	Divider,
+	Segment,
+} from 'semantic-ui-react';
 
 const Profile = ({ currentUser }) => {
-	const { firstName, email } = currentUser.userInfo;
+	const {
+		firstName,
+		email,
+		userSince,
+		lastName,
+	} = currentUser.userInfo;
+	const joined = new Date(userSince).toDateString();
 	return (
 		<ProfileContainer>
-			<UserCard />
-			<div className='top-img'>
-				<img src={desk} alt='' />
-			</div>
-			<div className='bottom-div'></div>
-			<div className='user-info'>
-				<List inverted relaxed size={'big'}>
+			<Header as='h2' icon floated='left'>
+				<Icon name='settings' />
+				Account Settings
+				<Header.Subheader>
+					Verify and update user information.
+				</Header.Subheader>
+			</Header>
+			<Divider />
+			<Segment stacked padded color='black'>
+				<List size='large' divided relaxed>
 					<List.Item>
-						<List.Header>First Name</List.Header>
+						<List.Header>First name</List.Header>
 						{firstName}
 					</List.Item>
 					<List.Item>
-						<List.Header>Last Name</List.Header>
-						Last name goes here
+						<List.Header>Last name</List.Header>
+						{lastName}
 					</List.Item>
 					<List.Item>
 						<List.Header>Email</List.Header>
 						{email}
 					</List.Item>
 					<List.Item>
-						<List.Header>San Francisco</List.Header>
-						What a lovely city
+						<List.Header>Position</List.Header>
+						User
+					</List.Item>
+					<List.Item>
+						<List.Header>User since</List.Header>
+						{joined}
 					</List.Item>
 				</List>
-			</div>
+			</Segment>
+			<Divider />
+			<p>@ 2020 - Joel D. Infante</p>
 		</ProfileContainer>
 	);
 };

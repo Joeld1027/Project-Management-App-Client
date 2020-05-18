@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const SideMenuContainer = styled.div`
 	height: 100%;
 	width: 240px;
-	/* max-width: 260px; */
 	position: fixed;
 	z-index: 1;
 	top: 0;

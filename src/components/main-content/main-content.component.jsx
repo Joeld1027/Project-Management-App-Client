@@ -6,9 +6,9 @@ import PrivateRoute from '../privateRoute/private-route.component';
 
 const MainContent = ({ isAuthenticated, currentUser }) => {
 	return (
-		<div>
+		<div className='main-section'>
 			<PrivateRoute isAuthenticated={isAuthenticated}>
-				<SideMenu />
+				<SideMenu currentUser={currentUser} />
 				<PageContent currentUser={currentUser} />
 			</PrivateRoute>
 		</div>
