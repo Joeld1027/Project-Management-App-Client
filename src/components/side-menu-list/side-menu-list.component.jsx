@@ -8,7 +8,11 @@ import { List, Icon, Dropdown } from 'semantic-ui-react';
 const options = [
 	{
 		key: 'user',
-		text: <OptionLink to='/user'>Account</OptionLink>,
+		text: (
+			<OptionLink className='profile' to='/user'>
+				Account
+			</OptionLink>
+		),
 		icon: 'settings',
 	},
 	{ key: 'sign-out', text: 'Sign Out', icon: 'sign out' },
@@ -21,9 +25,11 @@ const MenuItems = ({ currentUser }) => {
 		<span>
 			<List selection verticalAlign='middle' size='big'>
 				<List.Item>
-					<Icon color='teal' name='user' size='large' />
+					<Icon color='grey' name='user' size='large' />
 					<List.Content>
-						<List.Header as='a'>{firstName}</List.Header>
+						<List.Header className='username' as='a'>
+							{firstName}
+						</List.Header>
 					</List.Content>
 				</List.Item>
 			</List>
@@ -39,17 +45,15 @@ const MenuItems = ({ currentUser }) => {
 				icon={null}
 			/>
 			<OptionLink to='/user/dashboard'>Dashboard</OptionLink>
-			{role === 'Admin' ? (
+			{role === 'Admin' && (
 				<OptionLink to='/user/roles'>Manage Users</OptionLink>
-			) : null}
-			{role === 'Admin' || role === 'Manager' ? (
+			)}
+			{role === ('Admin' || 'Manager') && (
 				<OptionLink to='/user/managment'>Manage Projects</OptionLink>
-			) : null}
-			{role === 'Admin' ||
-			role === 'Manager' ||
-			role === 'Developer' ? (
+			)}
+			{role === ('Admin' || 'Manager' || 'Developer') && (
 				<OptionLink to='/user/projects'>Projects</OptionLink>
-			) : null}
+			)}
 			<OptionLink to='/user/tickets'>Tickets</OptionLink>
 		</OptionsContainer>
 	);

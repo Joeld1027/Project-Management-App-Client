@@ -11,6 +11,7 @@ import {
 	Divider,
 	Header,
 	Input,
+	Segment,
 } from 'semantic-ui-react';
 import { TicketsPageContainer } from './Tickets-page.styles';
 
@@ -76,88 +77,90 @@ class TicketsPage extends Component {
 						</Grid.Column>
 					</Grid>
 					<Divider />
-					<Grid>
-						<Grid.Column>
-							<Header
-								as='h2'
-								icon='plug'
-								content='All Active Tickets'
-								floated='right'
-							/>
+					<Segment>
+						<Grid>
+							<Grid.Column>
+								<Header
+									as='h2'
+									icon='plug'
+									content='All Active Tickets'
+									floated='right'
+								/>
 
-							<Input
-								icon='file alternate outline'
-								iconPosition='left'
-								placeholder='Search tickets...'
-							/>
+								<Input
+									icon='file alternate outline'
+									iconPosition='left'
+									placeholder='Search tickets...'
+								/>
 
-							<Table striped color='teal'>
-								<Table.Header>
-									<Table.Row>
-										<Table.HeaderCell>Name</Table.HeaderCell>
-										<Table.HeaderCell>Date Joined</Table.HeaderCell>
-										<Table.HeaderCell>E-mail</Table.HeaderCell>
-										<Table.HeaderCell>Called</Table.HeaderCell>
-									</Table.Row>
-								</Table.Header>
+								<Table striped color='teal'>
+									<Table.Header>
+										<Table.Row>
+											<Table.HeaderCell>Name</Table.HeaderCell>
+											<Table.HeaderCell>Date Joined</Table.HeaderCell>
+											<Table.HeaderCell>E-mail</Table.HeaderCell>
+											<Table.HeaderCell>Called</Table.HeaderCell>
+										</Table.Row>
+									</Table.Header>
 
-								<Table.Body>
-									<Table.Row>
-										<Table.Cell>John Lilki</Table.Cell>
-										<Table.Cell>September 14, 2013</Table.Cell>
-										<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-										<Table.Cell>No</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>Jamie Harington</Table.Cell>
-										<Table.Cell>January 11, 2014</Table.Cell>
-										<Table.Cell>
-											jamieharingonton@yahoo.com
-										</Table.Cell>
-										<Table.Cell>Yes</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>Jill Lewis</Table.Cell>
-										<Table.Cell>May 11, 2014</Table.Cell>
-										<Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-										<Table.Cell>Yes</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>John Lilki</Table.Cell>
-										<Table.Cell>September 14, 2013</Table.Cell>
-										<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-										<Table.Cell>No</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>John Lilki</Table.Cell>
-										<Table.Cell>September 14, 2013</Table.Cell>
-										<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-										<Table.Cell>No</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>Jamie Harington</Table.Cell>
-										<Table.Cell>January 11, 2014</Table.Cell>
-										<Table.Cell>
-											jamieharingonton@yahoo.com
-										</Table.Cell>
-										<Table.Cell>Yes</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>Jill Lewis</Table.Cell>
-										<Table.Cell>May 11, 2014</Table.Cell>
-										<Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-										<Table.Cell>Yes</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>John Lilki</Table.Cell>
-										<Table.Cell>September 14, 2013</Table.Cell>
-										<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-										<Table.Cell>No</Table.Cell>
-									</Table.Row>
-								</Table.Body>
-							</Table>
-						</Grid.Column>
-					</Grid>
+									<Table.Body>
+										<Table.Row>
+											<Table.Cell>John Lilki</Table.Cell>
+											<Table.Cell>September 14, 2013</Table.Cell>
+											<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
+											<Table.Cell>No</Table.Cell>
+										</Table.Row>
+										<Table.Row>
+											<Table.Cell>Jamie Harington</Table.Cell>
+											<Table.Cell>January 11, 2014</Table.Cell>
+											<Table.Cell>
+												jamieharingonton@yahoo.com
+											</Table.Cell>
+											<Table.Cell>Yes</Table.Cell>
+										</Table.Row>
+										<Table.Row>
+											<Table.Cell>Jill Lewis</Table.Cell>
+											<Table.Cell>May 11, 2014</Table.Cell>
+											<Table.Cell>jilsewris22@yahoo.com</Table.Cell>
+											<Table.Cell>Yes</Table.Cell>
+										</Table.Row>
+										<Table.Row>
+											<Table.Cell>John Lilki</Table.Cell>
+											<Table.Cell>September 14, 2013</Table.Cell>
+											<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
+											<Table.Cell>No</Table.Cell>
+										</Table.Row>
+										<Table.Row>
+											<Table.Cell>John Lilki</Table.Cell>
+											<Table.Cell>September 14, 2013</Table.Cell>
+											<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
+											<Table.Cell>No</Table.Cell>
+										</Table.Row>
+										<Table.Row>
+											<Table.Cell>Jamie Harington</Table.Cell>
+											<Table.Cell>January 11, 2014</Table.Cell>
+											<Table.Cell>
+												jamieharingonton@yahoo.com
+											</Table.Cell>
+											<Table.Cell>Yes</Table.Cell>
+										</Table.Row>
+										<Table.Row>
+											<Table.Cell>Jill Lewis</Table.Cell>
+											<Table.Cell>May 11, 2014</Table.Cell>
+											<Table.Cell>jilsewris22@yahoo.com</Table.Cell>
+											<Table.Cell>Yes</Table.Cell>
+										</Table.Row>
+										<Table.Row>
+											<Table.Cell>John Lilki</Table.Cell>
+											<Table.Cell>September 14, 2013</Table.Cell>
+											<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
+											<Table.Cell>No</Table.Cell>
+										</Table.Row>
+									</Table.Body>
+								</Table>
+							</Grid.Column>
+						</Grid>
+					</Segment>
 				</Container>
 			</TicketsPageContainer>
 		);

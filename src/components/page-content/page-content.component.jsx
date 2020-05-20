@@ -7,6 +7,8 @@ import Dashboard from '../../pages/dashboard-page/Dashboard-page.component';
 import TicketsPage from '../../pages/tickets-page/Tickets-page.component';
 
 import { ContentContainer } from './page-content.styles';
+import UsersPage from '../../pages/users-page/users-page.component';
+import ManageProjectPage from '../../pages/manageProjects-page/manageProject-page.component';
 
 const PageContent = ({ currentUser }) => {
 	let { path } = useRouteMatch();
@@ -26,6 +28,12 @@ const PageContent = ({ currentUser }) => {
 				</Route>
 				<Route exact path={`${path}/tickets`}>
 					<TicketsPage />
+				</Route>
+				<Route exact path={`${path}/roles`}>
+					<UsersPage />
+				</Route>
+				<Route exact path={`${path}/managment`}>
+					<ManageProjectPage />
 				</Route>
 			</Switch>
 		</ContentContainer>
