@@ -50,8 +50,6 @@ const Profile = ({ currentUser }) => {
 					</List.Item>
 				</List>
 			</Segment>
-			<Divider />
-			<p>@ 2020 - Joel D. Infante</p>
 		</ProfileContainer>
 	);
 };

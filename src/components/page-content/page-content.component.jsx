@@ -5,7 +5,9 @@ import Profile from '../profile/profile.component';
 import ProjectPage from '../../pages/project-page/Project-page';
 import Dashboard from '../../pages/dashboard-page/Dashboard-page.component';
 import TicketsPage from '../../pages/tickets-page/Tickets-page.component';
+import Ticket from '../ticket-form/ticket-form.component';
 
+import { Divider } from 'semantic-ui-react';
 import { ContentContainer } from './page-content.styles';
 import UsersPage from '../../pages/users-page/users-page.component';
 import ManageProjectPage from '../../pages/manageProjects-page/manageProject-page.component';
@@ -35,7 +37,14 @@ const PageContent = ({ currentUser }) => {
 				<Route exact path={`${path}/managment`}>
 					<ManageProjectPage />
 				</Route>
+				<Route
+					exact
+					path={`${path}/tickets/new`}
+					component={Ticket}
+				/>
 			</Switch>
+			<Divider />
+			<p>@ 2020 - Joel D. Infante</p>
 		</ContentContainer>
 	);
 };

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-
+import React, { useEffect } from 'react';
 import {
 	Grid,
 	Image,
@@ -13,16 +12,35 @@ import {
 	Input,
 	Segment,
 } from 'semantic-ui-react';
+import {
+	selectCurrentUserTickets,
+	selectAllTickets,
+} from '../../redux/tickets/tickets.selectors';
+import { createStructuredSelector } from 'reselect';
+import { getAllTickets } from '../../redux/tickets/tickets.actions';
+import { connect } from 'react-redux';
+import { useRouteMatch } from 'react-router-dom';
 import { TicketsPageContainer } from './Tickets-page.styles';
+import CreateButton from '../../components/create-button/create-button.component';
 
-class TicketsPage extends Component {
-	render() {
-		return (
-			<TicketsPageContainer>
-				<Container>
-					<div>User Tickets</div>
-					<Grid>
-						<Grid.Column width={12}>
+const TicketsPage = ({ allTickets, getAllTickets }) => {
+	useEffect(() => {
+		getAllTickets();
+	}, [getAllTickets]);
+	console.log(allTickets);
+	let { url } = useRouteMatch();
+	return (
+		<TicketsPageContainer>
+			<Container>
+				<CreateButton label='Ticket' url={url} />
+				<Grid>
+					<Grid.Column width={12}>
+						<Segment>
+							<Header as='h2' color='teal'>
+								<Icon name='wpforms' />
+								<Header.Content>Submitted Tickets</Header.Content>
+							</Header>
+
 							<Table celled color='teal'>
 								<Table.Header>
 									<Table.Row>
@@ -71,100 +89,78 @@ class TicketsPage extends Component {
 									</Table.Row>
 								</Table.Footer>
 							</Table>
-						</Grid.Column>
-						<Grid.Column width={4}>
+						</Segment>
+					</Grid.Column>
+					<Grid.Column width={4}>
+						<Segment>
 							<Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+						</Segment>
+					</Grid.Column>
+				</Grid>
+				<Divider />
+				<Segment>
+					<Grid>
+						<Grid.Column>
+							<Header
+								as='h2'
+								icon='wpforms'
+								content='All Active Tickets'
+								color='teal'
+								textAlign='center'
+							/>
+
+							<Input
+								icon='file alternate outline'
+								iconPosition='left'
+								placeholder='Search tickets...'
+								type='text'
+							/>
+
+							<Table striped color='teal'>
+								<Table.Header>
+									<Table.Row>
+										<Table.HeaderCell>Name</Table.HeaderCell>
+										<Table.HeaderCell>Date created</Table.HeaderCell>
+										<Table.HeaderCell>Category</Table.HeaderCell>
+										<Table.HeaderCell>Status</Table.HeaderCell>
+										<Table.HeaderCell>Priority</Table.HeaderCell>
+									</Table.Row>
+								</Table.Header>
+
+								<Table.Body>
+									{allTickets.map((ticket) => {
+										return (
+											<Table.Row key={ticket._id}>
+												<Table.Cell>{ticket.ticketName}</Table.Cell>
+												<Table.Cell>
+													{new Date(
+														ticket.createdDate
+													).toDateString()}
+												</Table.Cell>
+												<Table.Cell>
+													{ticket.ticketCategory}
+												</Table.Cell>
+												<Table.Cell>{ticket.ticketStatus}</Table.Cell>
+												<Table.Cell>
+													{ticket.ticketPriority}
+												</Table.Cell>
+											</Table.Row>
+										);
+									})}
+								</Table.Body>
+							</Table>
 						</Grid.Column>
 					</Grid>
-					<Divider />
-					<Segment>
-						<Grid>
-							<Grid.Column>
-								<Header
-									as='h2'
-									icon='plug'
-									content='All Active Tickets'
-									floated='right'
-								/>
+				</Segment>
+			</Container>
+		</TicketsPageContainer>
+	);
+};
 
-								<Input
-									icon='file alternate outline'
-									iconPosition='left'
-									placeholder='Search tickets...'
-								/>
+const mapStateToProps = createStructuredSelector({
+	allTickets: selectAllTickets,
+});
 
-								<Table striped color='teal'>
-									<Table.Header>
-										<Table.Row>
-											<Table.HeaderCell>Name</Table.HeaderCell>
-											<Table.HeaderCell>Date Joined</Table.HeaderCell>
-											<Table.HeaderCell>E-mail</Table.HeaderCell>
-											<Table.HeaderCell>Called</Table.HeaderCell>
-										</Table.Row>
-									</Table.Header>
-
-									<Table.Body>
-										<Table.Row>
-											<Table.Cell>John Lilki</Table.Cell>
-											<Table.Cell>September 14, 2013</Table.Cell>
-											<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-											<Table.Cell>No</Table.Cell>
-										</Table.Row>
-										<Table.Row>
-											<Table.Cell>Jamie Harington</Table.Cell>
-											<Table.Cell>January 11, 2014</Table.Cell>
-											<Table.Cell>
-												jamieharingonton@yahoo.com
-											</Table.Cell>
-											<Table.Cell>Yes</Table.Cell>
-										</Table.Row>
-										<Table.Row>
-											<Table.Cell>Jill Lewis</Table.Cell>
-											<Table.Cell>May 11, 2014</Table.Cell>
-											<Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-											<Table.Cell>Yes</Table.Cell>
-										</Table.Row>
-										<Table.Row>
-											<Table.Cell>John Lilki</Table.Cell>
-											<Table.Cell>September 14, 2013</Table.Cell>
-											<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-											<Table.Cell>No</Table.Cell>
-										</Table.Row>
-										<Table.Row>
-											<Table.Cell>John Lilki</Table.Cell>
-											<Table.Cell>September 14, 2013</Table.Cell>
-											<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-											<Table.Cell>No</Table.Cell>
-										</Table.Row>
-										<Table.Row>
-											<Table.Cell>Jamie Harington</Table.Cell>
-											<Table.Cell>January 11, 2014</Table.Cell>
-											<Table.Cell>
-												jamieharingonton@yahoo.com
-											</Table.Cell>
-											<Table.Cell>Yes</Table.Cell>
-										</Table.Row>
-										<Table.Row>
-											<Table.Cell>Jill Lewis</Table.Cell>
-											<Table.Cell>May 11, 2014</Table.Cell>
-											<Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-											<Table.Cell>Yes</Table.Cell>
-										</Table.Row>
-										<Table.Row>
-											<Table.Cell>John Lilki</Table.Cell>
-											<Table.Cell>September 14, 2013</Table.Cell>
-											<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-											<Table.Cell>No</Table.Cell>
-										</Table.Row>
-									</Table.Body>
-								</Table>
-							</Grid.Column>
-						</Grid>
-					</Segment>
-				</Container>
-			</TicketsPageContainer>
-		);
-	}
-}
-
-export default TicketsPage;
+export default connect(mapStateToProps, { getAllTickets })(
+	TicketsPage
+);
