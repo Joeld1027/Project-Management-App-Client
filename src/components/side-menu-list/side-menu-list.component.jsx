@@ -48,9 +48,7 @@ const MenuItems = ({ currentUser }) => {
 			{role === 'Admin' && (
 				<OptionLink to='/user/roles'>Manage Users</OptionLink>
 			)}
-			{role === ('Admin' || 'Manager') && (
-				<OptionLink to='/user/managment'>Manage Projects</OptionLink>
-			)}
+
 			{role === ('Admin' || 'Manager' || 'Developer') && (
 				<OptionLink to='/user/projects'>Projects</OptionLink>
 			)}

@@ -1,0 +1,4 @@
+export const ProjectActionTypes = {
+	GET_ALL_PROJECTS: 'GET_ALL_PROJECTS',
+	PROJECT_CREATED: 'PROJECT_CREATED',
+};

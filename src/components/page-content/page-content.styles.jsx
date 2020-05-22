@@ -5,5 +5,5 @@ export const ContentContainer = styled.div`
 	margin-left: 240px;
 	padding: 20px;
 	background-color: #f5f5f5;
-	box-shadow: inset 7px 4px 9px rgba(0, 0, 0, 0.4);
+	/* box-shadow: inset 7px 4px 9px rgba(0, 0, 0, 0.4); */
 `;

@@ -1,15 +1,55 @@
-import React from 'react';
-import {
-	Grid,
-	Image,
-	Header,
-	Icon,
-	Container,
-	Segment,
-} from 'semantic-ui-react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getAllProjects } from '../../redux/projects/projects.actions';
+import { getAllUsers } from '../../redux/user/user.actions';
+import { Header, Icon, Container, Tab } from 'semantic-ui-react';
 import { ProjectPageContainer } from './project-page.styles';
+import MyProjectsPanel from '../../components/projectPanels/myProjectsPanel.component';
+import AllProjectsPanel from '../../components/projectPanels/allProjectsPanel.component';
+import ProjectForm from '../../components/projectForm/ProjectForm.component';
 
-const ProjectPage = () => {
+const ProjectPage = ({
+	getAllProjects,
+	allProjects,
+	getAllUsers,
+	allUsers,
+}) => {
+	useEffect(() => {
+		getAllProjects();
+	}, [getAllProjects]);
+	useEffect(() => {
+		getAllUsers();
+	}, [getAllUsers]);
+
+	const { projects } = allProjects;
+	const { users } = allUsers;
+	console.log(users);
+	const panes = [
+		{
+			menuItem: 'My Projects',
+			render: () => (
+				<Tab.Pane>
+					<MyProjectsPanel projects={projects} />
+				</Tab.Pane>
+			),
+		},
+		{
+			menuItem: 'All Projects',
+			render: () => (
+				<Tab.Pane>
+					<AllProjectsPanel projects={projects} />
+				</Tab.Pane>
+			),
+		},
+		{
+			menuItem: 'Create Project',
+			render: () => (
+				<Tab.Pane>
+					<ProjectForm users={users} />
+				</Tab.Pane>
+			),
+		},
+	];
 	return (
 		<ProjectPageContainer>
 			<Container>
@@ -18,25 +58,17 @@ const ProjectPage = () => {
 					<Icon name='sitemap' />
 					<Header.Subheader>Projects details.</Header.Subheader>
 				</Header>
-				<Grid>
-					<Grid.Row>
-						<Grid.Column width={9}>
-							<Segment>
-								<Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-							</Segment>
-						</Grid.Column>
-						<Grid.Column width={7}>
-							<Segment>
-								<Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-							</Segment>
-							<Segment>
-								<Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-							</Segment>
-						</Grid.Column>
-					</Grid.Row>
-				</Grid>
+				<Tab panes={panes} defaultActiveIndex={0} />
 			</Container>
 		</ProjectPageContainer>
 	);
 };
-export default ProjectPage;
+
+const mapStateToProps = (state) => ({
+	allProjects: state.projects.allProjects,
+	allUsers: state.user.allUsers,
+});
+export default connect(mapStateToProps, {
+	getAllProjects,
+	getAllUsers,
+})(ProjectPage);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Grid,
 	Image,
@@ -11,6 +11,7 @@ import {
 	Header,
 	Input,
 	Segment,
+	Dropdown,
 } from 'semantic-ui-react';
 import {
 	selectCurrentUserTickets,
@@ -24,11 +25,33 @@ import { TicketsPageContainer } from './Tickets-page.styles';
 import CreateButton from '../../components/create-button/create-button.component';
 
 const TicketsPage = ({ allTickets, getAllTickets }) => {
+	const [search, setSearch] = useState('');
+
 	useEffect(() => {
 		getAllTickets();
 	}, [getAllTickets]);
-	console.log(allTickets);
+
+	let filteredTickets = allTickets.filter((ticket) => {
+		return (
+			ticket.ticketName
+				.toLowerCase()
+				.indexOf(search.toLowerCase()) !== -1
+		);
+	});
+	const updateSearch = (e) => setSearch(e.target.value);
+	const handleLabel = (action) => {
+		switch (action.ticketPriority) {
+			case 'medium':
+				return 'yellow';
+			case 'high':
+				return 'red';
+			default:
+				return 'green';
+		}
+	};
+
 	let { url } = useRouteMatch();
+
 	return (
 		<TicketsPageContainer>
 			<Container>
@@ -58,16 +81,6 @@ const TicketsPage = ({ allTickets, getAllTickets }) => {
 										<Table.Cell>Cell</Table.Cell>
 										<Table.Cell>Cell</Table.Cell>
 									</Table.Row>
-									<Table.Row>
-										<Table.Cell>Cell</Table.Cell>
-										<Table.Cell>Cell</Table.Cell>
-										<Table.Cell>Cell</Table.Cell>
-									</Table.Row>
-									<Table.Row>
-										<Table.Cell>Cell</Table.Cell>
-										<Table.Cell>Cell</Table.Cell>
-										<Table.Cell>Cell</Table.Cell>
-									</Table.Row>
 								</Table.Body>
 
 								<Table.Footer>
@@ -80,7 +93,6 @@ const TicketsPage = ({ allTickets, getAllTickets }) => {
 												<Menu.Item as='a'>1</Menu.Item>
 												<Menu.Item as='a'>2</Menu.Item>
 												<Menu.Item as='a'>3</Menu.Item>
-												<Menu.Item as='a'>4</Menu.Item>
 												<Menu.Item as='a' icon>
 													<Icon name='chevron right' />
 												</Menu.Item>
@@ -114,6 +126,8 @@ const TicketsPage = ({ allTickets, getAllTickets }) => {
 								iconPosition='left'
 								placeholder='Search tickets...'
 								type='text'
+								value={search}
+								onChange={updateSearch}
 							/>
 
 							<Table striped color='teal'>
@@ -124,11 +138,12 @@ const TicketsPage = ({ allTickets, getAllTickets }) => {
 										<Table.HeaderCell>Category</Table.HeaderCell>
 										<Table.HeaderCell>Status</Table.HeaderCell>
 										<Table.HeaderCell>Priority</Table.HeaderCell>
+										<Table.HeaderCell>Actions</Table.HeaderCell>
 									</Table.Row>
 								</Table.Header>
 
 								<Table.Body>
-									{allTickets.map((ticket) => {
+									{filteredTickets.map((ticket) => {
 										return (
 											<Table.Row key={ticket._id}>
 												<Table.Cell>{ticket.ticketName}</Table.Cell>
@@ -140,9 +155,28 @@ const TicketsPage = ({ allTickets, getAllTickets }) => {
 												<Table.Cell>
 													{ticket.ticketCategory}
 												</Table.Cell>
-												<Table.Cell>{ticket.ticketStatus}</Table.Cell>
 												<Table.Cell>
-													{ticket.ticketPriority}
+													<Label color='blue'>
+														{ticket.ticketStatus}
+													</Label>
+												</Table.Cell>
+												<Table.Cell>
+													<Label color={handleLabel(ticket)}>
+														{ticket.ticketPriority}
+													</Label>
+												</Table.Cell>
+												<Table.Cell>
+													<Dropdown
+														as='h2'
+														text='...'
+														options={[
+															{ key: 1, text: 'Details', value: 1 },
+															{ key: 2, text: 'Edit', value: 2 },
+															{ key: 3, text: 'Delete', value: 3 },
+														]}
+														pointing='left'
+														icon={null}
+													/>
 												</Table.Cell>
 											</Table.Row>
 										);
@@ -161,6 +195,11 @@ const mapStateToProps = createStructuredSelector({
 	allTickets: selectAllTickets,
 });
 
-export default connect(mapStateToProps, { getAllTickets })(
-	TicketsPage
-);
+const mapDispatchToProps = (dispatch) => ({
+	getAllTickets: () => dispatch(getAllTickets()),
+});
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(TicketsPage);

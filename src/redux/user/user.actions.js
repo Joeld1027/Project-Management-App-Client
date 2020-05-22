@@ -14,6 +14,27 @@ export const userLoaded = () => ({
 	type: UserActionTypes.USER_LOADED,
 });
 
+export const getUsers = (users) => ({
+	type: UserActionTypes.GET_ALL_USERS,
+	payload: users,
+});
+
+export const getAllUsers = () => {
+	return (dispatch) => {
+		return new Promise((resolve, reject) => {
+			return apiCall('get', `http://localhost:5000/api/users`)
+				.then((users) => {
+					dispatch(getUsers(users));
+					resolve();
+				})
+				.catch((err) => {
+					console.log(err);
+					reject();
+				});
+		});
+	};
+};
+
 export function setAuthorizationToken(accessToken) {
 	setTokenHeader(accessToken);
 }

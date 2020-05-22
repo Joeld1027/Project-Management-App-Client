@@ -10,7 +10,6 @@ import Ticket from '../ticket-form/ticket-form.component';
 import { Divider } from 'semantic-ui-react';
 import { ContentContainer } from './page-content.styles';
 import UsersPage from '../../pages/users-page/users-page.component';
-import ManageProjectPage from '../../pages/manageProjects-page/manageProject-page.component';
 
 const PageContent = ({ currentUser }) => {
 	let { path } = useRouteMatch();
@@ -34,9 +33,7 @@ const PageContent = ({ currentUser }) => {
 				<Route exact path={`${path}/roles`}>
 					<UsersPage />
 				</Route>
-				<Route exact path={`${path}/managment`}>
-					<ManageProjectPage />
-				</Route>
+
 				<Route
 					exact
 					path={`${path}/tickets/new`}

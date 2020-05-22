@@ -4,6 +4,7 @@ const INITIAL_STATE = {
 	isAuthenticated: false,
 	currentUser: {},
 	isLoading: false,
+	allUsers: [],
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -19,6 +20,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
 				isAuthenticated: !!Object.keys(action.payload).length,
 				currentUser: action.payload,
 				isLoading: false,
+			};
+		case UserActionTypes.GET_ALL_USERS:
+			return {
+				...state,
+				allUsers: action.payload,
 			};
 		default:
 			return state;
