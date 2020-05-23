@@ -12,7 +12,9 @@ const ProjectsReducer = (state = INITIAL_STATE, action) => {
 				allProjects: action.payload,
 			};
 		case ProjectActionTypes.PROJECT_CREATED:
-			return state;
+			return {
+				...state,
+			};
 		default:
 			return state;
 	}

@@ -1,5 +1,11 @@
 import React from 'react';
-import { Table, Grid, Segment, Image } from 'semantic-ui-react';
+import {
+	Table,
+	Grid,
+	Segment,
+	Image,
+	Progress,
+} from 'semantic-ui-react';
 
 export default function MyProjectsPanel({ projects }) {
 	return (
@@ -11,7 +17,7 @@ export default function MyProjectsPanel({ projects }) {
 							<Table.Header>
 								<Table.Row>
 									<Table.HeaderCell>Project</Table.HeaderCell>
-									<Table.HeaderCell>Manager</Table.HeaderCell>
+									<Table.HeaderCell>Progress</Table.HeaderCell>
 									<Table.HeaderCell>Started on</Table.HeaderCell>
 								</Table.Row>
 							</Table.Header>
@@ -22,8 +28,19 @@ export default function MyProjectsPanel({ projects }) {
 										return (
 											<Table.Row key={project.id}>
 												<Table.Cell>{project.name}</Table.Cell>
-												<Table.Cell>other</Table.Cell>
-												<Table.Cell>other</Table.Cell>
+												<Table.Cell>
+													<Progress
+														color='green'
+														value='3'
+														total='5'
+														progress='percent'
+													/>
+												</Table.Cell>
+												<Table.Cell>
+													{new Date(
+														project.createdDate
+													).toDateString()}
+												</Table.Cell>
 											</Table.Row>
 										);
 									})}

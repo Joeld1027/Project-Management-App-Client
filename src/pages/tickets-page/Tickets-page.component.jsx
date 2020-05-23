@@ -13,10 +13,7 @@ import {
 	Segment,
 	Dropdown,
 } from 'semantic-ui-react';
-import {
-	selectCurrentUserTickets,
-	selectAllTickets,
-} from '../../redux/tickets/tickets.selectors';
+import { selectAllTickets } from '../../redux/tickets/tickets.selectors';
 import { createStructuredSelector } from 'reselect';
 import { getAllTickets } from '../../redux/tickets/tickets.actions';
 import { connect } from 'react-redux';

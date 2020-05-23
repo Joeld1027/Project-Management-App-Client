@@ -6,8 +6,9 @@ export const setProjects = (projects) => ({
 	payload: projects,
 });
 
-export const projectCreated = () => ({
+export const projectCreated = (newProject) => ({
 	type: ProjectActionTypes.PROJECT_CREATED,
+	payload: newProject,
 });
 
 export const createProject = (data) => {
@@ -18,10 +19,11 @@ export const createProject = (data) => {
 				'http://localhost:5000/api/projects',
 				data
 			)
-				.then(() => {
-					dispatch(projectCreated());
+				.then((newProject) => {
+					dispatch(projectCreated(newProject));
+					console.log(newProject);
+					resolve();
 				})
-				.then(() => resolve())
 				.catch((err) => {
 					console.log(err);
 					reject();

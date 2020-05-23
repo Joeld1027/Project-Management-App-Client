@@ -57,25 +57,39 @@ class SearchComponent extends Component {
 
 		return (
 			<Grid>
-				<Grid.Column width={16}>
-					<Search
-						loading={isLoading}
-						onResultSelect={this.handleResultSelect}
-						onSearchChange={_.debounce(this.handleSearchChange, 500, {
-							leading: true,
-						})}
-						results={results}
-						value={value}
-						{...this.props}
-					/>
-				</Grid.Column>
+				<Grid.Row>
+					<Grid.Column width={6}>
+						<Search
+							loading={isLoading}
+							onResultSelect={this.handleResultSelect}
+							onSearchChange={_.debounce(
+								this.handleSearchChange,
+								500,
+								{
+									leading: true,
+								}
+							)}
+							results={results}
+							value={value}
+							{...this.props}
+						/>
+					</Grid.Column>
+					<Grid.Column width={10}>
+						<Header
+							textAlign='left'
+							icon='users'
+							as='h2'
+							content='Add Developers to Project'
+						/>
+					</Grid.Column>
+				</Grid.Row>
 				<Grid.Column width={16}>
 					<Table basic='very' celled collapsing>
 						<Table.Header>
 							<Table.Row>
-								<Table.HeaderCell>Developer</Table.HeaderCell>
+								<Table.HeaderCell>Developers</Table.HeaderCell>
 								<Table.HeaderCell>Current Projects</Table.HeaderCell>
-								<Table.HeaderCell>Add</Table.HeaderCell>
+								<Table.HeaderCell>Assign</Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
 						<Table.Body>
