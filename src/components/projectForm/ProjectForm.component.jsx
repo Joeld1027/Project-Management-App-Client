@@ -114,7 +114,7 @@ function ProjectForm({ users, createProject }) {
 					<Grid.Column width={16}>
 						<Segment>
 							<SearchComponent
-								users={users}
+								data={users}
 								onToggle={onToggle.bind(this)}
 							/>
 						</Segment>

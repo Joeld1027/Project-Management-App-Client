@@ -13,6 +13,8 @@ import App from './App';
 // } from './redux/user/user.actions';
 
 import './index.css';
+// import { getAllTickets } from './redux/tickets/tickets.actions';
+// getAllTickets();
 
 // if (localStorage.jwToken) {
 // 	setAuthorizationToken(localStorage.jwToken);
@@ -27,12 +29,13 @@ import './index.css';
 ReactDOM.render(
 	<Provider store={store}>
 		<BrowserRouter>
-			<React.StrictMode>
-				<PersistGate persistor={persistor}>
-					<App />
-				</PersistGate>
-			</React.StrictMode>
+			<PersistGate persistor={persistor}>
+				<App />
+			</PersistGate>
 		</BrowserRouter>
 	</Provider>,
 	document.getElementById('root')
 );
+
+// <React.StrictMode>
+// 		</React.StrictMode>

@@ -36,8 +36,9 @@ export const getAllProjects = () => {
 	return (dispatch) => {
 		return new Promise((resolve, reject) => {
 			return apiCall('get', `http://localhost:5000/api/projects`)
-				.then((foundProjects) => {
-					dispatch(setProjects(foundProjects));
+				.then((projects) => {
+					dispatch(setProjects(projects));
+
 					resolve();
 				})
 				.catch((err) => {

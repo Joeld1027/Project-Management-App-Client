@@ -9,7 +9,7 @@ const TicketsReducer = (state = INITIAL_STATE, action) => {
 		case TicketActionTypes.SET_ALL_TICKETS:
 			return {
 				...state,
-				allTickets: action.payload,
+				allTickets: action.payload.tickets,
 			};
 		case TicketActionTypes.TICKET_CREATED:
 			return state;

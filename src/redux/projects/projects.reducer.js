@@ -1,7 +1,7 @@
 import { ProjectActionTypes } from './projects.types';
 
 const INITIAL_STATE = {
-	allProjects: [],
+	projects: [],
 };
 
 const ProjectsReducer = (state = INITIAL_STATE, action) => {
@@ -9,7 +9,7 @@ const ProjectsReducer = (state = INITIAL_STATE, action) => {
 		case ProjectActionTypes.GET_ALL_PROJECTS:
 			return {
 				...state,
-				allProjects: action.payload,
+				projects: action.payload.projects,
 			};
 		case ProjectActionTypes.PROJECT_CREATED:
 			return {

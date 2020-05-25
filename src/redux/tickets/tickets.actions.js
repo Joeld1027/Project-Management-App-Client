@@ -11,18 +11,11 @@ export const ticketCreated = () => ({
 });
 
 export const getAllTickets = () => {
-	return (dispatch) => {
-		return new Promise((resolve, reject) => {
-			return apiCall('get', `http://localhost:5000/api/tickets`)
-				.then((foundTickets) => {
-					dispatch(setAllTickets(foundTickets));
-					resolve();
-				})
-				.catch((err) => {
-					console.log(err);
-					reject();
-				});
-		});
+	return async (dispatch) => {
+		const tickets = await fetch(
+			`http://localhost:5000/api/tickets`
+		).then((tickets) => tickets.json());
+		dispatch(setAllTickets(tickets));
 	};
 };
 

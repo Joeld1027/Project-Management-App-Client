@@ -24,9 +24,10 @@ class SearchComponent extends Component {
 		this.state = initialState;
 	}
 	source = () => {
-		const source = this.props.users.map((user) => ({
-			title: user.name,
-			id: user.id,
+		const { data } = this.props;
+		const source = data.map((data) => ({
+			title: data.name,
+			id: data.id,
 		}));
 		return source;
 	};
@@ -53,7 +54,7 @@ class SearchComponent extends Component {
 
 	render() {
 		const { isLoading, value, results } = this.state;
-		const { users, onToggle } = this.props;
+		const { data, onToggle } = this.props;
 
 		return (
 			<Grid>
@@ -94,9 +95,9 @@ class SearchComponent extends Component {
 						</Table.Header>
 						<Table.Body>
 							{results.length < 1
-								? users.map((user) => {
+								? data.map((data) => {
 										return (
-											<Table.Row key={user.id}>
+											<Table.Row key={data.id}>
 												<Table.Cell>
 													<Header as='h4' image>
 														<Image
@@ -105,7 +106,7 @@ class SearchComponent extends Component {
 															size='mini'
 														/>
 														<Header.Content>
-															{user.name}
+															{data.name}
 														</Header.Content>
 													</Header>
 												</Table.Cell>
@@ -116,8 +117,8 @@ class SearchComponent extends Component {
 															<List.Item>
 																<Checkbox
 																	toggle
-																	name={user.name}
-																	onClick={() => onToggle(user.id)}
+																	name={data.name}
+																	onClick={() => onToggle(data.id)}
 																/>
 															</List.Item>
 														</List>
