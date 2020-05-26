@@ -1,16 +1,10 @@
 import React, { useEffect, Suspense } from 'react';
-import {
-	Container,
-	Table,
-	Label,
-	Dropdown,
-	Header,
-} from 'semantic-ui-react';
+import { Container, Table, Label, Header } from 'semantic-ui-react';
 import { getAllTickets } from '../../redux/tickets/tickets.actions';
 import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { TicketsPageContainer } from './Tickets-page.styles';
-import CreateButton from '../../components/create-button/create-button.component';
+import LinkButton from '../../components/create-button/create-button.component';
 import { SearchAndTable } from '../../components/search&table/search&table.component';
 
 const TicketsPage = ({ allTickets, getAllTickets }) => {
@@ -24,11 +18,11 @@ const TicketsPage = ({ allTickets, getAllTickets }) => {
 			'Category',
 			'Status',
 			'Priority',
-			'Actions',
+			'Details',
 		],
 		data: allTickets,
 		handleLabel: (action) => {
-			switch (action.ticketPriority) {
+			switch (action.priority) {
 				case 'medium':
 					return 'yellow';
 				case 'high':
@@ -55,16 +49,12 @@ const TicketsPage = ({ allTickets, getAllTickets }) => {
 							</Label>
 						</Table.Cell>
 						<Table.Cell>
-							<Dropdown
-								as='h2'
-								text='...'
-								options={[
-									{ key: 1, text: 'Details', value: 1 },
-									{ key: 2, text: 'Edit', value: 2 },
-									{ key: 3, text: 'Delete', value: 3 },
-								]}
-								pointing='left'
-								icon={null}
+							<LinkButton
+								noSegment
+								typeAs='h4'
+								icon='edit'
+								disabled={true}
+								url={`${url}/${ticket.id}`}
 							/>
 						</Table.Cell>
 					</Table.Row>
@@ -79,7 +69,12 @@ const TicketsPage = ({ allTickets, getAllTickets }) => {
 		<Suspense fallback={<div>Loading...</div>}>
 			<TicketsPageContainer>
 				<Container>
-					<CreateButton label='Ticket' url={url} />
+					<LinkButton
+						label='Create Ticket'
+						url={`${url}/new`}
+						icon='plus'
+						typeAs='h2'
+					/>
 					<Header
 						as='h2'
 						icon='wpforms'

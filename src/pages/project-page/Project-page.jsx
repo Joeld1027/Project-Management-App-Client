@@ -1,4 +1,5 @@
-import React, { useEffect, Suspense } from 'react';
+import React, { useEffect } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllProjects } from '../../redux/projects/projects.actions';
 import { getAllUsers } from '../../redux/user/user.actions';
@@ -22,9 +23,11 @@ const ProjectPage = ({
 
 	const { projects } = allProjects;
 	const { users } = allUsers;
+	const testi = useRouteMatch();
+	console.log(testi);
 	const panes = [
 		{
-			menuItem: 'My Projects',
+			menuItem: 'Projects',
 			render: () => (
 				<Tab.Pane>
 					<MyProjectsPanel projects={projects} />
@@ -42,18 +45,16 @@ const ProjectPage = ({
 	];
 
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
-			<ProjectPageContainer>
-				<Container>
-					<Header as='h1' icon dividing textAlign='center'>
-						PROJECTS
-						<Icon name='sitemap' />
-						<Header.Subheader>Projects details.</Header.Subheader>
-					</Header>
-					<Tab panes={panes} defaultActiveIndex={0} />
-				</Container>
-			</ProjectPageContainer>
-		</Suspense>
+		<ProjectPageContainer>
+			<Container>
+				<Header as='h1' icon dividing textAlign='center'>
+					PROJECTS
+					<Icon name='sitemap' />
+					<Header.Subheader>Projects details.</Header.Subheader>
+				</Header>
+				<Tab panes={panes} defaultActiveIndex={0} />
+			</Container>
+		</ProjectPageContainer>
 	);
 };
 

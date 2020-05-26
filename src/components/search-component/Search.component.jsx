@@ -88,8 +88,9 @@ class SearchComponent extends Component {
 					<Table basic='very' celled collapsing>
 						<Table.Header>
 							<Table.Row>
-								<Table.HeaderCell>Developers</Table.HeaderCell>
+								<Table.HeaderCell>Developer</Table.HeaderCell>
 								<Table.HeaderCell>Current Projects</Table.HeaderCell>
+								<Table.HeaderCell>Contact Info</Table.HeaderCell>
 								<Table.HeaderCell>Assign</Table.HeaderCell>
 							</Table.Row>
 						</Table.Header>
@@ -100,17 +101,13 @@ class SearchComponent extends Component {
 											<Table.Row key={data.id}>
 												<Table.Cell>
 													<Header as='h4' image>
-														<Image
-															src='https://react.semantic-ui.com/images/avatar/small/lena.png'
-															rounded
-															size='mini'
-														/>
 														<Header.Content>
 															{data.name}
 														</Header.Content>
 													</Header>
 												</Table.Cell>
 												<Table.Cell>22</Table.Cell>
+												<Table.Cell>{data.email}</Table.Cell>
 												<Table.Cell>
 													<Form.Field>
 														<List>

@@ -10,9 +10,11 @@ import Ticket from '../ticket-form/ticket-form.component';
 import { Divider } from 'semantic-ui-react';
 import { ContentContainer } from './page-content.styles';
 import UsersPage from '../../pages/users-page/users-page.component';
+import { ProjectDetails } from '../../pages/project-page/project-details.component';
 
 const PageContent = ({ currentUser }) => {
-	let { path } = useRouteMatch();
+	let { path, url } = useRouteMatch();
+
 	return (
 		<ContentContainer>
 			<Switch>
@@ -38,6 +40,11 @@ const PageContent = ({ currentUser }) => {
 					exact
 					path={`${path}/tickets/new`}
 					component={Ticket}
+				/>
+				<Route
+					exact
+					path={`${url}/projects/:id`}
+					children={<ProjectDetails />}
 				/>
 			</Switch>
 			<Divider />

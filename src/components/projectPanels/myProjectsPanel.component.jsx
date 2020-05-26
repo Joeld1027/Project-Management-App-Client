@@ -1,37 +1,38 @@
-import React from 'react';
-import { Table, Progress, Dropdown } from 'semantic-ui-react';
+import React, { Suspense } from 'react';
+import { Table, Progress } from 'semantic-ui-react';
 import { SearchAndTable } from '../search&table/search&table.component';
+import LinkButton from '../create-button/create-button.component';
+import { useRouteMatch, useParams } from 'react-router-dom';
 
 export default function MyProjectsPanel(props) {
+	let { url } = useRouteMatch();
+	let testi = useParams();
+	console.log(testi);
 	const tableData = {
-		labels: ['Project', 'Progress', 'Created', 'Actions'],
+		labels: ['Project', 'Progress', 'Created', 'Details'],
 		data: props.projects,
 		displayData: function (projects = props.projects) {
 			return projects.map((project) => {
 				return (
 					<Table.Row key={project.id} verticalAlign='top'>
 						<Table.Cell>{project.name}</Table.Cell>
-						<Table.Cell as='td' className='bottom aligned'>
+						<Table.Cell>
 							<Progress
 								color='green'
 								value='4'
 								total='5'
 								progress='percent'
-								size='small'
 							/>
 						</Table.Cell>
 						<Table.Cell>{project.createdDate}</Table.Cell>
-						<Table.Cell>
-							<Dropdown
-								as='h2'
-								text='...'
-								options={[
-									{ key: 1, text: 'Details', value: 1 },
-									{ key: 2, text: 'Edit', value: 2 },
-									{ key: 3, text: 'Delete', value: 3 },
-								]}
-								pointing='left'
-								icon={null}
+						<Table.Cell textAlign='center'>
+							<LinkButton
+								noSegment
+								typeAs='h4'
+								icon='edit'
+								disabled={true}
+								id={project.id}
+								url={`${url}/${project.id}`}
 							/>
 						</Table.Cell>
 					</Table.Row>
@@ -39,9 +40,12 @@ export default function MyProjectsPanel(props) {
 			});
 		},
 	};
+
 	return (
 		<div>
-			<SearchAndTable tableData={tableData} />
+			<Suspense fallback={<h1>Loading....</h1>}>
+				<SearchAndTable tableData={tableData} />
+			</Suspense>
 		</div>
 	);
 }

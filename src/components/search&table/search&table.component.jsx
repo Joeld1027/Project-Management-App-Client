@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-	Segment,
-	Grid,
-	Table,
-	Input,
-	Dropdown,
-} from 'semantic-ui-react';
+import { Segment, Grid, Table, Input } from 'semantic-ui-react';
 
 export const SearchAndTable = ({ tableData }) => {
 	const { data } = tableData;
