@@ -54,10 +54,20 @@ class SearchComponent extends Component {
 
 	render() {
 		const { isLoading, value, results } = this.state;
-		const { data, onToggle } = this.props;
+		const { data, onToggle, seticon, setcontent } = this.props;
 
 		return (
 			<Grid>
+				<Grid.Row>
+					<Grid.Column width={16}>
+						<Header
+							textAlign='center'
+							icon={seticon}
+							as='h2'
+							content={setcontent}
+						/>
+					</Grid.Column>
+				</Grid.Row>
 				<Grid.Row>
 					<Grid.Column width={6}>
 						<Search
@@ -75,15 +85,8 @@ class SearchComponent extends Component {
 							{...this.props}
 						/>
 					</Grid.Column>
-					<Grid.Column width={10}>
-						<Header
-							textAlign='left'
-							icon='users'
-							as='h2'
-							content='Add Developers to Project'
-						/>
-					</Grid.Column>
 				</Grid.Row>
+
 				<Grid.Column width={16}>
 					<Table basic='very' celled collapsing>
 						<Table.Header>

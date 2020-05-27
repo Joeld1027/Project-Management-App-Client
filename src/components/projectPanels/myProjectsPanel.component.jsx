@@ -2,12 +2,10 @@ import React, { Suspense } from 'react';
 import { Table, Progress } from 'semantic-ui-react';
 import { SearchAndTable } from '../search&table/search&table.component';
 import LinkButton from '../create-button/create-button.component';
-import { useRouteMatch, useParams } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 
 export default function MyProjectsPanel(props) {
 	let { url } = useRouteMatch();
-	let testi = useParams();
-	console.log(testi);
 	const tableData = {
 		labels: ['Project', 'Progress', 'Created', 'Details'],
 		data: props.projects,

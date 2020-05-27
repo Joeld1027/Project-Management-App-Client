@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useRouteMatch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllProjects } from '../../redux/projects/projects.actions';
 import { getAllUsers } from '../../redux/user/user.actions';
@@ -23,8 +22,6 @@ const ProjectPage = ({
 
 	const { projects } = allProjects;
 	const { users } = allUsers;
-	const testi = useRouteMatch();
-	console.log(testi);
 	const panes = [
 		{
 			menuItem: 'Projects',

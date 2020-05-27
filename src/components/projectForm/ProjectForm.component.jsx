@@ -32,14 +32,14 @@ function ProjectForm({ users, createProject }) {
 		console.log('called create project');
 	};
 
-	const onToggle = (item) => {
+	const onToggle = (newDeveloper) => {
 		const { developers } = formData;
 		let newArr = [];
 
-		if (!developers.includes(item)) {
-			newArr = [...developers, item];
+		if (!developers.includes(newDeveloper)) {
+			newArr = [...developers, newDeveloper];
 		} else {
-			newArr = developers.filter((a) => a !== item);
+			newArr = developers.filter((a) => a !== newDeveloper);
 		}
 		setformData({ ...formData, developers: newArr });
 	};
