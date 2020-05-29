@@ -6,7 +6,6 @@ import {
 	Search,
 	Header,
 	Table,
-	Image,
 	List,
 	Form,
 } from 'semantic-ui-react';
@@ -28,6 +27,7 @@ class SearchComponent extends Component {
 		const source = data.map((data) => ({
 			title: data.name,
 			id: data.id,
+			email: data.email,
 		}));
 		return source;
 	};
@@ -132,17 +132,13 @@ class SearchComponent extends Component {
 											<Table.Row key={result.id}>
 												<Table.Cell>
 													<Header as='h4' image>
-														<Image
-															src='https://react.semantic-ui.com/images/avatar/small/lena.png'
-															rounded
-															size='mini'
-														/>
 														<Header.Content>
 															{result.title}
 														</Header.Content>
 													</Header>
 												</Table.Cell>
 												<Table.Cell>22</Table.Cell>
+												<Table.Cell>{result.email}</Table.Cell>
 												<Table.Cell>
 													<Form.Field>
 														<List>

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 import {
 	Form,
@@ -7,16 +9,19 @@ import {
 	Segment,
 	Radio,
 	Button,
+	Label,
 } from 'semantic-ui-react';
 import { createProject } from '../../redux/projects/projects.actions';
 import SearchComponent from '../search-component/Search.component';
 
-function ProjectForm({ users, createProject }) {
+function ProjectForm({ users, createProject, user }) {
 	const [formData, setformData] = useState({
 		name: '',
 		description: '',
 		developers: [],
 		priority: '',
+		deadline: '',
+		createdBy: user._id,
 	});
 
 	const handleChange = (e, { name, value }) =>
@@ -100,6 +105,24 @@ function ProjectForm({ users, createProject }) {
 										onChange={handleChange}
 									/>
 								</Form.Field>
+								<Form.Field>
+									<h4>Due Date:</h4>
+									<Label
+										basic
+										color='teal'
+										ribbon
+										size='large'
+										children={
+											<DatePicker
+												minDate={new Date()}
+												selected={formData.deadline}
+												onChange={(date) =>
+													setformData({ ...formData, deadline: date })
+												}
+											/>
+										}
+									/>
+								</Form.Field>
 
 								<Button
 									attached='top'
@@ -116,6 +139,8 @@ function ProjectForm({ users, createProject }) {
 							<SearchComponent
 								data={users}
 								onToggle={onToggle.bind(this)}
+								seticon='users'
+								setcontent='Add Developers'
 							/>
 						</Segment>
 					</Grid.Column>

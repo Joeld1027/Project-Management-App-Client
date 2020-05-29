@@ -12,6 +12,7 @@ const ProjectPage = ({
 	allProjects,
 	getAllUsers,
 	allUsers,
+	currentUser,
 }) => {
 	useEffect(() => {
 		getAllProjects();
@@ -20,6 +21,7 @@ const ProjectPage = ({
 		getAllUsers();
 	}, [getAllUsers]);
 
+	const user = currentUser.userInfo;
 	const { projects } = allProjects;
 	const { users } = allUsers;
 	const panes = [
@@ -35,7 +37,7 @@ const ProjectPage = ({
 			menuItem: 'Create Project',
 			render: () => (
 				<Tab.Pane>
-					<ProjectForm users={users} />
+					<ProjectForm users={users} user={user} />
 				</Tab.Pane>
 			),
 		},

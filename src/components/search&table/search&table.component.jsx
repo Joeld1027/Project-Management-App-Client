@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
-import { Segment, Grid, Table, Input } from 'semantic-ui-react';
+import {
+	Segment,
+	Grid,
+	Table,
+	Input,
+	Loader,
+} from 'semantic-ui-react';
 
 export const SearchAndTable = ({ tableData }) => {
 	const { data } = tableData;
 	const [search, setSearch] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
-	const updateSearch = (e) => setSearch(e.target.value);
+	const updateSearch = (e) => {
+		setIsLoading(true);
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 300);
+		setSearch(e.target.value);
+	};
 
 	const filteredSearch = () => {
 		return data.filter((d) => {
@@ -20,6 +33,7 @@ export const SearchAndTable = ({ tableData }) => {
 			<Grid>
 				<Grid.Column>
 					<Input
+						loading={isLoading}
 						icon='file alternate outline'
 						iconPosition='left'
 						placeholder='Search tickets...'
@@ -40,9 +54,16 @@ export const SearchAndTable = ({ tableData }) => {
 								})}
 							</Table.Row>
 						</Table.Header>
-
 						<Table.Body>
-							{tableData.displayData(filteredSearch())}
+							{isLoading ? (
+								<Table.Row>
+									<Table.Cell textAlign='center'>
+										<Loader active inline='centered' />
+									</Table.Cell>
+								</Table.Row>
+							) : (
+								tableData.displayData(filteredSearch())
+							)}
 						</Table.Body>
 					</Table>
 				</Grid.Column>

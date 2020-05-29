@@ -2,6 +2,8 @@ import { ProjectActionTypes } from './projects.types';
 
 const INITIAL_STATE = {
 	projects: [],
+	oneProject: {},
+	isLoading: false,
 };
 
 const ProjectsReducer = (state = INITIAL_STATE, action) => {
@@ -11,9 +13,24 @@ const ProjectsReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				projects: action.payload.projects,
 			};
+		case ProjectActionTypes.PROJECT_LOADING:
+			return {
+				...state,
+				isLoading: true,
+			};
+		case ProjectActionTypes.PROJECT_LOADED:
+			return {
+				...state,
+				isLoading: false,
+			};
 		case ProjectActionTypes.PROJECT_CREATED:
 			return {
 				...state,
+			};
+		case ProjectActionTypes.SET_ONE_PROJECT:
+			return {
+				...state,
+				oneProject: action.payload,
 			};
 		default:
 			return state;
