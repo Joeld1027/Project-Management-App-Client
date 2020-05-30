@@ -42,10 +42,10 @@ function Ticket({ createTicket }) {
 	const { priority } = formData;
 
 	return (
-		<div style={{ height: '100vh', width: '100%' }}>
+		<div>
 			<Header
 				as='h1'
-				content='Create Ticket'
+				content='Create Task'
 				textAlign='center'
 				dividing
 			/>
@@ -56,7 +56,7 @@ function Ticket({ createTicket }) {
 							<Form.Input
 								onChange={handleChange}
 								name='name'
-								label='Ticket Name'
+								label='Task Name'
 							/>
 							<Form.TextArea
 								onChange={handleChange}
@@ -107,7 +107,7 @@ function Ticket({ createTicket }) {
 
 							<Button
 								attached='top'
-								content='Submit'
+								content='Submit Task'
 								type='submit'
 								color='teal'
 								onClick={handleSubmit}

@@ -11,19 +11,20 @@ import {
 	Image,
 	Header,
 	Feed,
+	Label,
 } from 'semantic-ui-react';
 import { ContentLoader } from '../../components/ContentLoader/ContentLoader.component';
 import Comments from '../../components/comments/Comments.component';
 
 const sections = [
-	{ key: 'Home', content: 'Tickets', link: true },
-	{ key: 'Shirt', content: 'Details', active: true },
+	{ key: 'Home', content: 'Tasks', link: true },
+	{ key: 'Shirt', content: 'Task Details', active: true },
 ];
 
 export const TicketDetails = () => {
 	const [active, setActive] = useState(false);
-	const [currentTicket, setCurrentTicket] = useState({
-		ticketInfo: {},
+	const [currentTask, setCurrentTask] = useState({
+		taskInfo: {},
 		createdBy: { firstName: 'N/A' },
 		comments: [],
 		asignedDevs: [],
@@ -31,16 +32,23 @@ export const TicketDetails = () => {
 	const id = useParams().id;
 	useEffect(() => {
 		setActive(true);
-		const fetchTicket = () =>
-			fetch(`http://localhost:5000/api/tickets/${id}`)
-				.then((ticket) => ticket.json())
-				.then((ticket) => {
-					setCurrentTicket({ ticketInfo: ticket });
-					setActive(false);
-					console.log(ticket);
-				});
-		fetchTicket();
+		const fetchTask = async () => {
+			try {
+				const fetchedTask = await fetch(
+					`http://localhost:5000/api/tickets/${id}`
+				).then((task) => task.json());
+
+				await setCurrentTask({ taskInfo: fetchedTask });
+				setActive(false);
+				console.log(fetchedTask);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+
+		fetchTask();
 	}, [id]);
+	console.log(currentTask);
 
 	return active ? (
 		<ContentLoader active={active} />
@@ -52,11 +60,17 @@ export const TicketDetails = () => {
 				<Grid.Row columns={2}>
 					<Grid.Column width={6}>
 						<Card
+							fluid
+							extra='ASSIGNED PROJECT: Project'
 							centered
 							color='teal'
 							raised
-							header='ticket name'
-							meta='in Progress'
+							header='TASK NAME'
+							meta={
+								<Label color='green' horizontal>
+									In Progress
+								</Label>
+							}
 							description='description goes here'
 						/>
 					</Grid.Column>
@@ -113,7 +127,7 @@ export const TicketDetails = () => {
 									</List.Content>
 								</List.Item>
 							</List>
-							<Header textAlign='center' content='Ticket History' />
+							<Header textAlign='center' content='Task History' />
 							<Feed>
 								<Feed.Event
 									icon='pencil'

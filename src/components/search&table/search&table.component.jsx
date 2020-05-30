@@ -5,9 +5,17 @@ import {
 	Table,
 	Input,
 	Loader,
+	Header,
 } from 'semantic-ui-react';
 
-export const SearchAndTable = ({ tableData }) => {
+export const SearchAndTable = ({
+	tableData,
+	forDevs,
+	striped,
+	seticon,
+	setcontent,
+	setsubheader,
+}) => {
 	const { data } = tableData;
 	const [search, setSearch] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +40,13 @@ export const SearchAndTable = ({ tableData }) => {
 		<Segment>
 			<Grid>
 				<Grid.Column>
+					<Header
+						textAlign='center'
+						icon={seticon}
+						as='h2'
+						content={setcontent}
+						subheader={setsubheader}
+					/>
 					<Input
 						loading={isLoading}
 						icon='file alternate outline'
@@ -42,7 +57,14 @@ export const SearchAndTable = ({ tableData }) => {
 						onChange={updateSearch}
 					/>
 
-					<Table celled striped color='teal' stackable>
+					<Table
+						basic={forDevs}
+						celled
+						striped={!striped ? null : true}
+						color='teal'
+						stackable
+						compact
+					>
 						<Table.Header>
 							<Table.Row>
 								{tableData.labels.map((label) => {
