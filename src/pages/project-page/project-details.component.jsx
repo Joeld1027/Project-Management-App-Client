@@ -24,6 +24,7 @@ const ProjectDetails = ({ project, getOneProject, isLoading }) => {
 	const returnBack = () => {
 		history.push('/user/projects');
 	};
+	console.log(project);
 
 	return (
 		<div>
@@ -46,7 +47,11 @@ const ProjectDetails = ({ project, getOneProject, isLoading }) => {
 									<Grid.Column width={6}>
 										<Card
 											fluid
-											extra='Manager: Name'
+											extra={
+												<Label color='teal' ribbon>
+													Manager Name
+												</Label>
+											}
 											centered
 											raised
 											header={project.projectName}
@@ -89,24 +94,25 @@ const ProjectDetails = ({ project, getOneProject, isLoading }) => {
 												size='large'
 												content='Developers'
 											/>
-											{project.asignedDevs.map((dev) => (
-												<List size='large' divided key={dev._id}>
-													<List.Item>
-														<Image
-															avatar
-															src='https://react.semantic-ui.com/images/avatar/small/rachel.png'
-														/>
-														<List.Content>
-															<List.Header>
-																{dev.firstName + ' ' + dev.lastName}
-															</List.Header>
-															<List.Description>
-																{dev.role}
-															</List.Description>
-														</List.Content>
-													</List.Item>
-												</List>
-											))}
+											{project.asignedDevs &&
+												project.asignedDevs.map((dev) => (
+													<List size='large' divided key={dev._id}>
+														<List.Item>
+															<Image
+																avatar
+																src='https://react.semantic-ui.com/images/avatar/small/rachel.png'
+															/>
+															<List.Content>
+																<List.Header>
+																	{dev.firstName + ' ' + dev.lastName}
+																</List.Header>
+																<List.Description>
+																	{dev.role}
+																</List.Description>
+															</List.Content>
+														</List.Item>
+													</List>
+												))}
 										</Segment>
 									</Grid.Column>
 									<Grid.Column width={8}>

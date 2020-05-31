@@ -1,21 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { getAllUsers } from '../../redux/user/user.actions';
-import {
-	Header,
-	Table,
-	Icon,
-	Container,
-	Dropdown,
-} from 'semantic-ui-react';
+import { Header, Table, Icon, Container } from 'semantic-ui-react';
+import LinkButton from '../../components/create-button/create-button.component';
 import { UsersPageContainer } from './user-page.styles';
 import { SearchAndTable } from '../../components/search&table/search&table.component';
+import { useRouteMatch } from 'react-router-dom';
 
-const UsersPage = ({ getAllUsers, allUsers }) => {
-	useEffect(() => {
-		getAllUsers();
-	}, [getAllUsers]);
+const UsersPage = ({ allUsers }) => {
 	const { users } = allUsers;
+	let { url } = useRouteMatch();
 
 	const tableData = {
 		labels: ['Name', 'Date Joined', 'E-mail', 'Role', 'Actions'],
@@ -31,16 +24,13 @@ const UsersPage = ({ getAllUsers, allUsers }) => {
 						<Table.Cell>{user.email}</Table.Cell>
 						<Table.Cell>{user.role}</Table.Cell>
 						<Table.Cell>
-							<Dropdown
-								as='h2'
-								text='...'
-								options={[
-									{ key: 1, text: 'Details', value: 1 },
-									{ key: 2, text: 'Edit', value: 2 },
-									{ key: 3, text: 'Delete', value: 3 },
-								]}
-								pointing='left'
-								icon={null}
+							<LinkButton
+								noSegment
+								typeAs='h4'
+								icon='edit'
+								disabled={true}
+								id={user.id}
+								url={`${url}/${user.id}`}
 							/>
 						</Table.Cell>
 					</Table.Row>
@@ -66,4 +56,4 @@ const mapStateToProps = (state) => ({
 	allUsers: state.user.allUsers,
 });
 
-export default connect(mapStateToProps, { getAllUsers })(UsersPage);
+export default connect(mapStateToProps)(UsersPage);

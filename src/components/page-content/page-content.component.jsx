@@ -19,19 +19,19 @@ const PageContent = ({ currentUser, ...props }) => {
 	return (
 		<ContentContainer>
 			<Switch>
-				<Route exact path={`${path}/projects`}>
-					<ProjectPage currentUser={currentUser} />
-				</Route>
-				<Route exact path={`${path}/dashboard`}>
-					<Dashboard currentUser={currentUser} />
-				</Route>
-				<Route exact path={`${path}`}>
+				<Route exact path={`${url}`}>
 					<Profile currentUser={currentUser} />
 				</Route>
-				<Route exact path={`${path}/tickets`}>
+				<Route exact path={`${url}/projects`}>
+					<ProjectPage currentUser={currentUser} />
+				</Route>
+				<Route exact path={`${url}/dashboard`}>
+					<Dashboard currentUser={currentUser} />
+				</Route>
+				<Route exact path={`${url}/tickets`}>
 					<TicketsPage />
 				</Route>
-				<Route exact path={`${path}/roles`}>
+				<Route exact path={`${url}/roles`}>
 					<UsersPage />
 				</Route>
 

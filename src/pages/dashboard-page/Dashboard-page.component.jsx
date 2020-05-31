@@ -26,7 +26,7 @@ const Dashboard = () => {
 					</Header.Subheader>
 				</Header>
 
-				<Card.Group itemsPerRow={3} centered fluid>
+				<Card.Group itemsPerRow={3} centered>
 					<Card href='#card-example-link-card' color='green'>
 						<Statistic color='green' size='large'>
 							<Label color='green' ribbon>

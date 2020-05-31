@@ -69,18 +69,29 @@ export const createProject = (data) => {
 };
 
 export const getAllProjects = () => {
-	return (dispatch) => {
-		return new Promise((resolve, reject) => {
-			return apiCall('get', `http://localhost:5000/api/projects`)
-				.then((projects) => {
-					dispatch(setProjects(projects));
-
-					resolve();
-				})
-				.catch((err) => {
-					console.log(err);
-					reject();
-				});
-		});
+	return async (dispatch) => {
+		try {
+			const projects = await fetch(
+				'http://localhost:5000/api/projects'
+			).then((res) => res.json());
+			dispatch(setProjects(projects));
+			console.log(projects);
+			return projects;
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
+
+// return new Promise((resolve, reject) => {
+// 			return apiCall('get', `http://localhost:5000/api/projects`)
+// 				.then((foundProjects) => {
+// 					dispatch(setProjects(foundProjects));
+// 					resolve();
+// 					console.log(foundProjects);
+// 				})
+// 				.catch((err) => {
+// 					console.log(err);
+// 					reject();
+// 				});
+// 		});

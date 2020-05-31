@@ -1,28 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { getAllProjects } from '../../redux/projects/projects.actions';
-import { getAllUsers } from '../../redux/user/user.actions';
 import { Header, Icon, Container, Tab } from 'semantic-ui-react';
 import { ProjectPageContainer } from './project-page.styles';
 import MyProjectsPanel from '../../components/projectPanels/myProjectsPanel.component';
 import ProjectForm from '../../components/projectForm/ProjectForm.component';
 
-const ProjectPage = ({
-	getAllProjects,
-	allProjects,
-	getAllUsers,
-	allUsers,
-	currentUser,
-}) => {
-	useEffect(() => {
-		getAllProjects();
-	}, [getAllProjects]);
-	useEffect(() => {
-		getAllUsers();
-	}, [getAllUsers]);
+const ProjectPage = ({ allProjects, allUsers, currentUser }) => {
+	console.log(allProjects);
 
 	const user = currentUser.userInfo;
 	const { projects } = allProjects;
+	console.log(projects);
 	const { users } = allUsers;
 	const panes = [
 		{
@@ -51,7 +39,7 @@ const ProjectPage = ({
 					<Icon name='sitemap' />
 					<Header.Subheader>Projects details.</Header.Subheader>
 				</Header>
-				<Tab panes={panes} defaultActiveIndex={0} />
+				{projects && <Tab panes={panes} defaultActiveIndex={0} />}
 			</Container>
 		</ProjectPageContainer>
 	);
@@ -61,7 +49,4 @@ const mapStateToProps = (state) => ({
 	allProjects: state.projects,
 	allUsers: state.user.allUsers,
 });
-export default connect(mapStateToProps, {
-	getAllProjects,
-	getAllUsers,
-})(ProjectPage);
+export default connect(mapStateToProps)(ProjectPage);

@@ -5,6 +5,7 @@ import LinkButton from '../create-button/create-button.component';
 import { useRouteMatch } from 'react-router-dom';
 
 export default function MyProjectsPanel(props) {
+	console.log(props);
 	let { url } = useRouteMatch();
 	const tableData = {
 		labels: ['Project', 'Progress', 'Created', 'Details'],

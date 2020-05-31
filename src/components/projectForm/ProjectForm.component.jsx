@@ -24,7 +24,7 @@ function ProjectForm({ users, createProject, user }) {
 		developers: [],
 		priority: '',
 		deadline: '',
-		createdBy: user._id,
+		createdBy: user.firstName + ' ' + user.lastName,
 		tasks: [],
 	});
 

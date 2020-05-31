@@ -1,16 +1,13 @@
-import React, { useEffect, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Container, Table, Label, Header } from 'semantic-ui-react';
-import { getAllTickets } from '../../redux/tickets/tickets.actions';
+
 import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import { TicketsPageContainer } from './Tickets-page.styles';
 import LinkButton from '../../components/create-button/create-button.component';
 import { SearchAndTable } from '../../components/search&table/search&table.component';
 
-const TicketsPage = ({ allTickets, getAllTickets }) => {
-	useEffect(() => {
-		getAllTickets();
-	}, [getAllTickets]);
+const TicketsPage = ({ allTickets }) => {
 	const tableData = {
 		labels: [
 			'Name',
@@ -95,6 +92,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { getAllTickets })(
-	TicketsPage
-);
+export default connect(mapStateToProps)(TicketsPage);

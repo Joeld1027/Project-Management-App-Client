@@ -2,7 +2,7 @@ import { ProjectActionTypes } from './projects.types';
 
 const INITIAL_STATE = {
 	projects: [],
-	oneProject: {},
+	oneProject: [],
 	isLoading: false,
 };
 
@@ -11,7 +11,7 @@ const ProjectsReducer = (state = INITIAL_STATE, action) => {
 		case ProjectActionTypes.GET_ALL_PROJECTS:
 			return {
 				...state,
-				projects: action.payload.projects,
+				projects: action.payload,
 			};
 		case ProjectActionTypes.PROJECT_LOADING:
 			return {
