@@ -35,10 +35,11 @@ function ProjectForm({ users, createProject, user }) {
 		setIsLoading(true);
 
 		const fetchTasks = () =>
-			fetch(`http://localhost:5000/api/tickets/`)
+			fetch(`http://localhost:5000/api/tasks`)
 				.then((fetchedTasks) => fetchedTasks.json())
 				.then((fetchedTasks) => {
-					let filteredTasks = fetchedTasks.tickets.filter(
+					console.log(fetchedTasks);
+					let filteredTasks = fetchedTasks.filter(
 						(task) => task.assignedProject.length < 1
 					);
 					setTasks(filteredTasks);
@@ -79,7 +80,7 @@ function ProjectForm({ users, createProject, user }) {
 		displayData: function (tickets = tasks) {
 			return tickets.map((task) => {
 				return (
-					<Table.Row key={task.id} verticalAlign='top'>
+					<Table.Row key={task._id} verticalAlign='top'>
 						<Table.Cell>{task.name}</Table.Cell>
 						<Table.Cell>{task.category || 'empty'}</Table.Cell>
 						<Table.Cell>{task.priority || 'empty'}</Table.Cell>
@@ -89,7 +90,7 @@ function ProjectForm({ users, createProject, user }) {
 						<Table.Cell>
 							<Checkbox
 								toggle
-								value={task.id}
+								value={task._id}
 								name='tasks'
 								onChange={handleToggle}
 							/>

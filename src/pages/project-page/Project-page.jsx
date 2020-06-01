@@ -6,11 +6,8 @@ import MyProjectsPanel from '../../components/projectPanels/myProjectsPanel.comp
 import ProjectForm from '../../components/projectForm/ProjectForm.component';
 
 const ProjectPage = ({ allProjects, allUsers, currentUser }) => {
-	console.log(allProjects);
-
 	const user = currentUser.userInfo;
 	const { projects } = allProjects;
-	console.log(projects);
 	const { users } = allUsers;
 	const panes = [
 		{

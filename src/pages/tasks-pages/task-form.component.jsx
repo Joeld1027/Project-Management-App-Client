@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { createTicket } from '../../redux/tickets/tickets.actions';
+import { createTask } from '../../redux/tasks/tasks.actions';
 import {
 	Form,
 	Grid,
@@ -19,7 +19,7 @@ const options = [
 	{ key: 's', text: 'Software', value: 'Software' },
 ];
 
-function Ticket({ createTicket }) {
+function TaskForm({ createTask }) {
 	const [formData, setformData] = useState({
 		name: '',
 		description: '',
@@ -32,7 +32,7 @@ function Ticket({ createTicket }) {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		createTicket(formData)
+		createTask(formData)
 			.then(() => console.log('ticket created'))
 			.catch((err) => {
 				console.log(err);
@@ -120,4 +120,4 @@ function Ticket({ createTicket }) {
 	);
 }
 
-export default connect(null, { createTicket })(Ticket);
+export default connect(null, { createTask })(TaskForm);

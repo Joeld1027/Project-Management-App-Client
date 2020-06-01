@@ -27,23 +27,17 @@ export const setOneProject = (project) => ({
 export const getOneProject = (id) => {
 	return (dispatch) => {
 		dispatch(projectLoading());
-		return new Promise((resolve, reject) => {
-			return apiCall(
-				'get',
-				`http://localhost:5000/api/projects/${id}`
-			)
-				.then((foundProject) => {
-					dispatch(setOneProject(foundProject));
-				})
-				.then(() => {
-					dispatch(projectLoaded());
-					resolve();
-				})
-				.catch((err) => {
-					console.log(err);
-					reject();
-				});
-		});
+
+		return apiCall('get', `http://localhost:5000/api/projects/${id}`)
+			.then((foundProject) => {
+				dispatch(setOneProject(foundProject));
+			})
+			.then(() => {
+				dispatch(projectLoaded());
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 };
 

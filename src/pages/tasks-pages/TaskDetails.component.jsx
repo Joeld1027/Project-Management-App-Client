@@ -21,7 +21,7 @@ const sections = [
 	{ key: 'Shirt', content: 'Task Details', active: true },
 ];
 
-export const TicketDetails = () => {
+export const TaskDetails = () => {
 	const [active, setActive] = useState(false);
 	const [currentTask, setCurrentTask] = useState({
 		taskInfo: {},

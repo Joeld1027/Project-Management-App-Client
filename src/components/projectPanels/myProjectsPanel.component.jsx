@@ -5,7 +5,6 @@ import LinkButton from '../create-button/create-button.component';
 import { useRouteMatch } from 'react-router-dom';
 
 export default function MyProjectsPanel(props) {
-	console.log(props);
 	let { url } = useRouteMatch();
 	const tableData = {
 		labels: ['Project', 'Progress', 'Created', 'Details'],
@@ -13,7 +12,7 @@ export default function MyProjectsPanel(props) {
 		displayData: function (projects = props.projects) {
 			return projects.map((project) => {
 				return (
-					<Table.Row key={project.id} verticalAlign='top'>
+					<Table.Row key={project._id} verticalAlign='top'>
 						<Table.Cell>{project.name}</Table.Cell>
 						<Table.Cell>
 							<Progress
@@ -30,8 +29,8 @@ export default function MyProjectsPanel(props) {
 								typeAs='h4'
 								icon='edit'
 								disabled={true}
-								id={project.id}
-								url={`${url}/${project.id}`}
+								id={project._id}
+								url={`${url}/${project._id}`}
 							/>
 						</Table.Cell>
 					</Table.Row>

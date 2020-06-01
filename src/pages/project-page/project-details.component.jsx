@@ -24,7 +24,6 @@ const ProjectDetails = ({ project, getOneProject, isLoading }) => {
 	const returnBack = () => {
 		history.push('/user/projects');
 	};
-	console.log(project);
 
 	return (
 		<div>
@@ -54,7 +53,7 @@ const ProjectDetails = ({ project, getOneProject, isLoading }) => {
 											}
 											centered
 											raised
-											header={project.projectName}
+											header={project.name}
 											meta={
 												<Label color='green' horizontal>
 													In Progress
