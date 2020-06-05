@@ -7,7 +7,7 @@ const INITIAL_STATE = {
 
 const TasksReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case TasksActionTypes.FETCHING_TASKS:
+		case TasksActionTypes.IS_LOADING:
 			return {
 				isLoading: true,
 			};
@@ -16,7 +16,7 @@ const TasksReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				tasks: action.payload,
 			};
-		case TasksActionTypes.FETCHING_SUCCESS:
+		case TasksActionTypes.IS_DONE_LOADING:
 			return {
 				...state,
 				isLoading: false,

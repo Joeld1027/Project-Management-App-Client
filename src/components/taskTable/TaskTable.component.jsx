@@ -13,7 +13,7 @@ export const TaskTable = ({ allTasks, url }) => {
 			'Priority',
 			'Details',
 		],
-		data: allTasks.tasks,
+		data: allTasks,
 		handleLabel: (action) => {
 			switch (action.priority) {
 				case 'medium':
@@ -57,8 +57,6 @@ export const TaskTable = ({ allTasks, url }) => {
 	};
 
 	return (
-		<div>
-			{allTasks.tasks && <SearchAndTable tableData={tableData} />}
-		</div>
+		<div>{allTasks && <SearchAndTable tableData={tableData} />}</div>
 	);
 };

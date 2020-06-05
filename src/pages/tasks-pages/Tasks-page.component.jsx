@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import LinkButton from '../../components/create-button/create-button.component';
 
+import { selectAllTasks } from '../../redux/tasks/tasks.selectors';
 import { TaskTable } from '../../components/taskTable/TaskTable.component';
 import { TaskDetails } from './TaskDetails.component';
 import TaskForm from './task-form.component';
@@ -46,7 +47,7 @@ const TasksPage = ({ allTasks }, ...props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		allTasks: state.tasks,
+		allTasks: selectAllTasks(state),
 	};
 };
 

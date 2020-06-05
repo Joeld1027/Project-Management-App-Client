@@ -1,4 +1,7 @@
 import axios from 'axios';
+import { getAllProjects } from '../redux/projects/projects.actions';
+import { getAllTasks } from '../redux/tasks/tasks.actions';
+import { getAllUsers } from '../redux/user/user.actions';
 
 export function setTokenHeader(token) {
 	if (token) {
@@ -20,4 +23,17 @@ export function apiCall(method, path, data) {
 				return reject(err.response.data.error);
 			});
 	});
+}
+
+export function setState(dispatch) {
+	const fetchAll = async () => {
+		return Promise.all([
+			dispatch(getAllProjects()),
+			dispatch(getAllUsers()),
+			dispatch(getAllTasks()),
+		]).then(() => {
+			console.log('state set');
+		});
+	};
+	fetchAll();
 }

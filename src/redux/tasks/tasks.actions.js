@@ -1,5 +1,13 @@
 import { TasksActionTypes } from './tasks.types';
-import { apiCall } from '../../services/apicall';
+import { apiCall, setState } from '../../services/apicall';
+
+export const isLoading = () => ({
+	type: TasksActionTypes.IS_LOADING,
+});
+
+export const isDoneLoading = () => ({
+	type: TasksActionTypes.IS_DONE_LOADING,
+});
 
 export const setAllTasks = (tasks) => ({
 	type: TasksActionTypes.SET_ALL_TASKS,
@@ -16,6 +24,7 @@ export const getAllTasks = () => {
 			.then((tasks) => {
 				dispatch(setAllTasks(tasks));
 			})
+
 			.catch((err) => {
 				console.log(err);
 			});
@@ -23,17 +32,22 @@ export const getAllTasks = () => {
 };
 
 export const createTask = (data) => {
-	return (dispatch) => {
-		return new Promise((resolve, reject) => {
-			return apiCall('post', 'http://localhost:5000/api/tasks', data)
-				.then(() => {
-					dispatch(taskCreated());
-				})
-				.then(() => resolve())
-				.catch((err) => {
-					console.log(err);
-					reject();
-				});
-		});
+	return async (dispatch) => {
+		const dispatchLoading = await dispatch(isLoading());
+		const createdTask = await apiCall(
+			'post',
+			'http://localhost:5000/api/tasks',
+			data
+		).then(() => setState(dispatch));
+		const dispatchLoadingDone = await dispatch(isDoneLoading());
+		try {
+			return Promise.all([
+				dispatchLoading,
+				createdTask,
+				dispatchLoadingDone,
+			]).then(() => dispatch(taskCreated()));
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };

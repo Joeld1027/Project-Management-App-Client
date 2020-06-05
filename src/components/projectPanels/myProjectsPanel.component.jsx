@@ -22,7 +22,9 @@ export default function MyProjectsPanel(props) {
 								progress='percent'
 							/>
 						</Table.Cell>
-						<Table.Cell>{project.createdDate}</Table.Cell>
+						<Table.Cell>
+							{new Date(project.created).toDateString()}
+						</Table.Cell>
 						<Table.Cell textAlign='center'>
 							<LinkButton
 								noSegment

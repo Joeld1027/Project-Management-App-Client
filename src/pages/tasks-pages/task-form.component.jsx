@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { selectAllProjects } from '../../redux/projects/projects.selectors';
 import { connect } from 'react-redux';
 import { createTask } from '../../redux/tasks/tasks.actions';
 import {
@@ -19,13 +20,15 @@ const options = [
 	{ key: 's', text: 'Software', value: 'Software' },
 ];
 
-function TaskForm({ createTask }) {
-	const [formData, setformData] = useState({
+function TaskForm({ createTask, allProjects, isLoading }) {
+	const INITIAL_STATE = {
 		name: '',
 		description: '',
 		category: '',
 		priority: '',
-	});
+		project: '',
+	};
+	const [formData, setformData] = useState(INITIAL_STATE);
 
 	const handleChange = (e, { name, value }) =>
 		setformData({ ...formData, [name]: value });
@@ -33,19 +36,21 @@ function TaskForm({ createTask }) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		createTask(formData)
-			.then(() => console.log('ticket created'))
+			.then(() => {
+				setformData(INITIAL_STATE);
+			})
 			.catch((err) => {
 				console.log(err);
 			});
 	};
 
-	const { priority } = formData;
+	const { priority, name, description, category, project } = formData;
 
 	return (
 		<div>
 			<Header
 				as='h1'
-				content='Create Task'
+				content='CREATE TASK'
 				textAlign='center'
 				dividing
 			/>
@@ -56,20 +61,23 @@ function TaskForm({ createTask }) {
 							<Form.Input
 								onChange={handleChange}
 								name='name'
-								label='Task Name'
+								label='TASK NAME'
+								value={name}
 							/>
 							<Form.TextArea
 								onChange={handleChange}
 								name='description'
-								label='Description'
+								label='DESCRIPTIOM'
+								value={description}
 							/>
 						</Segment>
 					</Grid.Column>
 					<Grid.Column width={8}>
 						<Segment>
 							<Form.Field>
-								<label>Category</label>
+								<label>CATEGORY</label>
 								<Select
+									value={category}
 									name='category'
 									options={options}
 									placeholder='Category'
@@ -77,7 +85,23 @@ function TaskForm({ createTask }) {
 								/>
 							</Form.Field>
 							<Form.Field>
-								<label>Priority</label>
+								<label>ASSIGN TO PROJECT</label>
+								<Select
+									value={project}
+									name='project'
+									options={allProjects.map((project) => {
+										return {
+											key: project._id,
+											text: project.name,
+											value: project._id,
+										};
+									})}
+									placeholder='-Select-'
+									onChange={handleChange}
+								/>
+							</Form.Field>
+							<Form.Field>
+								<label>PRIORITY</label>
 								<Radio
 									label='Low'
 									name='priority'
@@ -106,6 +130,7 @@ function TaskForm({ createTask }) {
 							</Form.Field>
 
 							<Button
+								loading={isLoading}
 								attached='top'
 								content='Submit Task'
 								type='submit'
@@ -120,4 +145,11 @@ function TaskForm({ createTask }) {
 	);
 }
 
-export default connect(null, { createTask })(TaskForm);
+const mapStateToProps = (state) => {
+	return {
+		allProjects: selectAllProjects(state),
+		isLoading: state.tasks.isLoading,
+	};
+};
+
+export default connect(mapStateToProps, { createTask })(TaskForm);

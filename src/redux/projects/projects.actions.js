@@ -1,5 +1,5 @@
 import { ProjectActionTypes } from './projects.types';
-import { apiCall } from '../../services/apicall';
+import { apiCall, setState } from '../../services/apicall';
 
 export const projectLoading = () => ({
 	type: ProjectActionTypes.PROJECT_LOADING,
@@ -43,22 +43,15 @@ export const getOneProject = (id) => {
 
 export const createProject = (data) => {
 	return (dispatch) => {
-		return new Promise((resolve, reject) => {
-			return apiCall(
-				'post',
-				'http://localhost:5000/api/projects',
-				data
-			)
-				.then((newProject) => {
-					dispatch(projectCreated(newProject));
-					console.log(newProject);
-					resolve();
-				})
-				.catch((err) => {
-					console.log(err);
-					reject();
-				});
-		});
+		dispatch(projectLoading());
+		return apiCall('post', 'http://localhost:5000/api/projects', data)
+			.then(() => {
+				setState(dispatch);
+				dispatch(projectLoaded());
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 };
 
@@ -69,23 +62,9 @@ export const getAllProjects = () => {
 				'http://localhost:5000/api/projects'
 			).then((res) => res.json());
 			dispatch(setProjects(projects));
-			console.log(projects);
 			return projects;
 		} catch (error) {
 			console.log(error);
 		}
 	};
 };
-
-// return new Promise((resolve, reject) => {
-// 			return apiCall('get', `http://localhost:5000/api/projects`)
-// 				.then((foundProjects) => {
-// 					dispatch(setProjects(foundProjects));
-// 					resolve();
-// 					console.log(foundProjects);
-// 				})
-// 				.catch((err) => {
-// 					console.log(err);
-// 					reject();
-// 				});
-// 		});

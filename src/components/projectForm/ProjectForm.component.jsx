@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
@@ -17,42 +17,21 @@ import { createProject } from '../../redux/projects/projects.actions';
 import { SearchAndTable } from '../search&table/search&table.component';
 import { ContentLoader } from '../ContentLoader/ContentLoader.component';
 
-function ProjectForm({ users, createProject, user }) {
-	const [formData, setformData] = useState({
-		name: '',
-		description: '',
-		developers: [],
-		priority: '',
-		deadline: '',
-		createdBy: user.firstName + ' ' + user.lastName,
-		tasks: [],
-	});
+const INITIAL_STATE = {
+	name: '',
+	description: '',
+	developers: [],
+	priority: '',
+	deadline: '',
+	tasks: [],
+};
 
-	const [tasks, setTasks] = useState([]);
+function ProjectForm({ users, createProject, user, tasks }) {
+	const [formData, setformData] = useState(INITIAL_STATE);
 	const [isLoading, setIsLoading] = useState(false);
 
-	useEffect(() => {
-		setIsLoading(true);
-
-		const fetchTasks = () =>
-			fetch(`http://localhost:5000/api/tasks`)
-				.then((fetchedTasks) => fetchedTasks.json())
-				.then((fetchedTasks) => {
-					console.log(fetchedTasks);
-					let filteredTasks = fetchedTasks.filter(
-						(task) => task.assignedProject.length < 1
-					);
-					setTasks(filteredTasks);
-					setIsLoading(false);
-					console.log(filteredTasks);
-				})
-				.catch((err) => console.log(err));
-
-		fetchTasks();
-	}, []);
-
 	const userData = {
-		labels: ['Developer', 'Email', 'Add'],
+		labels: ['DEVELOPER', 'E-MAIL', 'ADD'],
 		data: users,
 		displayData: function (usersData = users) {
 			return usersData.map((user) => {
@@ -75,7 +54,7 @@ function ProjectForm({ users, createProject, user }) {
 	};
 
 	const taskData = {
-		labels: ['Task', 'Category', 'Priority', 'Date', 'Add'],
+		labels: ['TASK', 'CATEGORY', 'PRIORITY', 'DATE', 'ADD'],
 		data: tasks,
 		displayData: function (tickets = tasks) {
 			return tickets.map((task) => {
@@ -107,11 +86,13 @@ function ProjectForm({ users, createProject, user }) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		createProject(formData)
-			.then(() => console.log('Project created'))
+			.then((message) => {
+				console.log(message);
+				setformData(INITIAL_STATE);
+			})
 			.catch((err) => {
 				console.log(err);
 			});
-		console.log('called create project');
 	};
 
 	const handleToggle = (e, { name, value }) => {
@@ -124,7 +105,7 @@ function ProjectForm({ users, createProject, user }) {
 		setformData({ ...formData, [name]: array });
 	};
 
-	const { priority } = formData;
+	const { priority, name, description } = formData;
 	return isLoading ? (
 		<ContentLoader active={isLoading} />
 	) : (
@@ -144,19 +125,21 @@ function ProjectForm({ users, createProject, user }) {
 								<Form.Input
 									onChange={handleChange}
 									name='name'
-									label='Project Name'
+									label='PROJECT NAME'
+									value={name}
 								/>
 								<Form.TextArea
 									onChange={handleChange}
 									name='description'
-									label='Description'
+									label='DESCRIPTION'
+									value={description}
 								/>
 							</Segment>
 						</Grid.Column>
 						<Grid.Column width={8}>
 							<Segment>
 								<Form.Field>
-									<label>Priority</label>
+									<label>PRIORITY</label>
 									<Radio
 										label='Low'
 										name='priority'
@@ -184,7 +167,7 @@ function ProjectForm({ users, createProject, user }) {
 									/>
 								</Form.Field>
 								<Form.Field>
-									<h4>Due Date:</h4>
+									<h4>DUE DATE:</h4>
 									<Label
 										basic
 										color='teal'
@@ -221,7 +204,7 @@ function ProjectForm({ users, createProject, user }) {
 									tableData={userData}
 									setcontent='Available Devs'
 									seticon='users'
-									setsubheader='Add Developers to project.'
+									setsubheader='Add Developers to your project.'
 								/>
 							</Segment>
 						</Grid.Column>

@@ -26,6 +26,7 @@ const ProjectsReducer = (state = INITIAL_STATE, action) => {
 		case ProjectActionTypes.PROJECT_CREATED:
 			return {
 				...state,
+				projects: [...state.projects, action.payload],
 			};
 		case ProjectActionTypes.SET_ONE_PROJECT:
 			return {
