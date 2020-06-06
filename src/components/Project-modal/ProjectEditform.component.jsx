@@ -9,29 +9,21 @@ import {
 	Header,
 	Checkbox,
 } from 'semantic-ui-react';
+import InnerUserTableModal from './inner-userTableModal.component';
 
 export const ProjectEditForm = ({
 	theproject,
 	setUpdateData,
 	updateData,
+	handleEdit,
 }) => {
 	const [formData, setFormData] = useState({
 		name: theproject.name,
 		description: theproject.description,
-		developers: [],
 		priority: theproject.priority,
-		deadline: '',
-		tasks: [],
 	});
 
-	const {
-		priority,
-		name,
-		description,
-		deadline,
-		tasks,
-		developers,
-	} = formData;
+	const { priority, name, description } = formData;
 	const { assignedDevs, projectTickets } = theproject;
 
 	const handleChange = (e, { name, value }) => {
@@ -41,13 +33,12 @@ export const ProjectEditForm = ({
 	};
 
 	const handleToggle = (e, { name, value }) => {
-		let { [name]: array } = formData;
+		let { [name]: array } = updateData;
 		if (!array.includes(value)) {
 			array = [...array, value];
 		} else {
 			array = array.filter((a) => a !== value);
 		}
-		setFormData({ ...formData, [name]: array });
 		setUpdateData({ ...updateData, [name]: array });
 	};
 
@@ -68,12 +59,15 @@ export const ProjectEditForm = ({
 				/>
 			</Form.Group>
 			<Form.Field>
-				<h4>DUE DATE:</h4>
+				<h4>
+					DUE DATE:{' '}
+					{new Date(theproject.deadline).toLocaleDateString()}
+				</h4>
 				<DatePicker
+					selected={updateData.deadline}
+					placeholderText='--Change Due Date--'
 					minDate={new Date()}
-					selected={deadline}
 					onChange={(date) => {
-						setFormData({ ...formData, deadline: date });
 						setUpdateData({ ...updateData, deadline: date });
 					}}
 				/>
@@ -109,6 +103,25 @@ export const ProjectEditForm = ({
 							content='Assigned Developers'
 							textAlign='center'
 						/>
+						<Grid divided='vertically'>
+							<Grid.Column width={2} verticalAlign='top'>
+								<InnerUserTableModal
+									handleEdit={handleEdit}
+									setUpdateData={setUpdateData}
+									updateData={updateData}
+									handleToggle={handleToggle}
+									projectId={theproject._id}
+								/>
+							</Grid.Column>
+							<Grid.Column
+								floated='left'
+								width={5}
+								verticalAlign='middle'
+							>
+								<Header as='h3' content='Add Developers' />
+							</Grid.Column>
+						</Grid>
+
 						<List divided verticalAlign='middle' relaxed>
 							{assignedDevs.map((dev) => (
 								<List.Item key={dev._id}>
@@ -120,7 +133,9 @@ export const ProjectEditForm = ({
 										<Checkbox
 											toggle
 											checked={
-												!developers.includes(dev._id) ? true : false
+												!updateData.developers.includes(dev._id)
+													? true
+													: false
 											}
 											value={dev._id}
 											name='developers'
@@ -129,7 +144,7 @@ export const ProjectEditForm = ({
 									</List.Content>
 
 									<List.Header>{dev.name}</List.Header>
-									<List.Description>{`Working on ${dev.assignedProjects.length} projects`}</List.Description>
+									<List.Description>{`Current projects ${dev.assignedProjects.length}`}</List.Description>
 								</List.Item>
 							))}
 						</List>
@@ -143,7 +158,9 @@ export const ProjectEditForm = ({
 										<Checkbox
 											toggle
 											checked={
-												!tasks.includes(task._id) ? true : false
+												!updateData.tasks.includes(task._id)
+													? true
+													: false
 											}
 											value={task._id}
 											name='tasks'

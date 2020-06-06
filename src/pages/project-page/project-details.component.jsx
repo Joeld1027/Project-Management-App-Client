@@ -94,6 +94,7 @@ const ProjectDetails = ({ project }) => {
 								</Grid.Column>
 								<Grid.Column width={10}>
 									<TaskTable
+										setcontent='Project Tasks'
 										usefor='projectDetails'
 										allTasks={project.projectTickets}
 									/>

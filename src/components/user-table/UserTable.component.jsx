@@ -8,6 +8,7 @@ export const UserTable = ({
 	setcontent,
 	handleToggle,
 	setsubheader,
+	toggleType,
 }) => {
 	const userData = {
 		labels: ['DEVELOPER', 'E-MAIL'],
@@ -24,7 +25,7 @@ export const UserTable = ({
 									onChange={handleToggle}
 									toggle
 									value={user._id}
-									name='developers'
+									name={toggleType ? 'addDevelopers' : 'developers'}
 								/>
 							) : (
 								user.role

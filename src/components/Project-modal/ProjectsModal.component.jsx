@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Modal, Button, Header, Icon } from 'semantic-ui-react';
 import { ProjectEditForm } from './ProjectEditform.component';
+import { setState } from '../../services/apicall';
+
+const INITIAL_STATE = {
+	developers: [],
+	addDevelopers: [],
+	tasks: [],
+};
 
 export const ProjectsModal = ({ theproject }) => {
+	const dispatch = useDispatch();
 	console.log(theproject);
-	const [updateData, setUpdateData] = useState({});
+	const [updateData, setUpdateData] = useState(INITIAL_STATE);
 	const [open, setOpen] = useState(false);
 
 	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+	const handleClose = () => {
+		setUpdateData(INITIAL_STATE);
+		setOpen(false);
+	};
 
 	const handleEdit = async () => {
 		return await axios
@@ -17,11 +29,14 @@ export const ProjectsModal = ({ theproject }) => {
 				`http://localhost:5000/api/projects/${theproject._id}`,
 				updateData
 			)
-			.then(() => console.log('project updated'))
-			.then(() => setOpen(false))
+			.then(() => {
+				setState(dispatch);
+				setUpdateData(INITIAL_STATE);
+				console.log('project updated');
+			})
 			.catch((err) => console.log(err));
 	};
-	const handleClick = async () => {
+	const handleDelete = async () => {
 		return await axios
 			.delete(`http://localhost:5000/api/projects/${theproject._id}`)
 			.then(() => console.log('Project Deleted'))
@@ -45,6 +60,7 @@ export const ProjectsModal = ({ theproject }) => {
 
 				<Modal.Content>
 					<ProjectEditForm
+						handleEdit={handleEdit}
 						updateData={updateData}
 						setUpdateData={setUpdateData}
 						theproject={theproject}
@@ -52,7 +68,7 @@ export const ProjectsModal = ({ theproject }) => {
 				</Modal.Content>
 				<Modal.Actions>
 					<Button
-						onClick={handleClick}
+						onClick={handleDelete}
 						floated='left'
 						compact
 						color='google plus'
