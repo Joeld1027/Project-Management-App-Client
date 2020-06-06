@@ -18,8 +18,6 @@ import { UserTable } from '../../components/user-table/UserTable.component';
 import { TaskTable } from '../../components/taskTable/TaskTable.component';
 
 const ProjectDetails = ({ project }) => {
-	console.log(project);
-
 	const history = useHistory();
 	const returnBack = () => {
 		history.push('/user/projects');
@@ -48,7 +46,7 @@ const ProjectDetails = ({ project }) => {
 										fluid
 										extra={
 											<Label color='teal' ribbon>
-												Manager Name
+												Manager: {project.createdBy}
 											</Label>
 										}
 										centered
@@ -62,9 +60,9 @@ const ProjectDetails = ({ project }) => {
 										description={project.description}
 									/>
 								</Grid.Column>
-								<Grid.Column width={6}>
-									<Segment color='teal' size='large' padded raised>
-										<List size='large' horizontal>
+								<Grid.Column width={3}>
+									<Segment color='teal' size='large' raised>
+										<List size='large'>
 											<List.Item
 												header='Started'
 												description={new Date(

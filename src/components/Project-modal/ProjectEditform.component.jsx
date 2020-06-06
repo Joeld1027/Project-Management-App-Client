@@ -10,8 +10,11 @@ import {
 	Checkbox,
 } from 'semantic-ui-react';
 
-export const ProjectEditForm = ({ theproject }) => {
-	console.log(theproject);
+export const ProjectEditForm = ({
+	theproject,
+	setUpdateData,
+	updateData,
+}) => {
 	const [formData, setFormData] = useState({
 		name: theproject.name,
 		description: theproject.description,
@@ -31,8 +34,11 @@ export const ProjectEditForm = ({ theproject }) => {
 	} = formData;
 	const { assignedDevs, projectTickets } = theproject;
 
-	const handleChange = (e, { name, value }) =>
+	const handleChange = (e, { name, value }) => {
+		e.preventDefault();
 		setFormData({ ...formData, [name]: value });
+		setUpdateData({ ...updateData, [name]: value });
+	};
 
 	const handleToggle = (e, { name, value }) => {
 		let { [name]: array } = formData;
@@ -42,13 +48,20 @@ export const ProjectEditForm = ({ theproject }) => {
 			array = array.filter((a) => a !== value);
 		}
 		setFormData({ ...formData, [name]: array });
+		setUpdateData({ ...updateData, [name]: array });
 	};
 
 	return (
 		<Form>
 			<Form.Group widths='equal'>
-				<Form.Input value={name} name='name' label='PROJECT NAME' />
+				<Form.Input
+					onChange={handleChange}
+					value={name}
+					name='name'
+					label='PROJECT NAME'
+				/>
 				<Form.TextArea
+					onChange={handleChange}
 					value={description}
 					name='description'
 					label='DESCRIPTION'
@@ -59,9 +72,10 @@ export const ProjectEditForm = ({ theproject }) => {
 				<DatePicker
 					minDate={new Date()}
 					selected={deadline}
-					onChange={(date) =>
-						setFormData({ ...formData, deadline: date })
-					}
+					onChange={(date) => {
+						setFormData({ ...formData, deadline: date });
+						setUpdateData({ ...updateData, deadline: date });
+					}}
 				/>
 			</Form.Field>
 			<Form.Group inline>

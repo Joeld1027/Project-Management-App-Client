@@ -16,17 +16,16 @@ import { TaskTable } from '../taskTable/TaskTable.component';
 import { ContentLoader } from '../ContentLoader/ContentLoader.component';
 import { UserTable } from '../user-table/UserTable.component';
 
-const INITIAL_STATE = {
-	name: '',
-	description: '',
-	developers: [],
-	priority: '',
-	deadline: '',
-	tasks: [],
-};
-
 function ProjectForm({ users, createProject, user, tasks }) {
-	const [formData, setformData] = useState(INITIAL_STATE);
+	const [formData, setformData] = useState({
+		name: '',
+		description: '',
+		developers: [],
+		createdBy: user.name,
+		priority: '',
+		deadline: '',
+		tasks: [],
+	});
 	const [isLoading] = useState(false);
 
 	const handleChange = (e, { name, value }) =>
@@ -35,9 +34,8 @@ function ProjectForm({ users, createProject, user, tasks }) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		createProject(formData)
-			.then((message) => {
-				console.log(message);
-				setformData(INITIAL_STATE);
+			.then(() => {
+				console.log('Project Created');
 			})
 			.catch((err) => {
 				console.log(err);
