@@ -9,12 +9,8 @@ import {
 } from 'semantic-ui-react';
 
 const Profile = ({ currentUser }) => {
-	const {
-		firstName,
-		email,
-		userSince,
-		lastName,
-	} = currentUser.userInfo;
+	console.log(currentUser);
+	const { name, email, userSince } = currentUser.userInfo;
 	const joined = new Date(userSince).toDateString();
 	return (
 		<ProfileContainer>
@@ -29,12 +25,8 @@ const Profile = ({ currentUser }) => {
 			<Segment stacked padded color='black'>
 				<List size='large' divided relaxed>
 					<List.Item>
-						<List.Header>First name</List.Header>
-						{firstName}
-					</List.Item>
-					<List.Item>
-						<List.Header>Last name</List.Header>
-						{lastName}
+						<List.Header>Full Name</List.Header>
+						{name}
 					</List.Item>
 					<List.Item>
 						<List.Header>Email</List.Header>

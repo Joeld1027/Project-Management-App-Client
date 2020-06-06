@@ -27,7 +27,7 @@ export const ProjectsModal = ({ theproject }) => {
 				</Modal.Content>
 				<Modal.Actions>
 					<Button color='facebook' onClick={handleClose} inverted>
-						<Icon name='checkmark' /> Save
+						<Icon name='checkmark' /> Save Changes
 					</Button>
 				</Modal.Actions>
 			</Modal>

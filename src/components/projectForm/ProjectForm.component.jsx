@@ -10,12 +10,11 @@ import {
 	Radio,
 	Button,
 	Label,
-	Table,
-	Checkbox,
 } from 'semantic-ui-react';
 import { createProject } from '../../redux/projects/projects.actions';
-import { SearchAndTable } from '../search&table/search&table.component';
+import { TaskTable } from '../taskTable/TaskTable.component';
 import { ContentLoader } from '../ContentLoader/ContentLoader.component';
+import { UserTable } from '../user-table/UserTable.component';
 
 const INITIAL_STATE = {
 	name: '',
@@ -28,57 +27,7 @@ const INITIAL_STATE = {
 
 function ProjectForm({ users, createProject, user, tasks }) {
 	const [formData, setformData] = useState(INITIAL_STATE);
-	const [isLoading, setIsLoading] = useState(false);
-
-	const userData = {
-		labels: ['DEVELOPER', 'E-MAIL', 'ADD'],
-		data: users,
-		displayData: function (usersData = users) {
-			return usersData.map((user) => {
-				return (
-					<Table.Row key={user.id} verticalAlign='top'>
-						<Table.Cell>{user.name}</Table.Cell>
-						<Table.Cell>{user.email}</Table.Cell>
-						<Table.Cell>
-							<Checkbox
-								toggle
-								value={user.id}
-								name='developers'
-								onChange={handleToggle}
-							/>
-						</Table.Cell>
-					</Table.Row>
-				);
-			});
-		},
-	};
-
-	const taskData = {
-		labels: ['TASK', 'CATEGORY', 'PRIORITY', 'DATE', 'ADD'],
-		data: tasks,
-		displayData: function (tickets = tasks) {
-			return tickets.map((task) => {
-				return (
-					<Table.Row key={task._id} verticalAlign='top'>
-						<Table.Cell>{task.name}</Table.Cell>
-						<Table.Cell>{task.category || 'empty'}</Table.Cell>
-						<Table.Cell>{task.priority || 'empty'}</Table.Cell>
-						<Table.Cell>
-							{new Date(task.createdDate).toLocaleDateString()}
-						</Table.Cell>
-						<Table.Cell>
-							<Checkbox
-								toggle
-								value={task._id}
-								name='tasks'
-								onChange={handleToggle}
-							/>
-						</Table.Cell>
-					</Table.Row>
-				);
-			});
-		},
-	};
+	const [isLoading] = useState(false);
 
 	const handleChange = (e, { name, value }) =>
 		setformData({ ...formData, [name]: value });
@@ -118,7 +67,7 @@ function ProjectForm({ users, createProject, user, tasks }) {
 			/>
 
 			<Form>
-				<Grid>
+				<Grid stackable>
 					<Grid.Row>
 						<Grid.Column width={7}>
 							<Segment>
@@ -197,23 +146,21 @@ function ProjectForm({ users, createProject, user, tasks }) {
 					</Grid.Row>
 					<Grid.Row>
 						<Grid.Column width={7}>
-							<Segment>
-								<SearchAndTable
-									forDevs='very'
-									striped={false}
-									tableData={userData}
-									setcontent='Available Devs'
-									seticon='users'
-									setsubheader='Add Developers to your project.'
-								/>
-							</Segment>
+							<UserTable
+								users={users}
+								setcontent='Available Developers'
+								istoggle
+								handleToggle={handleToggle}
+								setsubheader='Add developers to your project'
+							/>
 						</Grid.Column>
 						<Grid.Column width={9}>
-							<SearchAndTable
+							<TaskTable
 								setcontent='Open Tasks'
-								seticon={null}
+								usefor='projectForm'
+								handleToggle={handleToggle}
 								striped={true}
-								tableData={taskData}
+								allTasks={tasks}
 								setsubheader='List of tasks that have not been assigned'
 							/>
 						</Grid.Column>

@@ -31,7 +31,11 @@ const TasksPage = ({ allTasks }, ...props) => {
 							color='teal'
 							textAlign='center'
 						/>
-						<TaskTable allTasks={allTasks} url={url} />
+						<TaskTable
+							usefor='mainTable'
+							allTasks={allTasks}
+							url={url}
+						/>
 					</Container>
 				</Route>
 				<Route exact path={`${path}/new`}>

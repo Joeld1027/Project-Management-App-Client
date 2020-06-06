@@ -6,8 +6,7 @@ import { UsersPageContainer } from './user-page.styles';
 import { SearchAndTable } from '../../components/search&table/search&table.component';
 import { useRouteMatch } from 'react-router-dom';
 
-const UsersPage = ({ allUsers }) => {
-	const { users } = allUsers;
+const UsersPage = ({ users }) => {
 	let { url } = useRouteMatch();
 
 	const tableData = {
@@ -16,7 +15,7 @@ const UsersPage = ({ allUsers }) => {
 		displayData: function (usersArr = users) {
 			return usersArr.map((user) => {
 				return (
-					<Table.Row key={user.id}>
+					<Table.Row key={user._id}>
 						<Table.Cell>{user.name}</Table.Cell>
 						<Table.Cell>
 							{new Date(user.userSince).toDateString()}
@@ -53,7 +52,7 @@ const UsersPage = ({ allUsers }) => {
 };
 
 const mapStateToProps = (state) => ({
-	allUsers: state.user.allUsers,
+	users: state.user.allUsers,
 });
 
 export default connect(mapStateToProps)(UsersPage);

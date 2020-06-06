@@ -11,11 +11,10 @@ import ProjectForm from '../../components/projectForm/ProjectForm.component';
 
 const ProjectPage = ({
 	allProjects,
-	allUsers,
+	users,
 	currentUser,
 	allTasks,
 }) => {
-	const { users } = allUsers;
 	const user = currentUser.userInfo;
 	const panes = [
 		{
@@ -52,7 +51,7 @@ const ProjectPage = ({
 
 const mapStateToProps = createStructuredSelector({
 	allProjects: selectAllProjects,
-	allUsers: selectAllUsers,
+	users: selectAllUsers,
 	allTasks: selectFilteredTasks,
 });
 export default connect(mapStateToProps)(ProjectPage);

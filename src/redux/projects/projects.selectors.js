@@ -4,7 +4,8 @@ const selectProject = (state) => state.projects.projects;
 
 export const selectOneProject = (id) =>
 	createSelector([selectProject], (projects) => {
-		return projects.filter((project) => project._id === id);
+		const found = projects.find((project) => project._id === id);
+		return found;
 	});
 
 export const selectAllProjects = createSelector(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
 	Breadcrumb,
 	Container,
@@ -8,17 +8,16 @@ import {
 	Divider,
 	List,
 	Card,
-	Image,
 	Header,
 	Label,
-	Button,
 } from 'semantic-ui-react';
 import { selectOneProject } from '../../redux/projects/projects.selectors';
 import { connect } from 'react-redux';
 import { ProjectsModal } from '../../components/Project-modal/ProjectsModal.component';
+import { UserTable } from '../../components/user-table/UserTable.component';
+import { TaskTable } from '../../components/taskTable/TaskTable.component';
 
-const ProjectDetails = ({ oneProject }) => {
-	let [project] = oneProject;
+const ProjectDetails = ({ project }) => {
 	console.log(project);
 
 	const history = useHistory();
@@ -37,15 +36,12 @@ const ProjectDetails = ({ oneProject }) => {
 			</Breadcrumb>
 			<Header floated='right'>
 				<ProjectsModal theproject={project} />
-				<Button compact color='google plus'>
-					Delete
-				</Button>
 			</Header>
 			<Divider />
 			{project && (
 				<Container>
 					<Segment padded color='teal'>
-						<Grid>
+						<Grid stackable>
 							<Grid.Row>
 								<Grid.Column width={6}>
 									<Card
@@ -90,38 +86,19 @@ const ProjectDetails = ({ oneProject }) => {
 								</Grid.Column>
 							</Grid.Row>
 							<Grid.Row>
-								<Grid.Column width={8}>
-									<Segment raised>
-										<Label
-											attached='top'
-											size='large'
-											content='Developers'
+								<Grid.Column width={6}>
+									{project.assignedDevs && (
+										<UserTable
+											setcontent='Assigned Developers'
+											users={project.assignedDevs}
 										/>
-										{project.assignedDevs &&
-											project.assignedDevs.map((dev) => (
-												<List size='large' divided key={dev._id}>
-													<List.Item>
-														<Image
-															avatar
-															src='https://react.semantic-ui.com/images/avatar/small/rachel.png'
-														/>
-														<List.Content>
-															<List.Header>
-																{dev.firstName + ' ' + dev.lastName}
-															</List.Header>
-															<List.Description>
-																{dev.role}
-															</List.Description>
-														</List.Content>
-													</List.Item>
-												</List>
-											))}
-									</Segment>
+									)}
 								</Grid.Column>
-								<Grid.Column width={8}>
-									<Segment>
-										<Label attached='top'>HTML</Label>
-									</Segment>
+								<Grid.Column width={10}>
+									<TaskTable
+										usefor='projectDetails'
+										allTasks={project.projectTickets}
+									/>
 								</Grid.Column>
 							</Grid.Row>
 						</Grid>
@@ -134,7 +111,7 @@ const ProjectDetails = ({ oneProject }) => {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		oneProject: selectOneProject(ownProps.match.params.id)(state),
+		project: selectOneProject(ownProps.match.params.id)(state),
 	};
 };
 

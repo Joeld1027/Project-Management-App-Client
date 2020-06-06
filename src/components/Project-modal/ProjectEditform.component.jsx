@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Form, List, Image, Grid, Button } from 'semantic-ui-react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import {
+	Form,
+	List,
+	Image,
+	Grid,
+	Header,
+	Checkbox,
+} from 'semantic-ui-react';
 
 export const ProjectEditForm = ({ theproject }) => {
 	console.log(theproject);
@@ -7,15 +16,33 @@ export const ProjectEditForm = ({ theproject }) => {
 		name: theproject.name,
 		description: theproject.description,
 		developers: [],
-		priority: '',
+		priority: theproject.priority,
 		deadline: '',
 		tasks: [],
 	});
 
-	const { priority, name, description, deadline } = formData;
+	const {
+		priority,
+		name,
+		description,
+		deadline,
+		tasks,
+		developers,
+	} = formData;
+	const { assignedDevs, projectTickets } = theproject;
 
 	const handleChange = (e, { name, value }) =>
 		setFormData({ ...formData, [name]: value });
+
+	const handleToggle = (e, { name, value }) => {
+		let { [name]: array } = formData;
+		if (!array.includes(value)) {
+			array = [...array, value];
+		} else {
+			array = array.filter((a) => a !== value);
+		}
+		setFormData({ ...formData, [name]: array });
+	};
 
 	return (
 		<Form>
@@ -27,6 +54,16 @@ export const ProjectEditForm = ({ theproject }) => {
 					label='DESCRIPTION'
 				/>
 			</Form.Group>
+			<Form.Field>
+				<h4>DUE DATE:</h4>
+				<DatePicker
+					minDate={new Date()}
+					selected={deadline}
+					onChange={(date) =>
+						setFormData({ ...formData, deadline: date })
+					}
+				/>
+			</Form.Field>
 			<Form.Group inline>
 				<label>Priority</label>
 				<Form.Radio
@@ -51,41 +88,62 @@ export const ProjectEditForm = ({ theproject }) => {
 					onChange={handleChange}
 				/>
 			</Form.Group>
-
 			<Grid>
 				<Grid.Row divided>
 					<Grid.Column width={8}>
-						<List divided verticalAlign='middle'>
-							<List.Item>
-								<List.Content floated='right'>
-									<Button basic icon='x' />
-								</List.Content>
-								<Image
-									avatar
-									src='https://react.semantic-ui.com/images/avatar/small/lena.png'
-								/>
-								<List.Content>Lena</List.Content>
-							</List.Item>
+						<Header
+							content='Assigned Developers'
+							textAlign='center'
+						/>
+						<List divided verticalAlign='middle' relaxed>
+							{assignedDevs.map((dev) => (
+								<List.Item key={dev._id}>
+									<Image
+										avatar
+										src='https://react.semantic-ui.com/images/avatar/small/lena.png'
+									/>
+									<List.Content floated='right'>
+										<Checkbox
+											toggle
+											checked={
+												!developers.includes(dev._id) ? true : false
+											}
+											value={dev._id}
+											name='developers'
+											onChange={handleToggle}
+										/>
+									</List.Content>
+
+									<List.Header>{dev.name}</List.Header>
+									<List.Description>{`Working on ${dev.assignedProjects.length} projects`}</List.Description>
+								</List.Item>
+							))}
 						</List>
 					</Grid.Column>
 					<Grid.Column width={8}>
+						<Header content='Project Tasks' textAlign='center' />
 						<List divided verticalAlign='middle'>
-							<List.Item>
-								<List.Content floated='right'>
-									<Button basic icon='x' />
-								</List.Content>
-								<Image
-									avatar
-									src='https://react.semantic-ui.com/images/avatar/small/lena.png'
-								/>
-								<List.Content>Lena</List.Content>
-							</List.Item>
+							{projectTickets.map((task) => (
+								<List.Item key={task._id}>
+									<List.Content floated='right'>
+										<Checkbox
+											toggle
+											checked={
+												!tasks.includes(task._id) ? true : false
+											}
+											value={task._id}
+											name='tasks'
+											onChange={handleToggle}
+										/>
+									</List.Content>
+									<List.Header>{task.name}</List.Header>
+									<List.Description>{`Priority: ${task.priority}`}</List.Description>
+								</List.Item>
+							))}
 						</List>
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
-
-			<Form.Button color='instagram'>Submit</Form.Button>
 		</Form>
 	);
 };
