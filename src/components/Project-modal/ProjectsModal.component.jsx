@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { Modal, Button, Header, Icon } from 'semantic-ui-react';
+import {
+	Modal,
+	Button,
+	Header,
+	Icon,
+	Confirm,
+} from 'semantic-ui-react';
 import { ProjectEditForm } from './ProjectEditform.component';
 import { setState } from '../../services/apicall';
 
@@ -9,13 +15,14 @@ const INITIAL_STATE = {
 	developers: [],
 	addDevelopers: [],
 	tasks: [],
+	addTasks: [],
 };
 
 export const ProjectsModal = ({ theproject }) => {
 	const dispatch = useDispatch();
-	console.log(theproject);
 	const [updateData, setUpdateData] = useState(INITIAL_STATE);
 	const [open, setOpen] = useState(false);
+	const [confirm, setConfirm] = useState(false);
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
@@ -68,11 +75,19 @@ export const ProjectsModal = ({ theproject }) => {
 				</Modal.Content>
 				<Modal.Actions>
 					<Button
-						onClick={handleDelete}
+						onClick={() => setConfirm(true)}
 						floated='left'
 						compact
 						color='google plus'
 						content='Delete Project'
+					/>
+					<Confirm
+						content={false}
+						open={confirm}
+						onCancel={() => setConfirm(false)}
+						onConfirm={handleDelete}
+						header='Are you sure? This action will delete the project and
+								the tasks assgined.'
 					/>
 					<Button color='facebook' onClick={handleEdit} inverted>
 						<Icon name='checkmark' /> Save Changes

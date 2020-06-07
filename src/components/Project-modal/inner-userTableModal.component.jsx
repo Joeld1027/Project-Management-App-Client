@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'semantic-ui-react';
 import { UserTable } from '../user-table/UserTable.component';
@@ -7,39 +7,22 @@ import { selectAllUsersNotInProject } from '../../redux/user/user.selectors';
 const InnerUserTableModal = ({
 	allUsers,
 	updateData,
-	setUpdateData,
-	handleEdit,
+	handleToggle,
 }) => {
-	const [devs, setDevs] = useState({
-		addDevelopers: [],
-	});
-
-	const handleToggle = (e, { name, value }) => {
-		let { [name]: array } = devs;
-		if (!array.includes(value)) {
-			array = [...array, value];
-		} else {
-			array = array.filter((a) => a !== value);
-		}
-		setDevs({ ...devs, [name]: array });
-	};
-
-	const handleAction = () => {
-		setUpdateData({
-			...updateData,
-			addDevelopers: [...devs.addDevelopers],
-		});
-	};
-
 	return (
 		<Modal
-			trigger={<Button icon='plus' circular color='vk' inverted />}
-			header='Select Personal to Add'
-			onMount={() => setDevs({ addDevelopers: [] })}
-			onActionClick={handleAction}
+			trigger={
+				<Button
+					content='Add More Personnel to project.'
+					icon='plus'
+					color='vk'
+					inverted
+				/>
+			}
+			header='Select Personnel to Add'
 			content={
 				<UserTable
-					toggleType='addDevelopers'
+					ifchecked={updateData}
 					users={allUsers}
 					istoggle
 					handleToggle={handleToggle}

@@ -20,11 +20,11 @@ function ProjectForm({ users, createProject, user, tasks }) {
 	const [formData, setformData] = useState({
 		name: '',
 		description: '',
-		developers: [],
+		addDevelopers: [],
 		createdBy: user.name,
 		priority: '',
 		deadline: '',
-		tasks: [],
+		addTasks: [],
 	});
 	const [isLoading] = useState(false);
 
@@ -145,21 +145,23 @@ function ProjectForm({ users, createProject, user, tasks }) {
 					<Grid.Row>
 						<Grid.Column width={7}>
 							<UserTable
+								ifchecked={formData}
 								users={users}
-								setcontent='Available Developers'
+								setcontent='Available Personnel'
 								istoggle
 								handleToggle={handleToggle}
-								setsubheader='Add developers to your project'
+								setsubheader='Add personnel to your project.'
 							/>
 						</Grid.Column>
 						<Grid.Column width={9}>
 							<TaskTable
+								ifchecked={formData}
 								setcontent='Open Tasks'
 								usefor='projectForm'
 								handleToggle={handleToggle}
 								striped={true}
 								allTasks={tasks}
-								setsubheader='List of tasks that have not been assigned'
+								setsubheader='List of tasks that have not been assigned.'
 							/>
 						</Grid.Column>
 					</Grid.Row>

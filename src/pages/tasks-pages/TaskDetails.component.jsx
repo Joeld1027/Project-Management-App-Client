@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { connect } from 'react-redux';
 import {
 	Container,
 	Breadcrumb,
@@ -13,46 +13,29 @@ import {
 	Feed,
 	Label,
 } from 'semantic-ui-react';
-import { ContentLoader } from '../../components/ContentLoader/ContentLoader.component';
 import Comments from '../../components/comments/Comments.component';
+import { selectOneTask } from '../../redux/tasks/tasks.selectors';
 
 const sections = [
 	{ key: 'Home', content: 'Tasks', link: true },
 	{ key: 'Shirt', content: 'Task Details', active: true },
 ];
 
-export const TaskDetails = () => {
-	const [active, setActive] = useState(false);
-	const [currentTask, setCurrentTask] = useState({
-		taskInfo: {},
-		createdBy: { firstName: 'N/A' },
-		comments: [],
-		asignedDevs: [],
-	});
-	const id = useParams().id;
-	useEffect(() => {
-		setActive(true);
-		const fetchTask = async () => {
-			try {
-				const fetchedTask = await fetch(
-					`http://localhost:5000/api/tickets/${id}`
-				).then((task) => task.json());
+const TaskDetails = ({ currentTask }) => {
+	const {
+		name,
+		description,
+		category,
+		priority,
+		createdDate,
+		assignedProject,
+		status,
+	} = currentTask || {};
 
-				await setCurrentTask({ taskInfo: fetchedTask });
-				setActive(false);
-				console.log(fetchedTask);
-			} catch (err) {
-				console.log(err);
-			}
-		};
+	let [project] = assignedProject || [];
+	console.log(project);
 
-		fetchTask();
-	}, [id]);
-	console.log(currentTask);
-
-	return active ? (
-		<ContentLoader active={active} />
-	) : (
+	return (
 		<Container>
 			<Breadcrumb icon='right angle' sections={sections} />
 			<Divider />
@@ -61,17 +44,19 @@ export const TaskDetails = () => {
 					<Grid.Column width={6}>
 						<Card
 							fluid
-							extra='ASSIGNED PROJECT: Project'
+							extra={`Current Project: ${
+								project ? project.name : 'No Project'
+							}`}
 							centered
 							color='teal'
 							raised
-							header='TASK NAME'
+							header={name}
 							meta={
 								<Label color='green' horizontal>
-									In Progress
+									{status}
 								</Label>
 							}
-							description='description goes here'
+							description={description}
 						/>
 					</Grid.Column>
 					<Grid.Column width={10}>
@@ -79,13 +64,12 @@ export const TaskDetails = () => {
 							<List horizontal relaxed>
 								<List.Item
 									header='Created On'
-									description='00/00/0000'
+									description={new Date(
+										createdDate
+									).toLocaleDateString()}
 								/>
-								<List.Item
-									header='Category'
-									description='Bug/Fixes'
-								/>
-								<List.Item header='Priority' description='High' />
+								<List.Item header='Category' description={category} />
+								<List.Item header='Priority' description={priority} />
 								<List.Item
 									header='Created By'
 									description='Creator name'
@@ -154,3 +138,11 @@ export const TaskDetails = () => {
 		</Container>
 	);
 };
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+		currentTask: selectOneTask(ownProps.match.params.id)(state),
+	};
+};
+
+export default connect(mapStateToProps)(TaskDetails);

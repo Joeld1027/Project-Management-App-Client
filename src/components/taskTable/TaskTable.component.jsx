@@ -11,6 +11,7 @@ export const TaskTable = ({
 	setcontent,
 	setsubheader,
 	striped,
+	ifchecked,
 }) => {
 	const tableData = {
 		labels: ['Name', 'Category', 'Status', 'Priority'],
@@ -61,9 +62,14 @@ export const TaskTable = ({
 						) : usefor === 'projectForm' ? (
 							<Table.Cell>
 								<Checkbox
+									checked={
+										ifchecked.addTasks.includes(tasks._id)
+											? true
+											: false
+									}
 									toggle
 									value={tasks._id}
-									name='tasks'
+									name='addTasks'
 									onChange={handleToggle}
 								/>
 							</Table.Cell>

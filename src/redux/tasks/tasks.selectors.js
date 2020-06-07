@@ -20,3 +20,10 @@ export const selectFilteredTasks = createSelector(
 	[selectTasks],
 	(tasks) => tasks.tasks.filter((task) => task.status === 'New')
 );
+
+export const selectOneTask = (id) =>
+	createSelector([selectTasks], ({ tasks }) =>
+		tasks.find((task) => {
+			return task._id === id;
+		})
+	);

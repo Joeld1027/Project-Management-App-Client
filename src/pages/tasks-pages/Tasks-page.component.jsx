@@ -8,11 +8,12 @@ import LinkButton from '../../components/create-button/create-button.component';
 
 import { selectAllTasks } from '../../redux/tasks/tasks.selectors';
 import { TaskTable } from '../../components/taskTable/TaskTable.component';
-import { TaskDetails } from './TaskDetails.component';
+import TaskDetails from './TaskDetails.component';
 import TaskForm from './task-form.component';
 
-const TasksPage = ({ allTasks }, ...props) => {
+const TasksPage = ({ allTasks }, props) => {
 	let { url, path } = useRouteMatch();
+
 	return (
 		<div>
 			<Switch>
@@ -41,9 +42,11 @@ const TasksPage = ({ allTasks }, ...props) => {
 				<Route exact path={`${path}/new`}>
 					<TaskForm />
 				</Route>
-				<Route exact path={`${path}/details/:id`}>
-					<TaskDetails />
-				</Route>
+				<Route
+					exact
+					path={`${path}/details/:id`}
+					component={TaskDetails}
+				/>
 			</Switch>
 		</div>
 	);

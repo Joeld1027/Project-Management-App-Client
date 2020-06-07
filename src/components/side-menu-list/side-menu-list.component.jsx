@@ -19,7 +19,7 @@ const options = [
 ];
 
 const MenuItems = ({ currentUser }) => {
-	const { firstName, role } = currentUser.userInfo;
+	const { name, role } = currentUser.userInfo;
 
 	const trigger = (
 		<span>
@@ -28,7 +28,7 @@ const MenuItems = ({ currentUser }) => {
 					<Icon color='grey' name='user' size='large' />
 					<List.Content>
 						<List.Header className='username' as='a'>
-							{firstName}
+							{name}
 						</List.Header>
 					</List.Content>
 				</List.Item>
