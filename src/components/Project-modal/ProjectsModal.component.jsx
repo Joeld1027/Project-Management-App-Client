@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import {
 	Modal,
 	Button,
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
 };
 
 export const ProjectsModal = ({ theproject }) => {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const [updateData, setUpdateData] = useState(INITIAL_STATE);
 	const [open, setOpen] = useState(false);
@@ -46,7 +48,13 @@ export const ProjectsModal = ({ theproject }) => {
 	const handleDelete = async () => {
 		return await axios
 			.delete(`http://localhost:5000/api/projects/${theproject._id}`)
-			.then(() => console.log('Project Deleted'))
+			.then((response) => {
+				console.log(response);
+				setConfirm(!confirm);
+				console.log('Project Deleted');
+				setState(dispatch);
+				history.push('/user/projects');
+			})
 			.catch((err) => console.log(err));
 	};
 
@@ -56,9 +64,14 @@ export const ProjectsModal = ({ theproject }) => {
 				size='large'
 				centered={false}
 				trigger={
-					<Button compact color='vk' onClick={handleOpen}>
-						Edit
-					</Button>
+					<Button
+						onClick={handleOpen}
+						content='Edit'
+						labelPosition='left'
+						icon='edit'
+						primary
+						compact
+					/>
 				}
 				open={open}
 				onClose={handleClose}

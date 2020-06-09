@@ -51,3 +51,19 @@ export const createTask = (data) => {
 		}
 	};
 };
+
+export const updateTask = (id, data) => {
+	return async (dispatch) => {
+		dispatch(isLoading());
+		return await apiCall(
+			'patch',
+			`http://localhost:5000/api/tasks/${id}`,
+			data
+		)
+			.then(() => {
+				setState(dispatch);
+				dispatch(isDoneLoading());
+			})
+			.catch((err) => console.log(err));
+	};
+};

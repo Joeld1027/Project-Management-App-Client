@@ -10,9 +10,9 @@ import {
 	Image,
 	Grid,
 	Label,
-	Table,
 } from 'semantic-ui-react';
 import { DashboardContainer } from './dashboard-page.styles';
+import { ProjectBarChart } from '../../components/dataCharts/projectBarChart.component';
 
 const Dashboard = () => {
 	return (
@@ -22,42 +22,40 @@ const Dashboard = () => {
 					DASHBOARD
 					<Icon name='chart bar' />
 					<Header.Subheader>
-						Tickets and Projects overview.
+						Tasks and Projects overview.
 					</Header.Subheader>
 				</Header>
-
-				<Card.Group itemsPerRow={3} centered>
-					<Card href='#card-example-link-card' color='green'>
+				<Card.Group itemsPerRow={4} centered stackable>
+					<Card color='green'>
 						<Statistic color='green' size='large'>
-							<Label color='green' ribbon>
-								New Tickets
+							<Label color='green' attached='top'>
+								New Tasks
 							</Label>
 							<Statistic.Value>4</Statistic.Value>
 						</Statistic>
 					</Card>
-					<Card href='#card-example-link-card' color='teal'>
+					<Card color='teal'>
 						<Statistic color='teal' size='large'>
-							<Label ribbon color='teal'>
-								Tickets In progress
+							<Label attached='top' color='teal'>
+								Tasks In progress
 							</Label>
 							<Statistic.Value>7</Statistic.Value>
 						</Statistic>
 					</Card>
-					<Card href='#card-example-link-card' color='purple'>
+					<Card color='purple'>
 						<Statistic color='purple' size='large'>
-							<Label ribbon color='purple'>
-								Tickets Resolved
+							<Label attached='top' color='purple'>
+								Tasks Resolved
 							</Label>
 							<Statistic.Value>9</Statistic.Value>
 						</Statistic>
 					</Card>
 				</Card.Group>
-
 				<Grid celled>
 					<Grid.Row stretched>
 						<Grid.Column width={10}>
-							<Segment loading>
-								<Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+							<Segment>
+								<ProjectBarChart />
 							</Segment>
 						</Grid.Column>
 						<Grid.Column width={6}>
@@ -80,67 +78,7 @@ const Dashboard = () => {
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
-				<Table striped>
-					<Table.Header>
-						<Table.Row>
-							<Table.HeaderCell>Name</Table.HeaderCell>
-							<Table.HeaderCell>Date Joined</Table.HeaderCell>
-							<Table.HeaderCell>E-mail</Table.HeaderCell>
-							<Table.HeaderCell>Called</Table.HeaderCell>
-						</Table.Row>
-					</Table.Header>
-
-					<Table.Body>
-						<Table.Row>
-							<Table.Cell>John Lilki</Table.Cell>
-							<Table.Cell>September 14, 2013</Table.Cell>
-							<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-							<Table.Cell>No</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>Jamie Harington</Table.Cell>
-							<Table.Cell>January 11, 2014</Table.Cell>
-							<Table.Cell>jamieharingonton@yahoo.com</Table.Cell>
-							<Table.Cell>Yes</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>Jill Lewis</Table.Cell>
-							<Table.Cell>May 11, 2014</Table.Cell>
-							<Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-							<Table.Cell>Yes</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>John Lilki</Table.Cell>
-							<Table.Cell>September 14, 2013</Table.Cell>
-							<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-							<Table.Cell>No</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>John Lilki</Table.Cell>
-							<Table.Cell>September 14, 2013</Table.Cell>
-							<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-							<Table.Cell>No</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>Jamie Harington</Table.Cell>
-							<Table.Cell>January 11, 2014</Table.Cell>
-							<Table.Cell>jamieharingonton@yahoo.com</Table.Cell>
-							<Table.Cell>Yes</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>Jill Lewis</Table.Cell>
-							<Table.Cell>May 11, 2014</Table.Cell>
-							<Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-							<Table.Cell>Yes</Table.Cell>
-						</Table.Row>
-						<Table.Row>
-							<Table.Cell>John Lilki</Table.Cell>
-							<Table.Cell>September 14, 2013</Table.Cell>
-							<Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-							<Table.Cell>No</Table.Cell>
-						</Table.Row>
-					</Table.Body>
-				</Table>
+				00
 			</Container>
 		</DashboardContainer>
 	);

@@ -22,8 +22,9 @@ export const selectFilteredTasks = createSelector(
 );
 
 export const selectOneTask = (id) =>
-	createSelector([selectTasks], ({ tasks }) =>
-		tasks.find((task) => {
+	createSelector([selectTasks], ({ tasks }) => {
+		const foundTask = tasks.find((task) => {
 			return task._id === id;
-		})
-	);
+		});
+		return foundTask;
+	});

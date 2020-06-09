@@ -1,4 +1,5 @@
 import { UserActionTypes } from './user.types';
+import { updateUser } from './usersUtils';
 
 const INITIAL_STATE = {
 	isAuthenticated: false,
@@ -25,6 +26,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				allUsers: action.payload,
+			};
+		case UserActionTypes.UPDATE_USER:
+			return {
+				...state,
+				allUsers: updateUser(state.allUsers, action.payload),
+			};
+		case UserActionTypes.USER_LOADED:
+			return {
+				...state,
+				isLoading: false,
 			};
 		default:
 			return state;

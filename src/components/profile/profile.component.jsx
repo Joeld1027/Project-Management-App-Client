@@ -10,7 +10,7 @@ import {
 
 const Profile = ({ currentUser }) => {
 	console.log(currentUser);
-	const { name, email, userSince } = currentUser.userInfo;
+	const { name, email, userSince, role } = currentUser.userInfo;
 	const joined = new Date(userSince).toDateString();
 	return (
 		<ProfileContainer>
@@ -33,8 +33,8 @@ const Profile = ({ currentUser }) => {
 						{email}
 					</List.Item>
 					<List.Item>
-						<List.Header>Position</List.Header>
-						User
+						<List.Header>Role</List.Header>
+						{role}
 					</List.Item>
 					<List.Item>
 						<List.Header>User since</List.Header>

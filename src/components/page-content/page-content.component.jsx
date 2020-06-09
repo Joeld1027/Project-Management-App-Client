@@ -9,7 +9,6 @@ import TasksPage from '../../pages/tasks-pages/Tasks-page.component';
 import { Divider } from 'semantic-ui-react';
 import { ContentContainer } from './page-content.styles';
 import UsersPage from '../../pages/users-page/users-page.component';
-import ProjectDetails from '../../pages/project-page/project-details.component';
 
 const PageContent = ({ currentUser, ...props }) => {
 	let { path } = useRouteMatch();
@@ -20,7 +19,7 @@ const PageContent = ({ currentUser, ...props }) => {
 				<Route exact path={`${path}`}>
 					<Profile currentUser={currentUser} />
 				</Route>
-				<Route exact path={`${path}/projects`}>
+				<Route path={`${path}/projects`}>
 					<ProjectPage currentUser={currentUser} />
 				</Route>
 				<Route exact path={`${path}/dashboard`}>
@@ -32,12 +31,6 @@ const PageContent = ({ currentUser, ...props }) => {
 				<Route exact path={`${path}/roles`}>
 					<UsersPage />
 				</Route>
-
-				<Route
-					exact
-					path={`${path}/projects/:id`}
-					component={ProjectDetails}
-				/>
 			</Switch>
 			<Divider />
 			<p>@ 2020 - Joel D. Infante</p>

@@ -11,7 +11,7 @@ import { TaskTable } from '../../components/taskTable/TaskTable.component';
 import TaskDetails from './TaskDetails.component';
 import TaskForm from './task-form.component';
 
-const TasksPage = ({ allTasks }, props) => {
+const TasksPage = ({ allTasks }) => {
 	let { url, path } = useRouteMatch();
 
 	return (
@@ -42,11 +42,7 @@ const TasksPage = ({ allTasks }, props) => {
 				<Route exact path={`${path}/new`}>
 					<TaskForm />
 				</Route>
-				<Route
-					exact
-					path={`${path}/details/:id`}
-					component={TaskDetails}
-				/>
+				<Route path={`${path}/details/:id`} component={TaskDetails} />
 			</Switch>
 		</div>
 	);

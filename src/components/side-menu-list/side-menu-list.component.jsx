@@ -45,11 +45,11 @@ const MenuItems = ({ currentUser }) => {
 				icon={null}
 			/>
 			<OptionLink to='/user/dashboard'>Dashboard</OptionLink>
-			{role === 'Admin' && (
+			{role === ('Admin' || 'Demo-Admin') && (
 				<OptionLink to='/user/roles'>Manage Users</OptionLink>
 			)}
 
-			{role === ('Admin' || 'Manager' || 'Developer') && (
+			{role === ('Admin' || 'Demo-Manager' || 'Demo-Developer') && (
 				<OptionLink to='/user/projects'>Projects</OptionLink>
 			)}
 			<OptionLink to='/user/tasks'>Tasks</OptionLink>

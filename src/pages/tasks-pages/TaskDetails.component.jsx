@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
 	Container,
 	Breadcrumb,
@@ -15,13 +16,15 @@ import {
 } from 'semantic-ui-react';
 import Comments from '../../components/comments/Comments.component';
 import { selectOneTask } from '../../redux/tasks/tasks.selectors';
+import TaskEditModal from './task-edit-modal.component';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 const sections = [
 	{ key: 'Home', content: 'Tasks', link: true },
 	{ key: 'Shirt', content: 'Task Details', active: true },
 ];
 
-const TaskDetails = ({ currentTask }) => {
+const TaskDetails = ({ currentTask, currentUser }) => {
 	const {
 		name,
 		description,
@@ -30,16 +33,41 @@ const TaskDetails = ({ currentTask }) => {
 		createdDate,
 		assignedProject,
 		status,
+		_id,
 	} = currentTask || {};
+	const [project] = assignedProject || [];
+	const { role } = currentUser.userInfo || {};
 
-	let [project] = assignedProject || [];
-	console.log(project);
+	const editData = {
+		name,
+		description,
+		category,
+		priority,
+		project,
+		_id,
+	};
+
+	const history = useHistory();
+
+	const returnBack = () => {
+		history.push('/user/tasks');
+	};
 
 	return (
 		<Container>
-			<Breadcrumb icon='right angle' sections={sections} />
+			<Breadcrumb
+				onClick={returnBack}
+				icon='right angle'
+				sections={sections}
+			/>
+			{role === 'Admin' && (
+				<Header floated='right'>
+					<TaskEditModal editData={editData} />
+				</Header>
+			)}
 			<Divider />
-			<Grid relaxed>
+
+			<Grid relaxed stackable>
 				<Grid.Row columns={2}>
 					<Grid.Column width={6}>
 						<Card
@@ -78,6 +106,7 @@ const TaskDetails = ({ currentTask }) => {
 						</Segment>
 					</Grid.Column>
 				</Grid.Row>
+
 				<Grid.Row centered divided>
 					<Grid.Column width={8}>
 						<Segment padded>
@@ -90,24 +119,6 @@ const TaskDetails = ({ currentTask }) => {
 									/>
 									<List.Content>
 										<List.Header as='a'>Daniel Louise</List.Header>
-									</List.Content>
-								</List.Item>
-								<List.Item>
-									<Image
-										avatar
-										src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg'
-									/>
-									<List.Content>
-										<List.Header as='a'>Stevie Feliciano</List.Header>
-									</List.Content>
-								</List.Item>
-								<List.Item>
-									<Image
-										avatar
-										src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg'
-									/>
-									<List.Content>
-										<List.Header as='a'>Elliot Fu</List.Header>
 									</List.Content>
 								</List.Item>
 							</List>
@@ -142,6 +153,7 @@ const TaskDetails = ({ currentTask }) => {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		currentTask: selectOneTask(ownProps.match.params.id)(state),
+		currentUser: selectCurrentUser(state),
 	};
 };
 

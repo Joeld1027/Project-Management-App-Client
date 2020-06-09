@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { selectAllProjects } from '../../redux/projects/projects.selectors';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { setState } from '../../services/apicall';
 import { createTask } from '../../redux/tasks/tasks.actions';
 import {
 	Form,
@@ -10,6 +13,7 @@ import {
 	Header,
 	Radio,
 	Select,
+	Label,
 } from 'semantic-ui-react';
 
 const options = [
@@ -20,15 +24,18 @@ const options = [
 	{ key: 's', text: 'Software', value: 'Software' },
 ];
 
-function TaskForm({ createTask, allProjects, isLoading }) {
+function TaskForm({ createTask, allProjects, isLoading, editData }) {
 	const INITIAL_STATE = {
-		name: '',
-		description: '',
-		category: '',
-		priority: '',
-		project: '',
+		name: '' || (editData && editData.name),
+		description: '' || (editData && editData.description),
+		category: '' || (editData && editData.category),
+		priority: '' || (editData && editData.priority),
+		projectId: '',
+		id: '' || (editData && editData._id),
 	};
 	const [formData, setformData] = useState(INITIAL_STATE);
+	let history = useHistory();
+	let dispatch = useDispatch();
 
 	const handleChange = (e, { name, value }) =>
 		setformData({ ...formData, [name]: value });
@@ -38,26 +45,43 @@ function TaskForm({ createTask, allProjects, isLoading }) {
 		createTask(formData)
 			.then(() => {
 				setformData(INITIAL_STATE);
+				history.push('/user/tasks');
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	};
+	const {
+		priority,
+		name,
+		description,
+		category,
+		projectId,
+		id,
+	} = formData;
 
-	const { priority, name, description, category, project } = formData;
+	const handleEdit = async () => {
+		return await axios
+			.patch(`http://localhost:5000/api/tasks/${id}`, formData)
+			.then(() => {
+				setState(dispatch);
+				console.log('task updated');
+			})
+			.catch((err) => console.log(err));
+	};
 
 	return (
 		<div>
 			<Header
 				as='h1'
-				content='CREATE TASK'
+				content={editData ? '' : 'CREATE TASK'}
 				textAlign='center'
 				dividing
 			/>
 			<Form>
 				<Grid>
 					<Grid.Column width={7}>
-						<Segment>
+						<Segment color='teal'>
 							<Form.Input
 								onChange={handleChange}
 								name='name'
@@ -67,13 +91,13 @@ function TaskForm({ createTask, allProjects, isLoading }) {
 							<Form.TextArea
 								onChange={handleChange}
 								name='description'
-								label='DESCRIPTIOM'
+								label='DESCRIPTION'
 								value={description}
 							/>
 						</Segment>
 					</Grid.Column>
 					<Grid.Column width={8}>
-						<Segment>
+						<Segment color='teal'>
 							<Form.Field>
 								<label>CATEGORY</label>
 								<Select
@@ -86,19 +110,25 @@ function TaskForm({ createTask, allProjects, isLoading }) {
 							</Form.Field>
 							<Form.Field>
 								<label>ASSIGN TO PROJECT</label>
-								<Select
-									value={project}
-									name='project'
-									options={allProjects.map((project) => {
-										return {
-											key: project._id,
-											text: project.name,
-											value: project._id,
-										};
-									})}
-									placeholder='-Select-'
-									onChange={handleChange}
-								/>
+								{editData && editData.project ? (
+									<Label basic color='teal'>
+										{editData.project.name.toUpperCase()}
+									</Label>
+								) : (
+									<Select
+										value={projectId}
+										name='projectId'
+										options={allProjects.map((project) => {
+											return {
+												key: project._id,
+												text: project.name,
+												value: project._id,
+											};
+										})}
+										placeholder='-Select-'
+										onChange={handleChange}
+									/>
+								)}
 							</Form.Field>
 							<Form.Field>
 								<label>PRIORITY</label>
@@ -129,14 +159,25 @@ function TaskForm({ createTask, allProjects, isLoading }) {
 								/>
 							</Form.Field>
 
-							<Button
-								loading={isLoading}
-								attached='top'
-								content='Submit Task'
-								type='submit'
-								color='teal'
-								onClick={handleSubmit}
-							/>
+							{editData ? (
+								<Button
+									loading={isLoading}
+									attached='top'
+									content='Update Task'
+									type='submit'
+									color='teal'
+									onClick={handleEdit}
+								/>
+							) : (
+								<Button
+									loading={isLoading}
+									attached='top'
+									content='Submit Task'
+									type='submit'
+									color='teal'
+									onClick={handleSubmit}
+								/>
+							)}
 						</Segment>
 					</Grid.Column>
 				</Grid>

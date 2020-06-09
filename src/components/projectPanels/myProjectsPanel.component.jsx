@@ -7,7 +7,7 @@ import { useRouteMatch } from 'react-router-dom';
 export default function MyProjectsPanel(props) {
 	let { url } = useRouteMatch();
 	const tableData = {
-		labels: ['Project', 'Progress', 'Created', 'Details'],
+		labels: ['Project', 'Progress', 'Created', 'Deadline', 'Details'],
 		data: props.projects,
 		displayData: function (projects = props.projects) {
 			return projects.map((project) => {
@@ -25,12 +25,14 @@ export default function MyProjectsPanel(props) {
 						<Table.Cell>
 							{new Date(project.created).toDateString()}
 						</Table.Cell>
-						<Table.Cell textAlign='center'>
+						<Table.Cell>
+							{new Date(project.deadline).toDateString()}
+						</Table.Cell>
+						<Table.Cell>
 							<LinkButton
 								noSegment
 								typeAs='h4'
 								icon='edit'
-								disabled={true}
 								id={project._id}
 								url={`${url}/${project._id}`}
 							/>

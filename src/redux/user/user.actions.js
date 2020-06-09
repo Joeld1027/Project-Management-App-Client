@@ -19,6 +19,11 @@ export const getUsers = (users) => ({
 	payload: users,
 });
 
+export const updateOneUser = (updatedUser) => ({
+	type: UserActionTypes.UPDATE_USER,
+	payload: updatedUser,
+});
+
 export const getAllUsers = () => {
 	return (dispatch) => {
 		return new Promise((resolve, reject) => {
@@ -32,6 +37,22 @@ export const getAllUsers = () => {
 					reject();
 				});
 		});
+	};
+};
+
+export const updateUserInfo = (role) => {
+	return (dispatch) => {
+		dispatch(userLoading());
+		return apiCall(
+			'put',
+			`http://localhost:5000/api/users/${role.id}`,
+			role
+		)
+			.then((updatedUser) =>
+				dispatch(updateOneUser(updatedUser.editedUser))
+			)
+			.then(() => dispatch(userLoaded()))
+			.catch((err) => console.log(err));
 	};
 };
 

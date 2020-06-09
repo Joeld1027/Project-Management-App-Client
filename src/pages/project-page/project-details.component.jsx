@@ -11,17 +11,20 @@ import {
 	Header,
 	Label,
 } from 'semantic-ui-react';
-import { selectOneProject } from '../../redux/projects/projects.selectors';
 import { connect } from 'react-redux';
+import { selectOneProject } from '../../redux/projects/projects.selectors';
 import { ProjectsModal } from '../../components/Project-modal/ProjectsModal.component';
 import { UserTable } from '../../components/user-table/UserTable.component';
 import { TaskTable } from '../../components/taskTable/TaskTable.component';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { DoughnutChart } from '../../components/dataCharts/DoughnutChart.component';
 
-const ProjectDetails = ({ project }) => {
+const ProjectDetails = ({ project, currentUser }) => {
 	const history = useHistory();
 	const returnBack = () => {
 		history.push('/user/projects');
 	};
+	const { role } = currentUser.userInfo || {};
 
 	return (
 		<div>
@@ -32,16 +35,18 @@ const ProjectDetails = ({ project }) => {
 				<Breadcrumb.Divider />
 				<Breadcrumb.Section active>Details</Breadcrumb.Section>
 			</Breadcrumb>
-			<Header floated='right'>
-				<ProjectsModal theproject={project} />
-			</Header>
+			{role === 'Admin' && (
+				<Header floated='right'>
+					<ProjectsModal theproject={project} />
+				</Header>
+			)}
 			<Divider />
 			{project && (
 				<Container>
-					<Segment padded color='teal'>
+					<Segment compact padded color='teal'>
 						<Grid stackable>
 							<Grid.Row>
-								<Grid.Column width={6}>
+								<Grid.Column width={7}>
 									<Card
 										fluid
 										extra={
@@ -59,10 +64,8 @@ const ProjectDetails = ({ project }) => {
 										}
 										description={project.description}
 									/>
-								</Grid.Column>
-								<Grid.Column width={3}>
 									<Segment color='teal' size='large' raised>
-										<List size='large'>
+										<List size='large' horizontal>
 											<List.Item
 												header='Started'
 												description={new Date(
@@ -82,9 +85,13 @@ const ProjectDetails = ({ project }) => {
 										</List>
 									</Segment>
 								</Grid.Column>
+
+								<Grid.Column width={9}>
+									<DoughnutChart />
+								</Grid.Column>
 							</Grid.Row>
 							<Grid.Row>
-								<Grid.Column width={6}>
+								<Grid.Column width={7}>
 									{project.assignedDevs && (
 										<UserTable
 											setcontent='Assigned Developers'
@@ -92,7 +99,7 @@ const ProjectDetails = ({ project }) => {
 										/>
 									)}
 								</Grid.Column>
-								<Grid.Column width={10}>
+								<Grid.Column width={9}>
 									<TaskTable
 										setcontent='Project Tasks'
 										usefor='projectDetails'
@@ -111,6 +118,7 @@ const ProjectDetails = ({ project }) => {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		project: selectOneProject(ownProps.match.params.id)(state),
+		currentUser: selectCurrentUser(state),
 	};
 };
 

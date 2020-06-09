@@ -45,7 +45,7 @@ export const UserTable = ({
 									name='addDevelopers'
 								/>
 							) : (
-								user.role
+								user.assignedProjects.length
 							)}
 						</Table.Cell>
 					</Table.Row>
@@ -55,7 +55,7 @@ export const UserTable = ({
 	};
 	istoggle
 		? userData.labels.push('Add')
-		: userData.labels.push('Role');
+		: userData.labels.push('Projects');
 	return (
 		<div>
 			<SearchAndTable
