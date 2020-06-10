@@ -1,15 +1,6 @@
 import { createSelector } from 'reselect';
 
 const selectTasks = (state) => state.tasks;
-const selectUser = (state) => state.user;
-
-export const selectCurrentUserTickets = createSelector(
-	[selectTasks, selectUser],
-	(tickets, user) =>
-		tickets.allTickets.filter(
-			(ticket) => ticket.createdBy === user.currentUser.userInfo._id
-		)
-);
 
 export const selectAllTasks = createSelector(
 	[selectTasks],
@@ -22,8 +13,8 @@ export const selectFilteredTasks = createSelector(
 );
 
 export const selectOneTask = (id) =>
-	createSelector([selectTasks], ({ tasks }) => {
-		const foundTask = tasks.find((task) => {
+	createSelector([selectTasks], (tasks) => {
+		const foundTask = tasks.tasks.find((task) => {
 			return task._id === id;
 		});
 		return foundTask;

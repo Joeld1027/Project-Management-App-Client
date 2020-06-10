@@ -9,4 +9,8 @@ export const DashboardContainer = styled.div`
 		display: flex;
 		justify-content: space-around;
 	}
+	.ui.statistic > .value,
+	.ui.statistics .statistic > .value {
+		color: #00686d !important;
+	}
 `;

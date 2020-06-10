@@ -24,7 +24,7 @@ export const ProjectEditForm = ({
 	});
 
 	const { priority, name, description } = formData;
-	const { assignedDevs, projectTickets } = theproject;
+	const { assignedDevs, projectTasks } = theproject;
 
 	const handleChange = (e, { name, value }) => {
 		e.preventDefault();
@@ -184,7 +184,7 @@ export const ProjectEditForm = ({
 							</Table.Header>
 
 							<Table.Body>
-								{projectTickets.map((task) => (
+								{projectTasks.map((task) => (
 									<Table.Row key={task._id}>
 										<Table.Cell>{task.name}</Table.Cell>
 										<Table.Cell>{task.priority}</Table.Cell>

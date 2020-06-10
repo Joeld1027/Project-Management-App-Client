@@ -103,7 +103,7 @@ const ProjectDetails = ({ project, currentUser }) => {
 									<TaskTable
 										setcontent='Project Tasks'
 										usefor='projectDetails'
-										allTasks={project.projectTickets}
+										allTasks={project.projectTasks}
 									/>
 								</Grid.Column>
 							</Grid.Row>

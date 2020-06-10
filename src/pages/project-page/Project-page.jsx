@@ -18,7 +18,6 @@ const ProjectPage = ({
 	allTasks,
 }) => {
 	let { path } = useRouteMatch();
-	console.log(path);
 	const user = currentUser.userInfo;
 	const panes = [
 		{

@@ -62,7 +62,13 @@ export const TaskTable = ({
 							</Fragment>
 						) : usefor === 'projectDetails' ? (
 							<Table.Cell>
-								{new Date(tasks.createdDate).toDateString()}
+								<LinkButton
+									noSegment
+									typeAs='h4'
+									icon='edit'
+									disabled={true}
+									url={`/user/tasks/details/${tasks._id}`}
+								/>
 							</Table.Cell>
 						) : usefor === 'projectForm' ? (
 							<Table.Cell>
@@ -86,10 +92,10 @@ export const TaskTable = ({
 	};
 	switch (usefor) {
 		case 'mainTable':
-			tableData.labels.push('Created', 'Detail');
+			tableData.labels.push('Created', 'Details');
 			break;
 		case 'projectDetails':
-			tableData.labels.push('Created');
+			tableData.labels.push('Details');
 			break;
 		case 'projectForm':
 			tableData.labels.push('ADD');

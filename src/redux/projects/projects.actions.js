@@ -58,9 +58,10 @@ export const createProject = (data) => {
 export const getAllProjects = () => {
 	return async (dispatch) => {
 		try {
-			const projects = await fetch(
+			const projects = await apiCall(
+				'get',
 				'http://localhost:5000/api/projects'
-			).then((res) => res.json());
+			);
 			dispatch(setProjects(projects));
 			return projects;
 		} catch (error) {

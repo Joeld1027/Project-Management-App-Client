@@ -8,10 +8,21 @@ import PrivateRoute from '../privateRoute/private-route.component';
 
 const MainContent = ({ isAuthenticated, currentUser }) => {
 	SetState();
-
+	const { role } = currentUser.userInfo || {};
+	const allowedRoles = [
+		'Demo-Submiter',
+		'Demo-Developer',
+		'Demo-Manager',
+		'Demo-Admin',
+		'Admin',
+	];
 	return (
 		<div className='main-section'>
-			<PrivateRoute isAuthenticated={isAuthenticated}>
+			<PrivateRoute
+				isAuthenticated={isAuthenticated}
+				userRole={role}
+				allowedRoles={allowedRoles}
+			>
 				<SideMenu currentUser={currentUser} />
 				<PageContent currentUser={currentUser} />
 			</PrivateRoute>

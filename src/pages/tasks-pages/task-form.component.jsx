@@ -26,7 +26,7 @@ const options = [
 
 function TaskForm({ createTask, allProjects, isLoading, editData }) {
 	const INITIAL_STATE = {
-		name: '' || (editData && editData.name),
+		name: editData ? editData.name : '',
 		description: '' || (editData && editData.description),
 		category: '' || (editData && editData.category),
 		priority: '' || (editData && editData.priority),

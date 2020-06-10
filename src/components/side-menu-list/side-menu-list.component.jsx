@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
 	OptionLink,
 	OptionsContainer,
@@ -20,7 +20,6 @@ const options = [
 
 const MenuItems = ({ currentUser }) => {
 	const { name, role } = currentUser.userInfo;
-
 	const trigger = (
 		<span>
 			<List selection verticalAlign='middle' size='big'>
@@ -44,15 +43,20 @@ const MenuItems = ({ currentUser }) => {
 				pointing='top left'
 				icon={null}
 			/>
-			<OptionLink to='/user/dashboard'>Dashboard</OptionLink>
-			{role === ('Admin' || 'Demo-Admin') && (
-				<OptionLink to='/user/roles'>Manage Users</OptionLink>
-			)}
 
-			{role === ('Admin' || 'Demo-Manager' || 'Demo-Developer') && (
-				<OptionLink to='/user/projects'>Projects</OptionLink>
-			)}
+			{role === 'Admin' ||
+			role === 'Demo-Manager' ||
+			role === 'Demo-Admin' ||
+			role === 'Demo-Developer' ? (
+				<Fragment>
+					<OptionLink to='/user/dashboard'>Dashboard</OptionLink>
+					<OptionLink to='/user/projects'>Projects</OptionLink>
+				</Fragment>
+			) : null}
 			<OptionLink to='/user/tasks'>Tasks</OptionLink>
+			{(role === 'Admin' || role === 'Demo-Admin') && (
+				<OptionLink to='/user/roles'>Manage Users Roles</OptionLink>
+			)}
 		</OptionsContainer>
 	);
 };

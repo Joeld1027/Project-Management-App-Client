@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
@@ -13,7 +14,9 @@ import {
 	Header,
 	Feed,
 	Label,
+	Button,
 } from 'semantic-ui-react';
+import { updateTask } from '../../redux/tasks/tasks.actions';
 import Comments from '../../components/comments/Comments.component';
 import { selectOneTask } from '../../redux/tasks/tasks.selectors';
 import TaskEditModal from './task-edit-modal.component';
@@ -24,7 +27,14 @@ const sections = [
 	{ key: 'Shirt', content: 'Task Details', active: true },
 ];
 
-const TaskDetails = ({ currentTask, currentUser }) => {
+const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
+	const userId = currentUser.userInfo._id;
+	const [assignUserToTask] = useState({
+		assignUserToTask: userId ? userId : '',
+	});
+	const [completeTask] = useState({
+		status: 'Resolved',
+	});
 	const {
 		name,
 		description,
@@ -32,6 +42,7 @@ const TaskDetails = ({ currentTask, currentUser }) => {
 		priority,
 		createdDate,
 		assignedProject,
+		assignedDevs,
 		status,
 		_id,
 	} = currentTask || {};
@@ -48,6 +59,18 @@ const TaskDetails = ({ currentTask, currentUser }) => {
 	};
 
 	const history = useHistory();
+
+	const updateUserAndStatus = async (data) => {
+		try {
+			await axios.patch(
+				`http://localhost:5000/api/tasks/${_id}`,
+				data
+			);
+			console.log('done');
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	const returnBack = () => {
 		history.push('/user/tasks');
@@ -68,7 +91,7 @@ const TaskDetails = ({ currentTask, currentUser }) => {
 			<Divider />
 
 			<Grid relaxed stackable>
-				<Grid.Row columns={2}>
+				<Grid.Row columns={3}>
 					<Grid.Column width={6}>
 						<Card
 							fluid
@@ -87,9 +110,9 @@ const TaskDetails = ({ currentTask, currentUser }) => {
 							description={description}
 						/>
 					</Grid.Column>
-					<Grid.Column width={10}>
-						<Segment padded raised compact color='teal'>
-							<List horizontal relaxed>
+					<Grid.Column width={7}>
+						<Segment raised compact color='teal'>
+							<List horizontal>
 								<List.Item
 									header='Created On'
 									description={new Date(
@@ -104,6 +127,29 @@ const TaskDetails = ({ currentTask, currentUser }) => {
 								/>
 							</List>
 						</Segment>
+					</Grid.Column>
+					<Grid.Column width={3}>
+						{assignedDevs &&
+							(status === 'Pending' && assignedDevs.length === 0 ? (
+								<Button
+									onClick={() =>
+										updateUserAndStatus(assignUserToTask)
+									}
+									primary
+									icon='tasks'
+									content='Start Task'
+								/>
+							) : null)}
+						{status === 'In Progress' &&
+						userId === assignedDevs[0] ? (
+							<Button
+								compact
+								onClick={() => updateUserAndStatus(completeTask)}
+								positive
+								icon='check'
+								content='Complete Task'
+							/>
+						) : null}
 					</Grid.Column>
 				</Grid.Row>
 
@@ -157,4 +203,4 @@ const mapStateToProps = (state, ownProps) => {
 	};
 };
 
-export default connect(mapStateToProps)(TaskDetails);
+export default connect(mapStateToProps, { updateTask })(TaskDetails);

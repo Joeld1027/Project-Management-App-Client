@@ -9,7 +9,6 @@ import {
 } from 'semantic-ui-react';
 
 const Profile = ({ currentUser }) => {
-	console.log(currentUser);
 	const { name, email, userSince, role } = currentUser.userInfo;
 	const joined = new Date(userSince).toDateString();
 	return (
