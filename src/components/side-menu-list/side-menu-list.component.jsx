@@ -1,24 +1,29 @@
 import React, { Fragment } from 'react';
+import { logout } from '../../redux/user/user.actions';
+import { connect } from 'react-redux';
 import {
 	OptionLink,
 	OptionsContainer,
 } from './side-menu-list.styles';
 import { List, Icon, Dropdown } from 'semantic-ui-react';
 
-const options = [
-	{
-		key: 'user',
-		text: (
-			<OptionLink className='profile' to='/user'>
-				Account
-			</OptionLink>
-		),
-		icon: 'settings',
-	},
-	{ key: 'sign-out', text: 'Sign Out', icon: 'sign out' },
-];
-
-const MenuItems = ({ currentUser }) => {
+const MenuItems = ({ currentUser, logout }) => {
+	const options = [
+		{
+			key: 'user',
+			text: (
+				<OptionLink className='profile' to='/user'>
+					Account
+				</OptionLink>
+			),
+			icon: 'settings',
+		},
+		{
+			key: 'sign-out',
+			text: <button onClick={logout}>logout</button>,
+			icon: 'sign out',
+		},
+	];
 	const { name, role } = currentUser.userInfo;
 	const trigger = (
 		<span>
@@ -61,4 +66,4 @@ const MenuItems = ({ currentUser }) => {
 	);
 };
 
-export default MenuItems;
+export default connect(null, { logout })(MenuItems);

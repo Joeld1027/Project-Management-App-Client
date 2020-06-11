@@ -1,36 +1,59 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-export const ProjectBarChart = () => {
-	const [chartData] = useState({
-		labels: [
-			'Project 1',
-			'project 2',
-			'Project 3',
-			'Project 4',
-			'Project 5',
-		],
+export const ProjectBarChart = ({ projects }) => {
+	const getProjectNames = (projects) => {
+		return projects.reduce(
+			(acc, project) => acc.concat(project.name),
+			[]
+		);
+	};
+	let status = ['Pending', 'In Progress', 'Resolved'];
+	const getProjectsStatus = (projectsArr, status) => {
+		let allStatus = {};
+		status.map(
+			(name) =>
+				(allStatus[name.replace(/\s/g, '')] = projectsArr.map(
+					(project) =>
+						(project.projectTasks.filter(
+							(task) => task.status === name
+						).length /
+							project.projectTasks.length) *
+						100
+				))
+		);
+		return allStatus;
+	};
+	let { InProgress, Resolved, Pending } = getProjectsStatus(
+		projects,
+		status
+	);
+
+	let projectLabels = getProjectNames(projects);
+
+	const chartData = {
+		labels: projectLabels,
 		datasets: [
 			{
 				barPercentage: 0.7,
 				label: 'Tasks Resolved',
 				backgroundColor: '#00686D',
-				data: [20, 30, 15, 30, 10],
+				data: Resolved,
 			},
 			{
 				barPercentage: 0.7,
 				label: 'Tasks In Progress',
 				backgroundColor: '#00b5bd',
-				data: [20, 45, 15, 30, 75],
+				data: InProgress,
 			},
 			{
 				barPercentage: 0.7,
 				label: 'Tasks Pending',
-				backgroundColor: 'rgba(0,0,0,0.3)',
-				data: [60, 25, 70, 40, 15],
+				backgroundColor: 'rgba(71, 87, 110, 0.5)',
+				data: Pending,
 			},
 		],
-	});
+	};
 	return (
 		<div>
 			<Bar

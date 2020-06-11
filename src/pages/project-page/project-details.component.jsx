@@ -17,13 +17,14 @@ import { ProjectsModal } from '../../components/Project-modal/ProjectsModal.comp
 import { UserTable } from '../../components/user-table/UserTable.component';
 import { TaskTable } from '../../components/taskTable/TaskTable.component';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { DoughnutChart } from '../../components/dataCharts/DoughnutChart.component';
+import { DoughnutChart } from '../../components/dataCharts/TaskPriorityChart.component';
 
 const ProjectDetails = ({ project, currentUser }) => {
 	const history = useHistory();
 	const returnBack = () => {
 		history.push('/user/projects');
 	};
+	const { projectTasks } = project || {};
 	const { role } = currentUser.userInfo || {};
 
 	return (
@@ -87,14 +88,14 @@ const ProjectDetails = ({ project, currentUser }) => {
 								</Grid.Column>
 
 								<Grid.Column width={9}>
-									<DoughnutChart />
+									<DoughnutChart projectTasks={projectTasks} />
 								</Grid.Column>
 							</Grid.Row>
 							<Grid.Row>
 								<Grid.Column width={7}>
 									{project.assignedDevs && (
 										<UserTable
-											setcontent='Assigned Developers'
+											setcontent='Assigned Personnel'
 											users={project.assignedDevs}
 										/>
 									)}

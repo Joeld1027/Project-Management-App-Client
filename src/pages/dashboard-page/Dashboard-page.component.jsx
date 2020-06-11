@@ -1,22 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-	Card,
-	Statistic,
 	Container,
 	Header,
 	Icon,
 	Segment,
 	Grid,
-	Label,
 	List,
 } from 'semantic-ui-react';
 import { DashboardContainer } from './dashboard-page.styles';
 import { ProjectBarChart } from '../../components/dataCharts/projectBarChart.component';
-import { TaskHorizontalBar } from '../../components/dataCharts/TaskHorizontalBar.component';
+import { DoughnutChart } from '../../components/dataCharts/TaskPriorityChart.component';
+import StatusDoughnutChart from '../../components/dataCharts/StatusDoughnutChart.component';
 
-const Dashboard = (props) => {
-	console.log(props);
+const Dashboard = ({ currentProjects, currentTasks }) => {
 	return (
 		<DashboardContainer>
 			<Container>
@@ -27,77 +24,35 @@ const Dashboard = (props) => {
 						Tasks and Projects overview.
 					</Header.Subheader>
 				</Header>
-				<Card.Group
-					itemsPerRow={4}
-					centered
-					stackable
-					textAlign='center'
-					doubling
-				>
-					<Card>
-						<Statistic size='large'>
-							<Label
-								style={{
-									backgroundColor: 'rgba(0,0,0,0.3)',
-									color: 'white',
-								}}
-								attached='bottom'
-							>
-								Pending Tasks
-							</Label>
-							<Statistic.Value>4</Statistic.Value>
-						</Statistic>
-					</Card>
-					<Card>
-						<Statistic color='teal' size='large'>
-							<Label attached='bottom' color='teal'>
-								Tasks In progress
-							</Label>
-							<Statistic.Value>7</Statistic.Value>
-						</Statistic>
-					</Card>
-					<Card>
-						<Statistic size='large'>
-							<Label
-								style={{ backgroundColor: '#00686D', color: 'white' }}
-								attached='bottom'
-							>
-								Tasks Resolved
-							</Label>
-							<Statistic.Value>9</Statistic.Value>
-						</Statistic>
-					</Card>
-				</Card.Group>
+				<StatusDoughnutChart currentTasks={currentTasks} />
 				<Grid stackable>
-					<Grid.Row stretched>
-						<Grid.Column width={10}>
-							<Segment>
-								<ProjectBarChart />
+					<Grid.Row centered>
+						<Grid.Column textAlign='center' width={10}>
+							<Segment padded>
+								<ProjectBarChart projects={currentProjects} />
 							</Segment>
 						</Grid.Column>
-
-						<Grid.Column width={6}>
+						<Grid.Column stretched width={6}>
 							<Segment>
-								<Header
-									textAlign='center'
-									content='You are assigned to: #projects'
-								/>
+								<Header textAlign='center' content='Your Projects' />
 								<List divided relaxed animated>
-									<List.Item>
-										<List.Icon
-											name='server'
-											size='large'
-											verticalAlign='middle'
-										/>
-										<List.Content>
-											<Link to='/user/projects/5edfd6cbc0e46961f8fd4de8'>
-												<List.Header>Testing the link</List.Header>
-											</Link>
-											<List.Description as='a'>
-												Updated 10 mins ago
-											</List.Description>
-										</List.Content>
-									</List.Item>
+									{currentProjects.map((project) => (
+										<List.Item key={project._id}>
+											<List.Icon
+												name='server'
+												size='large'
+												verticalAlign='middle'
+											/>
+											<List.Content>
+												<Link to={`/user/projects/${project._id}`}>
+													<List.Header>{project.name}</List.Header>
+												</Link>
+												<List.Description as='a'>
+													{project.description}
+												</List.Description>
+											</List.Content>
+										</List.Item>
+									))}
 								</List>
 							</Segment>
 						</Grid.Column>
@@ -106,29 +61,34 @@ const Dashboard = (props) => {
 					<Grid.Row stretched>
 						<Grid.Column width={6}>
 							<Segment>
-								<Header textAlign='center' content='List of Tasks' />
+								<Header textAlign='center' content='Your Projects' />
 								<List divided relaxed animated>
-									<List.Item>
-										<List.Icon
-											name='tasks'
-											size='large'
-											verticalAlign='middle'
-										/>
-										<List.Content>
-											<List.Header as='a'>
-												Semantic-Org/Semantic-UI
-											</List.Header>
-											<List.Description as='a'>
-												Updated 10 mins ago
-											</List.Description>
-										</List.Content>
-									</List.Item>
+									{currentProjects.map((project) => (
+										<List.Item key={project._id}>
+											<List.Icon
+												name='server'
+												size='large'
+												verticalAlign='middle'
+											/>
+											<List.Content>
+												<Link to={`/user/projects/${project._id}`}>
+													<List.Header>{project.name}</List.Header>
+												</Link>
+												<List.Description as='a'>
+													{project.description}
+												</List.Description>
+											</List.Content>
+										</List.Item>
+									))}
 								</List>
 							</Segment>
 						</Grid.Column>
 						<Grid.Column width={10}>
 							<Segment>
-								<TaskHorizontalBar />
+								<DoughnutChart
+									projectTasks={currentTasks}
+									horizontal
+								/>
 							</Segment>
 						</Grid.Column>
 					</Grid.Row>

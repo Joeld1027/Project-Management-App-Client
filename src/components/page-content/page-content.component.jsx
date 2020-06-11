@@ -10,7 +10,7 @@ import { ContentContainer } from './page-content.styles';
 
 import Profile from '../profile/profile.component';
 import ProjectPage from '../../pages/project-page/Project-page';
-import Dashboard from '../../pages/dashboard-page/Dashboard-page.component';
+import DashboardPageContainer from '../../pages/dashboard-page/DashBoardContainer.component';
 import TasksPage from '../../pages/tasks-pages/Tasks-page.component';
 import UsersPage from '../../pages/users-page/users-page.component';
 import PrivateRoute from '../privateRoute/private-route.component';
@@ -22,6 +22,7 @@ const PageContent = ({ currentUser, ...props }) => {
 	let allowedRoles = [];
 	switch (pathname) {
 		case '/user/projects':
+		case '/user/projects/:id':
 			allowedRoles = ['Demo-Manager', 'Demo-Admin', 'Admin'];
 			break;
 		case '/user/roles':
@@ -36,6 +37,13 @@ const PageContent = ({ currentUser, ...props }) => {
 			];
 			break;
 		default:
+			allowedRoles = [
+				'Demo-Developer',
+				'Demo-Manager',
+				'Demo-Admin',
+				'Admin',
+				'Demo-Submiter',
+			];
 			break;
 	}
 
@@ -56,7 +64,7 @@ const PageContent = ({ currentUser, ...props }) => {
 					allowedRoles={allowedRoles}
 				>
 					<Route exact path={`${path}/dashboard`}>
-						<Dashboard currentUser={currentUser} />
+						<DashboardPageContainer currentUser={currentUser} />
 					</Route>
 					<Route exact path={`${path}/roles`}>
 						<UsersPage />

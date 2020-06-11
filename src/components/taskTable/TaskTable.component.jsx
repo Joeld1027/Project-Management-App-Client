@@ -19,11 +19,11 @@ export const TaskTable = ({
 		handleLabel: (action) => {
 			switch (action.priority) {
 				case 'medium':
-					return '#fbbd08';
+					return '#CA8300';
 				case 'high':
-					return '#FF6361';
+					return '#FF7400';
 				default:
-					return '#51C63E';
+					return '#038080';
 			}
 		},
 		displayData: function (tasks = allTasks) {
@@ -36,14 +36,9 @@ export const TaskTable = ({
 							<Label color='blue'>{tasks.status}</Label>
 						</Table.Cell>
 						<Table.Cell>
-							<Label
-								style={{
-									backgroundColor: this.handleLabel(tasks),
-									color: 'white',
-								}}
-							>
-								{tasks.priority}
-							</Label>
+							<b style={{ color: this.handleLabel(tasks) }}>
+								{tasks.priority.toUpperCase()}
+							</b>
 						</Table.Cell>
 						{usefor === 'mainTable' ? (
 							<Fragment>
