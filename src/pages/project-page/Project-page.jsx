@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import { selectFilteredTasks } from '../../redux/tasks/tasks.selectors';
@@ -19,6 +19,7 @@ const ProjectPage = ({
 }) => {
 	let { path } = useRouteMatch();
 	const user = currentUser.userInfo;
+	const [activeIndex, setActiveIndex] = useState(0);
 	const panes = [
 		{
 			menuItem: 'Projects',
@@ -32,11 +33,20 @@ const ProjectPage = ({
 			menuItem: 'Create Project',
 			render: () => (
 				<Tab.Pane>
-					<ProjectForm users={users} user={user} tasks={allTasks} />
+					<ProjectForm
+						setActiveIndex={setActiveIndex}
+						users={users}
+						user={user}
+						tasks={allTasks}
+					/>
 				</Tab.Pane>
 			),
 		},
 	];
+
+	const handleIndex = (event, data) => {
+		setActiveIndex(data.activeIndex);
+	};
 
 	return (
 		<Switch>
@@ -49,7 +59,11 @@ const ProjectPage = ({
 							<Header.Subheader>Projects details.</Header.Subheader>
 						</Header>
 						{allProjects && (
-							<Tab panes={panes} defaultActiveIndex={0} />
+							<Tab
+								activeIndex={activeIndex}
+								panes={panes}
+								onTabChange={handleIndex}
+							/>
 						)}
 					</Container>
 				</ProjectPageContainer>

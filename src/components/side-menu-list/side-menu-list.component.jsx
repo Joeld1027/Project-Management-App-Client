@@ -5,7 +5,7 @@ import {
 	OptionLink,
 	OptionsContainer,
 } from './side-menu-list.styles';
-import { List, Icon, Dropdown } from 'semantic-ui-react';
+import { List, Icon, Dropdown, Button } from 'semantic-ui-react';
 
 const MenuItems = ({ currentUser, logout }) => {
 	const options = [
@@ -20,8 +20,15 @@ const MenuItems = ({ currentUser, logout }) => {
 		},
 		{
 			key: 'sign-out',
-			text: <button onClick={logout}>logout</button>,
-			icon: 'sign out',
+			text: (
+				<Button
+					icon='sign-out'
+					basic
+					color='black'
+					onClick={logout}
+					content='Logout'
+				/>
+			),
 		},
 	];
 	const { name, role } = currentUser.userInfo;
@@ -43,6 +50,7 @@ const MenuItems = ({ currentUser, logout }) => {
 	return (
 		<OptionsContainer>
 			<Dropdown
+				compact
 				trigger={trigger}
 				options={options}
 				pointing='top left'

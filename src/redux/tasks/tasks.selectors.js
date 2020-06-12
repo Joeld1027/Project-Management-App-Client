@@ -19,3 +19,9 @@ export const selectOneTask = (id) =>
 		});
 		return foundTask;
 	});
+
+export const selectCurrentTaskComments = (id) =>
+	createSelector([selectTasks], (tasks) => {
+		let foundComments = tasks.tasks.find((task) => task._id === id);
+		return foundComments.comments;
+	});

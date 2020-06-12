@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
 	Form,
-	Image,
+	Icon,
 	Grid,
 	Header,
 	Checkbox,
@@ -105,7 +105,7 @@ export const ProjectEditForm = ({
 			</Form>
 
 			<Grid padded stackable>
-				<Grid.Row divided stretched>
+				<Grid.Row divided>
 					<Grid.Column width={8}>
 						<Header
 							as='h2'
@@ -129,11 +129,7 @@ export const ProjectEditForm = ({
 									<Table.Row key={dev._id}>
 										<Table.Cell>
 											<Header as='h4' image>
-												<Image
-													src='https://react.semantic-ui.com/images/avatar/small/lena.png'
-													rounded
-													size='mini'
-												/>
+												<Icon name='user' />
 												<Header.Content>
 													{dev.name}
 													<Header.Subheader>
@@ -165,7 +161,7 @@ export const ProjectEditForm = ({
 						</Table>
 					</Grid.Column>
 
-					<Grid.Column width={8}>
+					<Grid.Column width={8} stretched>
 						<Header
 							as='h2'
 							content='Project Tasks'

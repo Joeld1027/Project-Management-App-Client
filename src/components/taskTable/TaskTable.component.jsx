@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Table, Label, Checkbox } from 'semantic-ui-react';
 import { SearchAndTable } from '../search&table/search&table.component';
-import LinkButton from '../create-button/create-button.component';
+import LinkButton from '../Link-Button/create-button.component';
 
 export const TaskTable = ({
 	allTasks,
@@ -19,26 +19,40 @@ export const TaskTable = ({
 		handleLabel: (action) => {
 			switch (action.priority) {
 				case 'medium':
-					return '#CA8300';
-				case 'high':
 					return '#FF7400';
+				case 'high':
+					return '#E1005B';
 				default:
-					return '#038080';
+					return '#007979';
 			}
 		},
 		displayData: function (tasks = allTasks) {
 			return tasks.map((tasks) => {
 				return (
-					<Table.Row key={tasks._id}>
+					<Table.Row
+						key={tasks._id}
+						warning={
+							tasks.priority === 'high' && tasks.status !== 'Resolved'
+								? true
+								: false
+						}
+					>
 						<Table.Cell>{tasks.name}</Table.Cell>
 						<Table.Cell>{tasks.category}</Table.Cell>
 						<Table.Cell>
-							<Label color='blue'>{tasks.status}</Label>
+							<Label basic color='teal'>
+								{tasks.status}
+							</Label>
 						</Table.Cell>
 						<Table.Cell>
-							<b style={{ color: this.handleLabel(tasks) }}>
-								{tasks.priority.toUpperCase()}
-							</b>
+							<Label
+								style={{
+									color: 'white',
+									backgroundColor: this.handleLabel(tasks),
+								}}
+							>
+								{tasks.priority}
+							</Label>
 						</Table.Cell>
 						{usefor === 'mainTable' ? (
 							<Fragment>

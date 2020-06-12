@@ -31,7 +31,7 @@ const ProjectDetails = ({ project, currentUser }) => {
 		<div>
 			<Breadcrumb>
 				<Breadcrumb.Section onClick={returnBack} link>
-					Projects
+					<Breadcrumb.Divider icon='left arrow' /> Projects
 				</Breadcrumb.Section>
 				<Breadcrumb.Divider />
 				<Breadcrumb.Section active>Details</Breadcrumb.Section>

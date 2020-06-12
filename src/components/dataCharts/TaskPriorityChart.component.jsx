@@ -1,5 +1,6 @@
 import React from 'react';
 import { Doughnut, HorizontalBar } from 'react-chartjs-2';
+import { Header } from 'semantic-ui-react';
 
 export const DoughnutChart = ({ projectTasks, horizontal }) => {
 	const getPriorityLength = (arr) => {
@@ -13,19 +14,24 @@ export const DoughnutChart = ({ projectTasks, horizontal }) => {
 		};
 	};
 	let { low, medium, high } = getPriorityLength(projectTasks);
-	console.log(projectTasks);
 
 	const chartData = {
 		labels: ['Low', 'Medium', 'High'],
 		datasets: [
 			{
 				data: [low, medium, high],
-				backgroundColor: ['#573ECB', '#FFCE00', '#FF7400'],
+				backgroundColor: ['#007979', '#FF7400', '#E1005B'],
 			},
 		],
 	};
 	return (
 		<div>
+			<Header
+				color='teal'
+				content='Tasks By Priority'
+				as='h2'
+				textAlign='center'
+			/>
 			{horizontal ? (
 				<HorizontalBar
 					data={chartData}
@@ -34,9 +40,7 @@ export const DoughnutChart = ({ projectTasks, horizontal }) => {
 							display: false,
 						},
 						title: {
-							display: true,
-							text: 'Tasks by priority',
-							fontSize: 20,
+							display: false,
 						},
 						scales: {
 							xAxes: [

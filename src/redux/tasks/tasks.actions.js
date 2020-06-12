@@ -18,6 +18,14 @@ export const taskCreated = () => ({
 	type: TasksActionTypes.TASK_CREATED,
 });
 
+export const createdComment = (comment, taskId) => ({
+	type: TasksActionTypes.CREATE_TASK_COMMENT,
+	payload: {
+		comment,
+		taskId,
+	},
+});
+
 export const getAllTasks = () => {
 	return async (dispatch) => {
 		apiCall('get', 'http://localhost:5000/api/tasks')
@@ -65,5 +73,22 @@ export const updateTask = (id, data) => {
 				dispatch(isDoneLoading());
 			})
 			.catch((err) => console.log(err));
+	};
+};
+
+export const createTaskComment = (comment, taskId) => {
+	return async (dispatch) => {
+		try {
+			await dispatch(isLoading());
+			let createdTaskComment = await apiCall(
+				'post',
+				'http://localhost:5000/api/comments',
+				comment
+			);
+			await dispatch(createdComment(createdTaskComment, taskId));
+			await dispatch(isDoneLoading());
+		} catch (err) {
+			console.log(err);
+		}
 	};
 };

@@ -14,6 +14,7 @@ import {
 	Radio,
 	Select,
 	Label,
+	Breadcrumb,
 } from 'semantic-ui-react';
 
 const options = [
@@ -27,6 +28,7 @@ const options = [
 function TaskForm({ createTask, allProjects, isLoading, editData }) {
 	const INITIAL_STATE = {
 		name: editData ? editData.name : '',
+		createdBy: '',
 		description: '' || (editData && editData.description),
 		category: '' || (editData && editData.category),
 		priority: '' || (editData && editData.priority),
@@ -72,6 +74,11 @@ function TaskForm({ createTask, allProjects, isLoading, editData }) {
 
 	return (
 		<div>
+			<Breadcrumb size='large' onClick={() => history.goBack()}>
+				<Breadcrumb.Section link>
+					<Breadcrumb.Divider icon='left arrow' /> Back
+				</Breadcrumb.Section>
+			</Breadcrumb>
 			<Header
 				as='h1'
 				content={editData ? '' : 'CREATE TASK'}

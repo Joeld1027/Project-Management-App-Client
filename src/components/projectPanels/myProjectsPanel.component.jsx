@@ -1,12 +1,22 @@
 import React, { Suspense } from 'react';
 import { Table, Progress } from 'semantic-ui-react';
 import { SearchAndTable } from '../search&table/search&table.component';
-import LinkButton from '../create-button/create-button.component';
+import LinkButton from '../Link-Button/create-button.component';
 import { useRouteMatch } from 'react-router-dom';
 
 export default function MyProjectsPanel(props) {
 	let { url } = useRouteMatch();
 	const tableData = {
+		getResolvedTasksPercent: function (project) {
+			let countTask =
+				(project.projectTasks.filter(
+					(task) => task.status === 'Resolved'
+				).length /
+					project.projectTasks.length) *
+				100;
+
+			return countTask;
+		},
 		labels: ['Project', 'Progress', 'Created', 'Deadline', 'Details'],
 		data: props.projects,
 		displayData: function (projects = props.projects) {
@@ -16,10 +26,16 @@ export default function MyProjectsPanel(props) {
 						<Table.Cell>{project.name}</Table.Cell>
 						<Table.Cell>
 							<Progress
+								label={
+									project.projectTasks.length === 0
+										? 0 + '%'
+										: `${this.getResolvedTasksPercent(
+												project
+										  ).toFixed(1)}%`
+								}
+								indicating
 								color='green'
-								value='4'
-								total='5'
-								progress='percent'
+								percent={this.getResolvedTasksPercent(project)}
 							/>
 						</Table.Cell>
 						<Table.Cell>

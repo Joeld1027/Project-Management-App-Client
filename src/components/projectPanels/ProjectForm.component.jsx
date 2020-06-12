@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+
 import { connect } from 'react-redux';
 import {
 	Form,
@@ -16,7 +17,13 @@ import { TaskTable } from '../taskTable/TaskTable.component';
 import { ContentLoader } from '../ContentLoader/ContentLoader.component';
 import { UserTable } from '../user-table/UserTable.component';
 
-function ProjectForm({ users, createProject, user, tasks }) {
+function ProjectForm({
+	users,
+	createProject,
+	user,
+	tasks,
+	setActiveIndex,
+}) {
 	const [formData, setformData] = useState({
 		name: '',
 		description: '',
@@ -36,6 +43,7 @@ function ProjectForm({ users, createProject, user, tasks }) {
 		createProject(formData)
 			.then(() => {
 				console.log('Project Created');
+				setActiveIndex(0);
 			})
 			.catch((err) => {
 				console.log(err);

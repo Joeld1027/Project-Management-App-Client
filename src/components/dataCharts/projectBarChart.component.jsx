@@ -35,19 +35,19 @@ export const ProjectBarChart = ({ projects }) => {
 		labels: projectLabels,
 		datasets: [
 			{
-				barPercentage: 0.7,
+				barPercentage: 0.8,
 				label: 'Tasks Resolved',
 				backgroundColor: '#00686D',
 				data: Resolved,
 			},
 			{
-				barPercentage: 0.7,
+				barPercentage: 0.8,
 				label: 'Tasks In Progress',
 				backgroundColor: '#00b5bd',
 				data: InProgress,
 			},
 			{
-				barPercentage: 0.7,
+				barPercentage: 0.8,
 				label: 'Tasks Pending',
 				backgroundColor: 'rgba(71, 87, 110, 0.5)',
 				data: Pending,
@@ -60,9 +60,7 @@ export const ProjectBarChart = ({ projects }) => {
 				data={chartData}
 				options={{
 					title: {
-						display: true,
-						text: 'Assigned Projects Overview',
-						fontSize: 20,
+						display: false,
 					},
 					scales: {
 						yAxes: [

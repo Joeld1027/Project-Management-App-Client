@@ -7,7 +7,7 @@ import {
 	Container,
 	Select,
 } from 'semantic-ui-react';
-import LinkButton from '../../components/create-button/create-button.component';
+import LinkButton from '../../components/Link-Button/create-button.component';
 import { UsersPageContainer } from './user-page.styles';
 import { SearchAndTable } from '../../components/search&table/search&table.component';
 import { useRouteMatch } from 'react-router-dom';
@@ -79,7 +79,6 @@ const UsersPage = ({ users, updateUserInfo, isLoading }) => {
 								noSegment
 								typeAs='h4'
 								icon='edit'
-								disabled={true}
 								id={user.id}
 								url={`${url}/${user.id}`}
 							/>

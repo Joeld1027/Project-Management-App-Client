@@ -4,7 +4,7 @@ import { Container, Header } from 'semantic-ui-react';
 
 import { connect } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
-import LinkButton from '../../components/create-button/create-button.component';
+import LinkButton from '../../components/Link-Button/create-button.component';
 
 import { selectAllTasks } from '../../redux/tasks/tasks.selectors';
 import { TaskTable } from '../../components/taskTable/TaskTable.component';

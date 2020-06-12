@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
 	Container,
@@ -10,17 +10,17 @@ import {
 	Segment,
 	Grid,
 	List,
-	Image,
 	Header,
-	Feed,
 	Label,
 	Button,
 } from 'semantic-ui-react';
 import { updateTask } from '../../redux/tasks/tasks.actions';
-import Comments from '../../components/comments/Comments.component';
+
+import CommentsContainer from '../../components/comments/commentsContainer.component';
 import { selectOneTask } from '../../redux/tasks/tasks.selectors';
 import TaskEditModal from './task-edit-modal.component';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { setState } from '../../services/apicall';
 
 const sections = [
 	{ key: 'Home', content: 'Tasks', link: true },
@@ -35,6 +35,7 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 	const [completeTask] = useState({
 		status: 'Resolved',
 	});
+	const dispatch = useDispatch();
 	const {
 		name,
 		description,
@@ -66,6 +67,7 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 				`http://localhost:5000/api/tasks/${_id}`,
 				data
 			);
+			setState(dispatch);
 			console.log('done');
 		} catch (err) {
 			console.log(err);
@@ -83,7 +85,10 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 				icon='right angle'
 				sections={sections}
 			/>
-			{role === 'Admin' && (
+			{(role === 'Admin' ||
+				role === 'Demo-Manager' ||
+				role === 'Demo-Developer' ||
+				role === 'Demo-Admin') && (
 				<Header floated='right'>
 					<TaskEditModal editData={editData} />
 				</Header>
@@ -153,42 +158,10 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 					</Grid.Column>
 				</Grid.Row>
 
-				<Grid.Row centered divided>
-					<Grid.Column width={8}>
-						<Segment padded>
-							<Header textAlign='center' content='Assigned Devs' />
-							<List divided verticalAlign='middle'>
-								<List.Item>
-									<Image
-										avatar
-										src='https://react.semantic-ui.com/images/avatar/small/daniel.jpg'
-									/>
-									<List.Content>
-										<List.Header as='a'>Daniel Louise</List.Header>
-									</List.Content>
-								</List.Item>
-							</List>
-							<Header textAlign='center' content='Task History' />
-							<Feed>
-								<Feed.Event
-									icon='pencil'
-									date='Today'
-									summary="You posted on your friend Stevie Feliciano's wall."
-								/>
-
-								<Feed.Event>
-									<Feed.Label icon='pencil' />
-									<Feed.Content
-										date='Today'
-										summary="You posted on your friend Stevie Feliciano's wall."
-									/>
-								</Feed.Event>
-							</Feed>
-						</Segment>
-					</Grid.Column>
-					<Grid.Column width={8}>
+				<Grid.Row centered>
+					<Grid.Column>
 						<Header textAlign='center' content='Comments' />
-						<Comments />
+						{_id && <CommentsContainer taskId={_id} />}
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
