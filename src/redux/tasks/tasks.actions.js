@@ -26,13 +26,28 @@ export const createdComment = (comment, taskId) => ({
 	},
 });
 
+export const updatedTaskComment = (comment, taskId) => ({
+	type: TasksActionTypes.UPDATE_TASK_COMMENT,
+	payload: {
+		comment,
+		taskId,
+	},
+});
+
+export const deleteTaskComment = (commentId, taskId) => ({
+	type: TasksActionTypes.DELETE_TASK_COMMENT,
+	payload: {
+		commentId,
+		taskId,
+	},
+});
+
 export const getAllTasks = () => {
 	return async (dispatch) => {
 		apiCall('get', 'http://localhost:5000/api/tasks')
 			.then((tasks) => {
 				dispatch(setAllTasks(tasks));
 			})
-
 			.catch((err) => {
 				console.log(err);
 			});
@@ -86,6 +101,42 @@ export const createTaskComment = (comment, taskId) => {
 				comment
 			);
 			await dispatch(createdComment(createdTaskComment, taskId));
+			await dispatch(isDoneLoading());
+		} catch (err) {
+			console.log(err);
+		}
+	};
+};
+
+export const updateComment = (commentId, commentData, taskId) => {
+	return async (dispatch) => {
+		try {
+			await dispatch(isLoading());
+			let updatedComment = await apiCall(
+				'patch',
+				`http://localhost:5000/api/comments/${commentId}`,
+				commentData
+			);
+			await dispatch(updatedTaskComment(updatedComment, taskId));
+			await dispatch(isDoneLoading());
+		} catch (err) {
+			console.log(err);
+		}
+	};
+};
+
+export const deleteComment = (commentId, taskId) => {
+	console.log(commentId);
+	return async (dispatch) => {
+		try {
+			console.log(commentId);
+			await dispatch(isLoading());
+			await apiCall(
+				'delete',
+				`http://localhost:5000/api/comments/${commentId}`,
+				taskId
+			);
+			await dispatch(deleteTaskComment(commentId, taskId));
 			await dispatch(isDoneLoading());
 		} catch (err) {
 			console.log(err);
