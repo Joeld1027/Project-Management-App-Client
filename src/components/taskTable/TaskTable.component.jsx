@@ -39,14 +39,15 @@ export const TaskTable = ({
 					>
 						<Table.Cell>{tasks.name}</Table.Cell>
 						<Table.Cell>{tasks.category}</Table.Cell>
-						<Table.Cell>
-							<Label basic color='teal'>
+						<Table.Cell textAlign='center'>
+							<Label basic color='teal' style={{ width: '100%' }}>
 								{tasks.status}
 							</Label>
 						</Table.Cell>
-						<Table.Cell>
+						<Table.Cell textAlign='center'>
 							<Label
 								style={{
+									width: '100%',
 									color: 'white',
 									backgroundColor: this.handleLabel(tasks),
 								}}

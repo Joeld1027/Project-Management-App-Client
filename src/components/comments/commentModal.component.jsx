@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, Form } from 'semantic-ui-react';
+import { Button, Modal, Form, Header } from 'semantic-ui-react';
 
 const CommentEditModal = ({
 	commentId,
@@ -13,7 +13,7 @@ const CommentEditModal = ({
 				Edit
 			</Button>
 		}
-		header='Reminder!'
+		header={<Header icon='edit' content='Edit Comment' />}
 		content={
 			<Form
 				reply

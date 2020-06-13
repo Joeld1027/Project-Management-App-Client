@@ -42,6 +42,7 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 		category,
 		priority,
 		createdDate,
+		createdBy,
 		assignedProject,
 		assignedDevs,
 		status,
@@ -80,24 +81,49 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 
 	return (
 		<Container>
-			<Breadcrumb
-				onClick={returnBack}
-				icon='right angle'
-				sections={sections}
-			/>
-			{(role === 'Admin' ||
-				role === 'Demo-Manager' ||
-				role === 'Demo-Developer' ||
-				role === 'Demo-Admin') && (
-				<Header floated='right'>
-					<TaskEditModal editData={editData} />
-				</Header>
-			)}
+			<div>
+				<Breadcrumb
+					onClick={returnBack}
+					icon='right angle'
+					sections={sections}
+				/>
+				{(role === 'Admin' ||
+					role === 'Demo-Manager' ||
+					role === 'Demo-Developer' ||
+					role === 'Demo-Admin') && (
+					<Header floated='right'>
+						<TaskEditModal editData={editData} />
+					</Header>
+				)}
+			</div>
+
 			<Divider />
 
-			<Grid relaxed stackable>
-				<Grid.Row columns={3}>
-					<Grid.Column width={6}>
+			<Grid relaxed stackable stretched>
+				<Grid.Row>
+					<Grid.Column width={8}>
+						{assignedDevs &&
+							(status === 'Pending' && assignedDevs.length === 0 ? (
+								<Button
+									attached='top'
+									onClick={() =>
+										updateUserAndStatus(assignUserToTask)
+									}
+									primary
+									icon='tasks'
+									content='Start Task'
+								/>
+							) : null)}
+						{status === 'In Progress' &&
+						userId === assignedDevs[0]._id ? (
+							<Button
+								attached='top'
+								onClick={() => updateUserAndStatus(completeTask)}
+								positive
+								icon='check'
+								content='Complete Task'
+							/>
+						) : null}
 						<Card
 							fluid
 							extra={`Current Project: ${
@@ -115,7 +141,7 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 							description={description}
 						/>
 					</Grid.Column>
-					<Grid.Column width={7}>
+					<Grid.Column width={6}>
 						<Segment raised compact color='teal'>
 							<List horizontal>
 								<List.Item
@@ -128,33 +154,10 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 								<List.Item header='Priority' description={priority} />
 								<List.Item
 									header='Created By'
-									description='Creator name'
+									description={createdBy ? createdBy : 'N/A'}
 								/>
 							</List>
 						</Segment>
-					</Grid.Column>
-					<Grid.Column width={3}>
-						{assignedDevs &&
-							(status === 'Pending' && assignedDevs.length === 0 ? (
-								<Button
-									onClick={() =>
-										updateUserAndStatus(assignUserToTask)
-									}
-									primary
-									icon='tasks'
-									content='Start Task'
-								/>
-							) : null)}
-						{status === 'In Progress' &&
-						userId === assignedDevs[0] ? (
-							<Button
-								compact
-								onClick={() => updateUserAndStatus(completeTask)}
-								positive
-								icon='check'
-								content='Complete Task'
-							/>
-						) : null}
 					</Grid.Column>
 				</Grid.Row>
 

@@ -53,10 +53,12 @@ const ProjectPage = ({
 			<Route exact path={path}>
 				<ProjectPageContainer>
 					<Container>
-						<Header as='h1' icon dividing textAlign='center'>
-							PROJECTS
+						<Header icon as='h1' dividing textAlign='center'>
 							<Icon name='sitemap' />
-							<Header.Subheader>Projects details.</Header.Subheader>
+							<Header.Content>
+								PROJECTS
+								<Header.Subheader>Projects details.</Header.Subheader>
+							</Header.Content>
 						</Header>
 						{allProjects && (
 							<Tab

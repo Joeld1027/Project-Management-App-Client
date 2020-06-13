@@ -58,7 +58,7 @@ const StatusDoughnutChart = ({ currentTasks }) => {
 				content='Total Tasks from all Projects assigned to You.'
 				textAlign='center'
 			/>
-			<Grid>
+			<Grid stackable>
 				<Grid.Row>
 					<Grid.Column width={5}>
 						<Segment raised color='grey' textAlign='center'>

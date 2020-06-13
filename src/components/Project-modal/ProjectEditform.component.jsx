@@ -113,7 +113,13 @@ export const ProjectEditForm = ({
 							textAlign='center'
 						/>
 
-						<Table basic='very' celled collapsing size='large'>
+						<Table
+							basic='very'
+							celled
+							collapsing
+							size='large'
+							stackable
+						>
 							<Table.Header>
 								<Table.Row>
 									{labels.map((label) => (

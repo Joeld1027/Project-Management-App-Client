@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { selectAllProjects } from '../../redux/projects/projects.selectors';
+import { selectCurrentUserInfo } from '../../redux/user/user.selectors';
 import { connect, useDispatch } from 'react-redux';
 import { setState } from '../../services/apicall';
 import { createTask } from '../../redux/tasks/tasks.actions';
@@ -25,10 +26,16 @@ const options = [
 	{ key: 's', text: 'Software', value: 'Software' },
 ];
 
-function TaskForm({ createTask, allProjects, isLoading, editData }) {
+function TaskForm({
+	createTask,
+	allProjects,
+	isLoading,
+	editData,
+	currentUser,
+}) {
 	const INITIAL_STATE = {
 		name: editData ? editData.name : '',
-		createdBy: '',
+		createdBy: '' || currentUser.name,
 		description: '' || (editData && editData.description),
 		category: '' || (editData && editData.category),
 		priority: '' || (editData && editData.priority),
@@ -197,6 +204,7 @@ const mapStateToProps = (state) => {
 	return {
 		allProjects: selectAllProjects(state),
 		isLoading: state.tasks.isLoading,
+		currentUser: selectCurrentUserInfo(state),
 	};
 };
 

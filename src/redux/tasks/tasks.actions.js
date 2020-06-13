@@ -124,19 +124,21 @@ export const updateComment = (commentId, commentData, taskId) => {
 		}
 	};
 };
-
-export const deleteComment = (commentId, taskId) => {
-	console.log(commentId);
+export const deleteComment = (commentId, updateTaskId) => {
+	let updateTaskIdObj = { updateTaskId: updateTaskId };
 	return async (dispatch) => {
 		try {
-			console.log(commentId);
 			await dispatch(isLoading());
 			await apiCall(
-				'delete',
+				'patch',
 				`http://localhost:5000/api/comments/${commentId}`,
-				taskId
+				updateTaskIdObj
 			);
-			await dispatch(deleteTaskComment(commentId, taskId));
+			await apiCall(
+				'delete',
+				`http://localhost:5000/api/comments/${commentId}`
+			);
+			await dispatch(deleteTaskComment(commentId, updateTaskId));
 			await dispatch(isDoneLoading());
 		} catch (err) {
 			console.log(err);

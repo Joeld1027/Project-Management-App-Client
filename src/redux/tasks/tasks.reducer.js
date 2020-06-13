@@ -11,7 +11,6 @@ const INITIAL_STATE = {
 };
 
 const TasksReducer = (state = INITIAL_STATE, action) => {
-	console.log(action);
 	switch (action.type) {
 		case TasksActionTypes.IS_LOADING:
 			return {

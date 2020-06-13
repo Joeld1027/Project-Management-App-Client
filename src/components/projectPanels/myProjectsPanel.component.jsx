@@ -24,7 +24,7 @@ export default function MyProjectsPanel(props) {
 				return (
 					<Table.Row key={project._id} verticalAlign='top'>
 						<Table.Cell>{project.name}</Table.Cell>
-						<Table.Cell>
+						<Table.Cell width={4}>
 							<Progress
 								label={
 									project.projectTasks.length === 0

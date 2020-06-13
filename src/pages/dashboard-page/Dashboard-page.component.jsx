@@ -31,7 +31,7 @@ const Dashboard = ({ currentProjects, currentTasks }) => {
 				<Grid stackable>
 					<Grid.Row centered>
 						<Grid.Column textAlign='center' width={10}>
-							<Segment padded>
+							<Segment padded raised>
 								<Header
 									color='teal'
 									content='Assigned Projects Progression Overviewy'
@@ -42,7 +42,7 @@ const Dashboard = ({ currentProjects, currentTasks }) => {
 							</Segment>
 						</Grid.Column>
 						<Grid.Column stretched width={6}>
-							<Segment padded>
+							<Segment padded raised>
 								<Header
 									as='h2'
 									color='teal'
@@ -75,12 +75,12 @@ const Dashboard = ({ currentProjects, currentTasks }) => {
 
 					<Grid.Row stretched>
 						<Grid.Column width={8}>
-							<Segment>
+							<Segment raised>
 								<TaskCategoryCharts currentTasks={currentTasks} />
 							</Segment>
 						</Grid.Column>
 						<Grid.Column width={8}>
-							<Segment>
+							<Segment raised>
 								<DoughnutChart
 									projectTasks={currentTasks}
 									horizontal
