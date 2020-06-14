@@ -123,7 +123,7 @@ function TaskForm({
 								/>
 							</Form.Field>
 							<Form.Field>
-								<label>ASSIGN TO PROJECT</label>
+								<label>PROJECT:</label>
 								{editData && editData.project ? (
 									<Label basic color='teal'>
 										{editData.project.name.toUpperCase()}

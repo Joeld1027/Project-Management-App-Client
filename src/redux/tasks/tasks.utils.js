@@ -25,5 +25,6 @@ export const deleteTaskComment = (
 		(comment) => comment._id !== commentId
 	);
 	newArr[taskIndex].comments = newCommentsArr;
+
 	return newArr;
 };

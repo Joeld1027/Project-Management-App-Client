@@ -21,6 +21,15 @@ const PageContent = ({ currentUser, ...props }) => {
 	const { role } = currentUser.userInfo || {};
 	let allowedRoles = [];
 	switch (pathname) {
+		case '/user':
+			allowedRoles = [
+				'Demo-Developer',
+				'Demo-Manager',
+				'Demo-Admin',
+				'Admin',
+				'Demo-Submiter',
+			];
+			break;
 		case '/user/projects':
 		case '/user/projects/:id':
 			allowedRoles = ['Demo-Manager', 'Demo-Admin', 'Admin'];
@@ -43,6 +52,7 @@ const PageContent = ({ currentUser, ...props }) => {
 				'Demo-Admin',
 				'Admin',
 				'Demo-Submiter',
+				'Submitter',
 			];
 			break;
 	}

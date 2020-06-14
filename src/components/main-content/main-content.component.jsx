@@ -10,7 +10,7 @@ const MainContent = ({ isAuthenticated, currentUser }) => {
 	SetState();
 	const { role } = currentUser.userInfo || {};
 	const allowedRoles = [
-		'Demo-Submiter',
+		'Demo-Submitter',
 		'Demo-Developer',
 		'Demo-Manager',
 		'Demo-Admin',

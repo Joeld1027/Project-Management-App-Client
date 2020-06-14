@@ -13,33 +13,40 @@ const Profile = ({ currentUser }) => {
 	const { name, email, userSince, role } = currentUser.userInfo;
 	const joined = new Date(userSince).toDateString();
 	return (
-		<Container>
+		<Container text>
+			<Header as='h2' textAlign='center' icon>
+				<Icon name='settings' />
+				Account Settings
+				<Header.Subheader>
+					Verify and update user information.
+				</Header.Subheader>
+			</Header>
+			<Divider />
 			<ProfileContainer>
-				<Header as='h2' icon floated='left'>
-					<Icon name='settings' />
-					Account Settings
-					<Header.Subheader>
-						Verify and update user information.
-					</Header.Subheader>
-				</Header>
-				<Divider />
-				<Segment raised padded color='black'>
-					<List size='large' divided relaxed>
+				<Segment
+					raised
+					padded='very'
+					color='teal'
+					style={{ minHeight: '300px' }}
+					size='large'
+				>
+					<List size='large' divided relaxed className='profile-list'>
 						<List.Item>
+							<List.Content floated='right'>{name}</List.Content>
 							<List.Header>Full Name</List.Header>
-							{name}
 						</List.Item>
 						<List.Item>
+							<List.Content floated='right'>{email}</List.Content>
+
 							<List.Header>Email</List.Header>
-							{email}
 						</List.Item>
 						<List.Item>
+							<List.Content floated='right'>{role}</List.Content>
 							<List.Header>Role</List.Header>
-							{role}
 						</List.Item>
 						<List.Item>
+							<List.Content floated='right'> {joined}</List.Content>
 							<List.Header>User since</List.Header>
-							{joined}
 						</List.Item>
 					</List>
 				</Segment>

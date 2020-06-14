@@ -1,6 +1,9 @@
 import React from 'react';
 import { LandingPageContainer } from './landing.styles';
 import { connect } from 'react-redux';
+import projectimg from '../../assets/projectlanding.png';
+import taskimg from '../../assets/tasks.png';
+import Collab from '../../assets/collab.svg';
 import logo from '../../assets/Logo3.png';
 import { logout } from '../../redux/user/user.actions';
 import {
@@ -16,7 +19,7 @@ import {
 	List,
 } from 'semantic-ui-react';
 
-const Landing = ({}) => {
+const Landing = () => {
 	let mobile = false;
 
 	return (
@@ -29,16 +32,31 @@ const Landing = ({}) => {
 				style={{ backgroundColor: '#303e51', marginBottom: '0' }}
 			>
 				<Container>
-					<Menu.Item header as='a'>
+					<Menu.Item header>
 						<Image
 							size='tiny'
 							src={logo}
 							style={{ marginRight: '1.5em' }}
 						/>
-						Project Tracker
+						CreativeJ Management
 					</Menu.Item>
 					<Menu.Menu position='right'>
-						<Menu.Item name='logout' />
+						<Menu.Item>
+							<Button
+								style={{ backgroundColor: '#524C73', color: '#fff' }}
+								size='huge'
+							>
+								Log In
+							</Button>
+						</Menu.Item>
+						<Menu.Item>
+							<Button
+								style={{ backgroundColor: '#524C73', color: '#fff' }}
+								size='huge'
+							>
+								Get-Started
+							</Button>
+						</Menu.Item>
 					</Menu.Menu>
 				</Container>
 			</Menu>
@@ -47,7 +65,7 @@ const Landing = ({}) => {
 					<Header
 						inverted
 						as='h1'
-						content='Imagine-a-Company'
+						content='Keep your remote team coordinated'
 						style={{
 							fontSize: mobile ? '2em' : '4em',
 							fontWeight: 'normal',
@@ -57,7 +75,7 @@ const Landing = ({}) => {
 					<Header
 						inverted
 						as='h2'
-						content='Do whatever you want when you want to.'
+						content='Organize your projects, from wherever you are.'
 						style={{
 							fontSize: mobile ? '1.5em' : '1.7em',
 							fontWeight: 'normal',
@@ -77,35 +95,17 @@ const Landing = ({}) => {
 				<Grid container stackable verticalAlign='middle'>
 					<Grid.Row>
 						<Grid.Column width={8}>
-							<Header as='h3' style={{ fontSize: '2em' }}>
-								We Help Companies and Companions
+							<Header as='h3' style={{ fontSize: '2.3em' }}>
+								We help teams stay connected.
 							</Header>
-							<p style={{ fontSize: '1.33em' }}>
-								We can give your company superpowers to do things that
-								they never thought possible. Let us delight your
-								customers and empower your needs... through pure data
-								analytics.
-							</p>
-							<Header as='h3' style={{ fontSize: '2em' }}>
-								We Make Bananas That Can Dance
-							</Header>
-							<p style={{ fontSize: '1.33em' }}>
-								Yes that's right, you thought it was the stuff of
-								dreams, but even bananas can be bioengineered.
+							<p style={{ fontSize: '1.4em' }}>
+								With the powerful task creation and tracking, we can
+								help remote teams stay on the same page across all
+								their projects.
 							</p>
 						</Grid.Column>
 						<Grid.Column floated='right' width={6}>
-							<Image
-								bordered
-								rounded
-								size='large'
-								src='https://cdn.technologyadvice.com/wp-content/uploads/2019/04/Fotolia_240076353_Subscription_Monthly_M.jpg'
-							/>
-						</Grid.Column>
-					</Grid.Row>
-					<Grid.Row>
-						<Grid.Column textAlign='center'>
-							<Button size='huge'>Check Them Out</Button>
+							<Image size='large' src={Collab} />
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
@@ -115,35 +115,27 @@ const Landing = ({}) => {
 				<Grid container stackable verticalAlign='middle'>
 					<Grid.Row>
 						<Grid.Column floated='right' width={8}>
-							<Image
-								bordered
-								rounded
-								size='large'
-								src='https://cdn.technologyadvice.com/wp-content/uploads/2019/04/Fotolia_240076353_Subscription_Monthly_M.jpg'
-							/>
+							<Image size='big' src={taskimg} />
 						</Grid.Column>
 						<Grid.Column width={8}>
-							<Header as='h3' style={{ fontSize: '2em' }}>
-								We Help Companies and Companions
+							<Header as='h3' style={{ fontSize: '2.3em' }}>
+								Create and track all your tasks
 							</Header>
-							<p style={{ fontSize: '1.33em' }}>
-								We can give your company superpowers to do things that
-								they never thought possible. Let us delight your
-								customers and empower your needs... through pure data
-								analytics.
-							</p>
-							<Header as='h3' style={{ fontSize: '2em' }}>
-								We Make Bananas That Can Dance
-							</Header>
-							<p style={{ fontSize: '1.33em' }}>
-								Yes that's right, you thought it was the stuff of
-								dreams, but even bananas can be bioengineered.
+							<p style={{ fontSize: '1.4em' }}>
+								Have your team create and organize all tasks for the
+								projects. With priority selection and category
+								specification to better track issues.
 							</p>
 						</Grid.Column>
 					</Grid.Row>
 					<Grid.Row>
 						<Grid.Column textAlign='center'>
-							<Button size='huge'>Check Them Out</Button>
+							<Button
+								style={{ backgroundColor: '#524C73', color: '#fff' }}
+								size='huge'
+							>
+								Check It Out
+							</Button>
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
@@ -151,20 +143,14 @@ const Landing = ({}) => {
 
 			<Segment style={{ padding: '8em 0em' }} vertical>
 				<Container text>
-					<Header as='h3' style={{ fontSize: '2em' }}>
-						Breaking The Grid, Grabs Your Attention
+					<Header as='h3' style={{ fontSize: '2.3em' }}>
+						Powerful Dashboard to track all Projects
 					</Header>
-					<p style={{ fontSize: '1.33em' }}>
-						Instead of focusing on content creation and hard work, we
-						have learned how to master the art of doing nothing by
-						providing massive amounts of whitespace and generic
-						content that can seem massive, monolithic and worth your
-						attention.
+					<p style={{ fontSize: '1.4em' }}>
+						Take advantage of the power of data, and see how your
+						porjects are developing. Track repeated issues and
+						maintain record of your projects.
 					</p>
-					<Button as='a' size='large'>
-						Read More
-					</Button>
-
 					<Divider
 						as='h4'
 						className='header'
@@ -172,18 +158,7 @@ const Landing = ({}) => {
 						style={{ margin: '3em 0em', textTransform: 'uppercase' }}
 					/>
 
-					<Header as='h3' style={{ fontSize: '2em' }}>
-						Did We Tell You About Our Bananas?
-					</Header>
-					<p style={{ fontSize: '1.33em' }}>
-						Yes I know you probably disregarded the earlier boasts as
-						non-sequitur filler content, but it's really true. It took
-						years of gene splicing and combinatory DNA research, but
-						our bananas can really dance.
-					</p>
-					<Button as='a' size='large'>
-						I'm Still Quite Interested
-					</Button>
+					<Image size='big' src={projectimg} />
 				</Container>
 			</Segment>
 
@@ -200,24 +175,21 @@ const Landing = ({}) => {
 								<List link inverted>
 									<List.Item as='a'>Sitemap</List.Item>
 									<List.Item as='a'>Contact Us</List.Item>
-									<List.Item as='a'>Religious Ceremonies</List.Item>
-									<List.Item as='a'>Gazebo Plans</List.Item>
 								</List>
 							</Grid.Column>
 							<Grid.Column width={3}>
 								<Header inverted as='h4' content='Services' />
 								<List link inverted>
-									<List.Item as='a'>Banana Pre-Order</List.Item>
-									<List.Item as='a'>DNA FAQ</List.Item>
+									<List.Item as='a'>Team Plans</List.Item>
+									<List.Item as='a'>Yearly Subscription</List.Item>
 									<List.Item as='a'>How To Access</List.Item>
-									<List.Item as='a'>Favorite X-Men</List.Item>
 								</List>
 							</Grid.Column>
 							<Grid.Column width={7}>
 								<Header as='h4' inverted>
-									Footer Header
+									Company
 								</Header>
-								<p>@Creative Project Managment. Joel D. Infante.</p>
+								<p>@Creative Project Managment - Joel D. Infante.</p>
 							</Grid.Column>
 						</Grid.Row>
 					</Grid>

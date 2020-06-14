@@ -34,7 +34,7 @@ const Dashboard = ({ currentProjects, currentTasks }) => {
 							<Segment padded raised>
 								<Header
 									color='teal'
-									content='Assigned Projects Progression Overviewy'
+									content='Projects Progression Overview'
 									as='h2'
 									textAlign='center'
 								/>
