@@ -10,14 +10,13 @@ const DashBoardPageContainer = ({
 	currentUserProjectsTasks,
 	currentProjects,
 }) => {
-	return (
-		{
-			(currentUserProjectsTasks && currentProjects) ?
-			<Dashboard
-				currentTasks={currentUserProjectsTasks}
-				currentProjects={currentProjects}
-			/> : <div>Loading....</div>
-		}
+	return currentUserProjectsTasks && currentProjects ? (
+		<Dashboard
+			currentTasks={currentUserProjectsTasks}
+			currentProjects={currentProjects}
+		/>
+	) : (
+		<div>Loading....</div>
 	);
 };
 
