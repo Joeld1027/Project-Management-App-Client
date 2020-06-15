@@ -97,7 +97,7 @@ export const createTaskComment = (comment, taskId) => {
 			await dispatch(isLoading());
 			let createdTaskComment = await apiCall(
 				'post',
-				'http://localhost:5000/api/comments',
+				'/api/comments',
 				comment
 			);
 			await dispatch(createdComment(createdTaskComment, taskId));
@@ -114,7 +114,7 @@ export const updateComment = (commentId, commentData, taskId) => {
 			await dispatch(isLoading());
 			let updatedComment = await apiCall(
 				'patch',
-				`http://localhost:5000/api/comments/${commentId}`,
+				`/api/comments/${commentId}`,
 				commentData
 			);
 			await dispatch(updatedTaskComment(updatedComment, taskId));
@@ -131,13 +131,10 @@ export const deleteComment = (commentId, updateTaskId) => {
 			await dispatch(isLoading());
 			await apiCall(
 				'patch',
-				`http://localhost:5000/api/comments/${commentId}`,
+				`/comments/${commentId}`,
 				updateTaskIdObj
 			);
-			await apiCall(
-				'delete',
-				`http://localhost:5000/api/comments/${commentId}`
-			);
+			await apiCall('delete', `/comments/${commentId}`);
 			await dispatch(deleteTaskComment(commentId, updateTaskId));
 			await dispatch(isDoneLoading());
 		} catch (err) {

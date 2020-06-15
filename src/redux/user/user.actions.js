@@ -27,7 +27,7 @@ export const updateOneUser = (updatedUser) => ({
 export const getAllUsers = () => {
 	return (dispatch) => {
 		return new Promise((resolve, reject) => {
-			return apiCall('get', `http://localhost:5000/api/users`)
+			return apiCall('get', `/api/users`)
 				.then((users) => {
 					dispatch(getUsers(users));
 					resolve();
