@@ -27,7 +27,7 @@ export const updateOneUser = (updatedUser) => ({
 export const getAllUsers = () => {
 	return (dispatch) => {
 		return new Promise((resolve, reject) => {
-			return apiCall('get', `/api/users`)
+			return apiCall('get', `http://localhost:5000/api/users`)
 				.then((users) => {
 					dispatch(getUsers(users));
 					resolve();
@@ -43,7 +43,11 @@ export const getAllUsers = () => {
 export const updateUserInfo = (role) => {
 	return (dispatch) => {
 		dispatch(userLoading());
-		return apiCall('put', `/api/users/${role.id}`, role)
+		return apiCall(
+			'put',
+			`http://localhost:5000/api/users/${role.id}`,
+			role
+		)
 			.then((updatedUser) =>
 				dispatch(updateOneUser(updatedUser.editedUser))
 			)
@@ -68,7 +72,11 @@ export const authUser = (type, userData) => {
 	return (dispatch) => {
 		dispatch(userLoading());
 		return new Promise((resolve, reject) => {
-			return apiCall('post', `/api/auth/${type}`, userData)
+			return apiCall(
+				'post',
+				`http://localhost:5000/api/auth/${type}`,
+				userData
+			)
 				.then(({ accessToken, ...user }) => {
 					localStorage.setItem('jwToken', accessToken);
 					setAuthorizationToken(accessToken);
