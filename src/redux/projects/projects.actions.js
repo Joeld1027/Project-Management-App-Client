@@ -28,7 +28,7 @@ export const getOneProject = (id) => {
 	return (dispatch) => {
 		dispatch(projectLoading());
 
-		return apiCall('get', `http://localhost:5000/api/projects/${id}`)
+		return apiCall('get', `/api/projects/${id}`)
 			.then((foundProject) => {
 				dispatch(setOneProject(foundProject));
 			})
@@ -44,7 +44,7 @@ export const getOneProject = (id) => {
 export const createProject = (data) => {
 	return (dispatch) => {
 		dispatch(projectLoading());
-		return apiCall('post', 'http://localhost:5000/api/projects', data)
+		return apiCall('post', '/api/projects', data)
 			.then(() => {
 				setState(dispatch);
 				dispatch(projectLoaded());
@@ -58,10 +58,7 @@ export const createProject = (data) => {
 export const getAllProjects = () => {
 	return async (dispatch) => {
 		try {
-			const projects = await apiCall(
-				'get',
-				'http://localhost:5000/api/projects'
-			);
+			const projects = await apiCall('get', '/projects');
 			dispatch(setProjects(projects));
 			return projects;
 		} catch (error) {

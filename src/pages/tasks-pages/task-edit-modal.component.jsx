@@ -17,7 +17,7 @@ const TaskEditModal = ({ editData }) => {
 	};
 	const handleDelete = async () => {
 		return await axios
-			.delete(`http://localhost:5000/api/tasks/${editData._id}`)
+			.delete(`/api/tasks/${editData._id}`)
 			.then((response) => {
 				console.log(response);
 				setConfirm(!confirm);

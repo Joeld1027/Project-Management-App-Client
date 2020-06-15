@@ -64,10 +64,7 @@ const TaskDetails = ({ currentTask, currentUser, updateTask }) => {
 
 	const updateUserAndStatus = async (data) => {
 		try {
-			await axios.patch(
-				`http://localhost:5000/api/tasks/${_id}`,
-				data
-			);
+			await axios.patch(`/api/tasks/${_id}`, data);
 			setState(dispatch);
 			console.log('done');
 		} catch (err) {

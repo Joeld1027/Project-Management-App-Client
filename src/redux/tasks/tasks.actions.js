@@ -44,7 +44,7 @@ export const deleteTaskComment = (commentId, taskId) => ({
 
 export const getAllTasks = () => {
 	return async (dispatch) => {
-		apiCall('get', 'http://localhost:5000/api/tasks')
+		apiCall('get', '/api/tasks')
 			.then((tasks) => {
 				dispatch(setAllTasks(tasks));
 			})
@@ -59,7 +59,7 @@ export const createTask = (data) => {
 		const dispatchLoading = await dispatch(isLoading());
 		const createdTask = await apiCall(
 			'post',
-			'http://localhost:5000/api/tasks',
+			'/api/tasks',
 			data
 		).then(() => setState(dispatch));
 		const dispatchLoadingDone = await dispatch(isDoneLoading());
@@ -78,11 +78,7 @@ export const createTask = (data) => {
 export const updateTask = (id, data) => {
 	return async (dispatch) => {
 		dispatch(isLoading());
-		return await apiCall(
-			'patch',
-			`http://localhost:5000/api/tasks/${id}`,
-			data
-		)
+		return await apiCall('patch', `/api/tasks/${id}`, data)
 			.then(() => {
 				setState(dispatch);
 				dispatch(isDoneLoading());
@@ -97,7 +93,7 @@ export const createTaskComment = (comment, taskId) => {
 			await dispatch(isLoading());
 			let createdTaskComment = await apiCall(
 				'post',
-				'http://localhost:5000/api/comments',
+				'/api/comments',
 				comment
 			);
 			await dispatch(createdComment(createdTaskComment, taskId));
@@ -114,7 +110,7 @@ export const updateComment = (commentId, commentData, taskId) => {
 			await dispatch(isLoading());
 			let updatedComment = await apiCall(
 				'patch',
-				`http://localhost:5000/api/comments/${commentId}`,
+				`/api/comments/${commentId}`,
 				commentData
 			);
 			await dispatch(updatedTaskComment(updatedComment, taskId));
@@ -131,13 +127,10 @@ export const deleteComment = (commentId, updateTaskId) => {
 			await dispatch(isLoading());
 			await apiCall(
 				'patch',
-				`http://localhost:5000/api/comments/${commentId}`,
+				`/api/comments/${commentId}`,
 				updateTaskIdObj
 			);
-			await apiCall(
-				'delete',
-				`http://localhost:5000/api/comments/${commentId}`
-			);
+			await apiCall('delete', `/comments/${commentId}`);
 			await dispatch(deleteTaskComment(commentId, updateTaskId));
 			await dispatch(isDoneLoading());
 		} catch (err) {

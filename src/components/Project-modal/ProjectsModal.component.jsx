@@ -47,7 +47,7 @@ export const ProjectsModal = ({ theproject }) => {
 	};
 	const handleDelete = async () => {
 		return await axios
-			.delete(`http://localhost:5000/api/projects/${theproject._id}`)
+			.delete(`/api/projects/${theproject._id}`)
 			.then((response) => {
 				console.log(response);
 				setConfirm(!confirm);
