@@ -9,13 +9,15 @@ import Dashboard from './Dashboard-page.component';
 const DashBoardPageContainer = ({
 	currentUserProjectsTasks,
 	currentProjects,
-	currentUser,
 }) => {
 	return (
-		<Dashboard
-			currentTasks={currentUserProjectsTasks}
-			currentProjects={currentProjects}
-		/>
+		{
+			(currentUserProjectsTasks && currentProjects) ?
+			<Dashboard
+				currentTasks={currentUserProjectsTasks}
+				currentProjects={currentProjects}
+			/> : <div>Loading....</div>
+		}
 	);
 };
 

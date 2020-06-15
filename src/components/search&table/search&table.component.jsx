@@ -77,7 +77,7 @@ export const SearchAndTable = ({
 							</Table.Row>
 						</Table.Header>
 						<Table.Body>
-							{isLoading ? (
+							{!data ? (
 								<Table.Row>
 									<Table.Cell textAlign='center'>
 										<Loader active inline='centered' />
