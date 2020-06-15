@@ -18,9 +18,13 @@ export const selectAllProjects = createSelector(
 export const selectAllProjectsForCurrentUser = createSelector(
 	[selectAllProjects, selectCurrentUserId],
 	(projects, id) => {
-		return projects.filter((project) =>
-			project.assignedDevs.map((dev) => dev._id === id)
-		);
+		return projects.filter((project) => {
+			if (project.assignedDevs) {
+				return project.assignedDevs.map((dev) => dev._id === id);
+			} else {
+				return [];
+			}
+		});
 	}
 );
 
