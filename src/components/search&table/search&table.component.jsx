@@ -16,7 +16,7 @@ export const SearchAndTable = ({
 	setcontent,
 	setsubheader,
 }) => {
-	const { data } = tableData;
+	const { data } = tableData || {};
 	const [search, setSearch] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
