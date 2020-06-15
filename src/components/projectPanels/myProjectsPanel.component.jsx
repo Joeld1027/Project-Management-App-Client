@@ -62,7 +62,7 @@ export default function MyProjectsPanel(props) {
 	return (
 		<div>
 			<Suspense fallback={<h1>Loading....</h1>}>
-				<SearchAndTable tableData={tableData} />
+				{props.project && <SearchAndTable tableData={tableData} />}
 			</Suspense>
 		</div>
 	);
