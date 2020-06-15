@@ -90,7 +90,4 @@ const PageContent = ({ currentUser, ...props }) => {
 	);
 };
 
-// <Route component={NoMatch} />
-// const NoMatch = () => <h1>404 page not found</h1>;
-
 export default PageContent;

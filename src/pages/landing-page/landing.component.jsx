@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { LandingPageContainer } from './landing.styles';
 import { connect } from 'react-redux';
 import projectimg from '../../assets/projectlanding.png';
@@ -19,7 +20,7 @@ import {
 	List,
 } from 'semantic-ui-react';
 
-const Landing = () => {
+const Landing = ({ currentUser }) => {
 	let mobile = false;
 
 	return (
@@ -41,22 +42,43 @@ const Landing = () => {
 						CreativeJ Management
 					</Menu.Item>
 					<Menu.Menu position='right'>
-						<Menu.Item>
-							<Button
-								style={{ backgroundColor: '#524C73', color: '#fff' }}
-								size='huge'
-							>
-								Log In
-							</Button>
-						</Menu.Item>
-						<Menu.Item>
-							<Button
-								style={{ backgroundColor: '#524C73', color: '#fff' }}
-								size='huge'
-							>
-								Get-Started
-							</Button>
-						</Menu.Item>
+						{currentUser.userInfo ? (
+							<Menu.Item>
+								<Link to='/user'>
+									<Header as='h3' color='red' inverted>
+										<Icon name='user' />
+										{currentUser.userInfo.name}
+									</Header>
+								</Link>
+							</Menu.Item>
+						) : (
+							<Fragment>
+								<Menu.Item>
+									<Link to='/auth'>
+										<Button
+											style={{
+												backgroundColor: '#524C73',
+												color: '#fff',
+											}}
+										>
+											Log In
+										</Button>
+									</Link>
+								</Menu.Item>
+								<Menu.Item>
+									<Link to='/auth/signup'>
+										<Button
+											style={{
+												backgroundColor: '#524C73',
+												color: '#fff',
+											}}
+										>
+											Get Started
+										</Button>
+									</Link>
+								</Menu.Item>
+							</Fragment>
+						)}
 					</Menu.Menu>
 				</Container>
 			</Menu>
@@ -81,13 +103,15 @@ const Landing = () => {
 							fontWeight: 'normal',
 						}}
 					/>
-					<Button
-						style={{ backgroundColor: '#524C73', color: '#fff' }}
-						size='huge'
-					>
-						Get Started
-						<Icon name='right arrow' />
-					</Button>
+					<Link to='/auth/signup'>
+						<Button
+							style={{ backgroundColor: '#524C73', color: '#fff' }}
+							size='huge'
+						>
+							More Info
+							<Icon name='right arrow' />
+						</Button>
+					</Link>
 				</Container>
 			</LandingPageContainer>
 
@@ -105,7 +129,7 @@ const Landing = () => {
 							</p>
 						</Grid.Column>
 						<Grid.Column floated='right' width={6}>
-							<Image size='large' src={Collab} />
+							<Image size='big' src={Collab} />
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
@@ -126,16 +150,6 @@ const Landing = () => {
 								projects. With priority selection and category
 								specification to better track issues.
 							</p>
-						</Grid.Column>
-					</Grid.Row>
-					<Grid.Row>
-						<Grid.Column textAlign='center'>
-							<Button
-								style={{ backgroundColor: '#524C73', color: '#fff' }}
-								size='huge'
-							>
-								Check It Out
-							</Button>
 						</Grid.Column>
 					</Grid.Row>
 				</Grid>
@@ -198,4 +212,8 @@ const Landing = () => {
 		</>
 	);
 };
-export default connect(null, { logout })(Landing);
+const mapStateToProps = (state) => ({
+	currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps, { logout })(Landing);

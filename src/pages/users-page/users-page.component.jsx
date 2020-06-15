@@ -50,7 +50,6 @@ const UsersPage = ({ users, updateUserInfo, isLoading }) => {
 			role: value,
 			id,
 		});
-		console.log(role);
 	};
 
 	const tableData = {
