@@ -24,7 +24,10 @@ const MainContent = ({ isAuthenticated, currentUser }) => {
 				allowedRoles={allowedRoles}
 			>
 				<SideMenu currentUser={currentUser} />
-				<PageContent currentUser={currentUser} />
+				<PageContent
+					isAuthenticated={isAuthenticated}
+					currentUser={currentUser}
+				/>
 			</PrivateRoute>
 		</div>
 	);

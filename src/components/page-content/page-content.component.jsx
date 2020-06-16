@@ -15,7 +15,7 @@ import TasksPage from '../../pages/tasks-pages/Tasks-page.component';
 import UsersPage from '../../pages/users-page/users-page.component';
 import PrivateRoute from '../privateRoute/private-route.component';
 
-const PageContent = ({ currentUser, ...props }) => {
+const PageContent = ({ currentUser, isAuthenticated, ...props }) => {
 	let { path } = useRouteMatch();
 	let { pathname } = useLocation();
 	const { role } = currentUser.userInfo || {};
@@ -69,7 +69,7 @@ const PageContent = ({ currentUser, ...props }) => {
 				</Route>
 
 				<PrivateRoute
-					isAuthenticated={true}
+					isAuthenticated={isAuthenticated}
 					userRole={role}
 					allowedRoles={allowedRoles}
 				>
