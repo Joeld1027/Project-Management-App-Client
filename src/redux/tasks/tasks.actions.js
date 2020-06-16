@@ -44,7 +44,7 @@ export const deleteTaskComment = (commentId, taskId) => ({
 
 export const getAllTasks = () => {
 	return async (dispatch) => {
-		apiCall('get', 'http://localhost:5000/api/tasks')
+		apiCall('get', '/api/tasks')
 			.then((tasks) => {
 				dispatch(setAllTasks(tasks));
 			})
@@ -59,7 +59,7 @@ export const createTask = (data) => {
 		const dispatchLoading = await dispatch(isLoading());
 		const createdTask = await apiCall(
 			'post',
-			'http://localhost:5000/api/tasks',
+			'/api/tasks',
 			data
 		).then(() => setState(dispatch));
 		const dispatchLoadingDone = await dispatch(isDoneLoading());
@@ -78,11 +78,7 @@ export const createTask = (data) => {
 export const updateTask = (id, data) => {
 	return async (dispatch) => {
 		dispatch(isLoading());
-		return await apiCall(
-			'patch',
-			`http://localhost:5000/api/tasks/${id}`,
-			data
-		)
+		return await apiCall('patch', `/api/tasks/${id}`, data)
 			.then(() => {
 				setState(dispatch);
 				dispatch(isDoneLoading());
