@@ -127,7 +127,7 @@ export const deleteComment = (commentId, updateTaskId) => {
 			await dispatch(isLoading());
 			await apiCall(
 				'patch',
-				`/comments/${commentId}`,
+				`/api/comments/${commentId}`,
 				updateTaskIdObj
 			);
 			await apiCall('delete', `/comments/${commentId}`);
