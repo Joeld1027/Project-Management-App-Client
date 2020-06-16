@@ -130,7 +130,7 @@ export const deleteComment = (commentId, updateTaskId) => {
 				`/api/comments/${commentId}`,
 				updateTaskIdObj
 			);
-			await apiCall('delete', `/comments/${commentId}`);
+			await apiCall('delete', `/api/comments/${commentId}`);
 			await dispatch(deleteTaskComment(commentId, updateTaskId));
 			await dispatch(isDoneLoading());
 		} catch (err) {
