@@ -65,7 +65,7 @@ export function logout() {
 	return (dispatch) => {
 		localStorage.clear();
 		setAuthorizationToken(false);
-		dispatch(setCurrentUser({}));
+		dispatch(unSetCurrentUser({}));
 	};
 }
 

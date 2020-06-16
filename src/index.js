@@ -10,6 +10,7 @@ import App from './App';
 import {
 	setAuthorizationToken,
 	setCurrentUser,
+	unSetCurrentUser,
 } from './redux/user/user.actions';
 
 import './index.css';
@@ -20,7 +21,7 @@ if (localStorage.jwToken) {
 	try {
 		store.dispatch(setCurrentUser(jwtDecode(localStorage.jwToken)));
 	} catch (err) {
-		store.dispatch(setCurrentUser({}));
+		store.dispatch(unSetCurrentUser({}));
 	}
 }
 
