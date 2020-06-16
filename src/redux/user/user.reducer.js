@@ -18,9 +18,15 @@ const userReducer = (state = INITIAL_STATE, action) => {
 		case UserActionTypes.SET_CURRENT_USER:
 			return {
 				...state,
-				isAuthenticated: !!Object.keys(action.payload).length,
+				isAuthenticated: true,
 				currentUser: action.payload,
 				isLoading: false,
+			};
+		case UserActionTypes.UNSET_CURRENT_USER:
+			return {
+				...state,
+				currentUser: action.payload,
+				isAuthenticated: false,
 			};
 		case UserActionTypes.GET_ALL_USERS:
 			return {

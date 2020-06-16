@@ -6,6 +6,11 @@ export const setCurrentUser = (user) => ({
 	payload: user,
 });
 
+export const unSetCurrentUser = (user) => ({
+	type: UserActionTypes.UNSET_CURRENT_USER,
+	payload: user,
+});
+
 export const userLoading = () => ({
 	type: UserActionTypes.USER_LOADING,
 });
