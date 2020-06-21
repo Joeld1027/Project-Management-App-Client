@@ -17,9 +17,10 @@ import './index.css';
 
 if (localStorage.jwToken) {
 	setAuthorizationToken(localStorage.jwToken);
+	let userInfo={ userInfo: jwtDecode(localStorage.jwToken)}
 	// prevent someone from manually tempering with the token
 	try {
-		store.dispatch(setCurrentUser(jwtDecode(localStorage.jwToken)));
+		store.dispatch(setCurrentUser(userInfo));
 	} catch (err) {
 		store.dispatch(unSetCurrentUser({}));
 	}

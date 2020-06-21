@@ -24,7 +24,7 @@ const Landing = ({ currentUser }) => {
 	let mobile = false;
 
 	return (
-		<>
+		<div>
 			<Menu
 				borderless
 				fluid
@@ -209,7 +209,7 @@ const Landing = ({ currentUser }) => {
 					</Grid>
 				</Container>
 			</Segment>
-		</>
+		</div>
 	);
 };
 const mapStateToProps = (state) => ({
