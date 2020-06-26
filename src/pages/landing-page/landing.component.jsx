@@ -39,7 +39,7 @@ const Landing = ({ currentUser }) => {
 							src={logo}
 							style={{ marginRight: '1.5em' }}
 						/>
-						CreativeJ Management
+						Project Management
 					</Menu.Item>
 					<Menu.Menu position='right'>
 						{currentUser.userInfo ? (
@@ -108,7 +108,7 @@ const Landing = ({ currentUser }) => {
 							style={{ backgroundColor: '#524C73', color: '#fff' }}
 							size='huge'
 						>
-							More Info
+							Start Now!
 							<Icon name='right arrow' />
 						</Button>
 					</Link>
@@ -128,7 +128,7 @@ const Landing = ({ currentUser }) => {
 								their projects.
 							</p>
 						</Grid.Column>
-						<Grid.Column floated='right' width={6}>
+						<Grid.Column floated='right' width={8}>
 							<Image size='big' src={Collab} />
 						</Grid.Column>
 					</Grid.Row>
@@ -139,7 +139,7 @@ const Landing = ({ currentUser }) => {
 				<Grid container stackable verticalAlign='middle'>
 					<Grid.Row>
 						<Grid.Column floated='right' width={8}>
-							<Image size='big' src={taskimg} />
+							<Image size='large' src={taskimg} />
 						</Grid.Column>
 						<Grid.Column width={8}>
 							<Header as='h3' style={{ fontSize: '2.3em' }}>
@@ -204,6 +204,16 @@ const Landing = ({ currentUser }) => {
 									Company
 								</Header>
 								<p>@Creative Project Managment - Joel D. Infante.</p>
+								<List link inverted>
+									<List.Item>
+										<a href='https://github.com/Joeld1027'>
+											<Icon size='large' name='github' />
+										</a>
+										<a href='https://www.linkedin.com/in/joel-infante-10953a93/'>
+											<Icon size='large' name='linkedin' />
+										</a>
+									</List.Item>
+								</List>
 							</Grid.Column>
 						</Grid.Row>
 					</Grid>

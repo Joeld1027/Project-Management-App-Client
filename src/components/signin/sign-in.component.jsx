@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authUser } from '../../redux/user/user.actions';
 import FormInput from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import { Button } from 'semantic-ui-react';
 
 import {
 	SignInContainer,
@@ -11,7 +11,7 @@ import {
 	ButtonsBarContainer,
 } from './sign-in.styles';
 
-const SignIn = ({ history, authUser }) => {
+const SignIn = ({ history, authUser, errorMessage, isLoading }) => {
 	const [userCredentials, setCredentials] = useState({
 		email: '',
 		password: '',
@@ -25,7 +25,9 @@ const SignIn = ({ history, authUser }) => {
 			.then(() => {
 				history.push('/user');
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	const handleChange = (event) => {
@@ -61,11 +63,35 @@ const SignIn = ({ history, authUser }) => {
 					<Link to='/auth/signup'>Sign Up</Link>
 				</span>
 				<ButtonsBarContainer>
-					<CustomButton type='submit'> Sign in </CustomButton>
+					<Button
+						size='large'
+						loading={isLoading}
+						style={{ backgroundColor: '#1a443a', color: '#fff' }}
+						type='submit'
+					>
+						{' '}
+						Sign In{' '}
+					</Button>
 				</ButtonsBarContainer>
 			</form>
+			{errorMessage && (
+				<div
+					style={{
+						color: 'red',
+						marginTop: '1em',
+						fontSize: '1.2em',
+					}}
+				>
+					- {errorMessage} -- Try again -
+				</div>
+			)}
 		</SignInContainer>
 	);
 };
 
-export default connect(null, { authUser })(SignIn);
+const mapStateToProps = (state) => ({
+	isLoading: state.user.isLoading,
+	errorMessage: state.error.errorMessage,
+});
+
+export default connect(mapStateToProps, { authUser })(SignIn);
