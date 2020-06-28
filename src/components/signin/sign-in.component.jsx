@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { authUser } from '../../redux/user/user.actions';
 import FormInput from '../form-input/form-input.component';
 import { Button } from 'semantic-ui-react';
 
@@ -10,31 +9,19 @@ import {
 	SignInTitle,
 	ButtonsBarContainer,
 } from './sign-in.styles';
+import AuthFormsHooks from '../hooks/AuthForms.hooks';
 
-const SignIn = ({ history, authUser, errorMessage, isLoading }) => {
-	const [userCredentials, setCredentials] = useState({
+const SignIn = ({ errorMessage, isLoading }) => {
+	const INITIAL_STATE = {
 		email: '',
 		password: '',
-	});
-	const { email, password } = userCredentials;
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		const authType = 'signin';
-		authUser(authType, userCredentials)
-			.then(() => {
-				history.push('/user');
-			})
-			.catch((err) => {
-				console.log(err);
-			});
 	};
 
-	const handleChange = (event) => {
-		const { value, name } = event.target;
-
-		setCredentials({ ...userCredentials, [name]: value });
-	};
+	const { handleSubmit, handleChange, values } = AuthFormsHooks(
+		INITIAL_STATE
+	);
+	const { email, password } = values;
+	console.log(handleSubmit);
 
 	return (
 		<SignInContainer>
@@ -94,4 +81,4 @@ const mapStateToProps = (state) => ({
 	errorMessage: state.error.errorMessage,
 });
 
-export default connect(mapStateToProps, { authUser })(SignIn);
+export default connect(mapStateToProps)(SignIn);
