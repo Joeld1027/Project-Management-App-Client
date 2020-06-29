@@ -74,11 +74,7 @@ export function logout() {
 export const authUser = (type, userData) => {
 	return (dispatch) => {
 		dispatch(userLoading());
-		return apiCall(
-			'post',
-			`http://localhost:5000/api/auth/${type}`,
-			userData
-		)
+		return apiCall('post', `/api/auth/${type}`, userData)
 			.then((data) => {
 				localStorage.setItem('jwToken', data.accessToken);
 				setAuthorizationToken(data.accessToken);
