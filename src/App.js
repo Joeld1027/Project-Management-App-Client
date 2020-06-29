@@ -1,6 +1,5 @@
 import React from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
 import landingComponent from './pages/landing-page/landing.component';
@@ -13,27 +12,21 @@ import {
 	unSetCurrentUser,
 } from './redux/user/user.actions';
 
-function App() {
-	const dispatch = useDispatch();
+import store from './redux/store';
 
-	if (localStorage.jwToken) {
+if (localStorage.jwToken) {
+	const userInfo = { userInfo: jwtDecode(localStorage.jwToken) };
+	if (Date.now() >= userInfo.userInfo.exp * 1000) {
+		store.dispatch(unSetCurrentUser({}));
+		localStorage.clear();
+	} else {
+		// prevent someone from manually tempering with the token
 		setAuthorizationToken(localStorage.jwToken);
-		const userInfo = { userInfo: jwtDecode(localStorage.jwToken) };
-		const checkTokenDate = () => {
-			if (Date.now() >= userInfo.userInfo.exp * 1000) {
-				dispatch(unSetCurrentUser({}));
-				localStorage.clear();
-			}
-		};
-		checkTokenDate();
-		try {
-			// prevent someone from manually tempering with the token
-			dispatch(setCurrentUser(userInfo));
-		} catch (error) {
-			dispatch(unSetCurrentUser({}));
-		}
+		store.dispatch(setCurrentUser(userInfo));
 	}
+}
 
+function App() {
 	return (
 		<div>
 			<Switch>
