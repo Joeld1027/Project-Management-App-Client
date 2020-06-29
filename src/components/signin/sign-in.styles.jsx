@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+	height: 100vh;
+`;
+
 export const SignInContainer = styled.div`
 	width: 470px;
 	display: flex;
@@ -30,6 +34,7 @@ export const SignInTitle = styled.h2`
 
 export const ButtonsBarContainer = styled.div`
 	display: flex;
+	flex-direction: column;
 	margin-top: 20px;
 	justify-content: space-between;
 `;

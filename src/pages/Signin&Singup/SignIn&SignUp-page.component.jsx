@@ -11,6 +11,11 @@ import { SignInPageContainer } from './Signin-page.styles';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
 import AlertMessage from '../../components/alerts/alertMessage';
+
+const SignInDemo = lazy(() =>
+	import('../../components/signinDemo/SignInDemo.component')
+);
+
 const SignIn = lazy(() =>
 	import('../../components/signin/sign-in.component')
 );
@@ -38,6 +43,11 @@ const SignInPage = ({ isAuthenticated, ...rest }) => {
 						{alert ? <AlertMessage alert={alert} /> : null}
 						<Route exact path={`${path}`} component={SignIn} />
 						<Route exact path={`${path}/signup`} component={SignUp} />
+						<Route
+							exact
+							path={`${path}/demo`}
+							component={SignInDemo}
+						/>
 					</Suspense>
 				</Switch>
 			</SignInPageContainer>

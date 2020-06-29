@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+	height: 100vh;
+`;
+
 export const SignUpContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -7,6 +11,10 @@ export const SignUpContainer = styled.div`
 	background: rgba(0, 0, 0, 0.6);
 	padding: 65px;
 	border-radius: 150px 5px;
+
+	@media (max-width: 760px) {
+		width: 380px;
+	}
 
 	span {
 		color: white;

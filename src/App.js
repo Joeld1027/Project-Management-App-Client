@@ -37,7 +37,9 @@ function App() {
 			}
 		}
 	};
+
 	checkToken();
+
 	return (
 		<div>
 			<Switch>
