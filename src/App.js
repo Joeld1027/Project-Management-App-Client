@@ -16,29 +16,23 @@ import {
 function App() {
 	const dispatch = useDispatch();
 
-	const history = useHistory();
-
-	const checkToken = () => {
-		if (localStorage.jwToken) {
-			let userInfo = { userInfo: jwtDecode(localStorage.jwToken) };
+	if (localStorage.jwToken) {
+		setAuthorizationToken(localStorage.jwToken);
+		const userInfo = { userInfo: jwtDecode(localStorage.jwToken) };
+		const checkTokenDate = () => {
 			if (Date.now() >= userInfo.userInfo.exp * 1000) {
-				setAuthorizationToken();
 				dispatch(unSetCurrentUser({}));
 				localStorage.clear();
-				return history.push('/auth');
 			}
-
+		};
+		checkTokenDate();
+		try {
 			// prevent someone from manually tempering with the token
-			try {
-				setAuthorizationToken(localStorage.jwToken);
-				dispatch(setCurrentUser(userInfo));
-			} catch (err) {
-				dispatch(unSetCurrentUser({}));
-			}
+			dispatch(setCurrentUser(userInfo));
+		} catch (error) {
+			dispatch(unSetCurrentUser({}));
 		}
-	};
-
-	checkToken();
+	}
 
 	return (
 		<div>
