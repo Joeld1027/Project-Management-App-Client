@@ -17,8 +17,8 @@ import store from './redux/store';
 if (localStorage.jwToken) {
 	const userInfo = { userInfo: jwtDecode(localStorage.jwToken) };
 	if (Date.now() >= userInfo.userInfo.exp * 1000) {
-		store.dispatch(unSetCurrentUser({}));
 		localStorage.clear();
+		store.dispatch(unSetCurrentUser({}));
 	} else {
 		// prevent someone from manually tempering with the token
 		setAuthorizationToken(localStorage.jwToken);

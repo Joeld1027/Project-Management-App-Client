@@ -34,10 +34,7 @@ export const ProjectsModal = ({ theproject }) => {
 
 	const handleEdit = async () => {
 		return await axios
-			.patch(
-				`http://localhost:5000/api/projects/${theproject._id}`,
-				updateData
-			)
+			.patch(`/api/projects/${theproject._id}`, updateData)
 			.then(() => {
 				setState(dispatch);
 				setUpdateData(INITIAL_STATE);
