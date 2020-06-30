@@ -42,7 +42,6 @@ function ProjectForm({
 		event.preventDefault();
 		createProject(formData)
 			.then(() => {
-				console.log('Project Created');
 				setActiveIndex(0);
 			})
 			.catch((err) => {

@@ -46,7 +46,6 @@ export const ProjectsModal = ({ theproject }) => {
 		return await axios
 			.delete(`/api/projects/${theproject._id}`)
 			.then((response) => {
-				console.log(response);
 				setConfirm(!confirm);
 				console.log('Project Deleted');
 				setState(dispatch);

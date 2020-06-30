@@ -71,10 +71,9 @@ function TaskForm({
 
 	const handleEdit = async () => {
 		return await axios
-			.patch(`api/tasks/${id}`, formData)
+			.patch(`/api/tasks/${id}`, formData)
 			.then(() => {
 				setState(dispatch);
-				console.log('task updated');
 			})
 			.catch((err) => console.log(err));
 	};

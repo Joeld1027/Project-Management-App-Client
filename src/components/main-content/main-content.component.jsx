@@ -7,7 +7,8 @@ import PageContent from '../page-content/page-content.component';
 import PrivateRoute from '../privateRoute/private-route.component';
 
 const MainContent = ({ isAuthenticated, currentUser }) => {
-	SetState();
+	if (isAuthenticated) SetState();
+
 	const { role } = currentUser.userInfo || {};
 	const allowedRoles = [
 		'Demo-Submitter',

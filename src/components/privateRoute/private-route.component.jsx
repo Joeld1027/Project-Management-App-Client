@@ -12,7 +12,7 @@ function PrivateRoute({
 	const userHasRequiredRole = allowedRoles.includes(userRole);
 	const message = userHasRequiredRole
 		? 'Please Sign in to view this page'
-		: 'Not an authorized route';
+		: 'Sign In first';
 	return (
 		<Route
 			{...rest}

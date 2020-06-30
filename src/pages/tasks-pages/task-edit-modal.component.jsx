@@ -19,7 +19,6 @@ const TaskEditModal = ({ editData }) => {
 		return await axios
 			.delete(`/api/tasks/${editData._id}`)
 			.then((response) => {
-				console.log(response);
 				setConfirm(!confirm);
 				console.log('Task Deleted');
 				setState(dispatch);
