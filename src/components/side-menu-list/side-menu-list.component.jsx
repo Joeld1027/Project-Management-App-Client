@@ -59,8 +59,7 @@ const MenuItems = ({ currentUser, logout }) => {
 
 			{role === 'Admin' ||
 			role === 'Demo-Manager' ||
-			role === 'Demo-Admin' ||
-			role === 'Demo-Developer' ? (
+			role === 'Demo-Admin' ? (
 				<Fragment>
 					<OptionLink to='/user/dashboard'>Dashboard</OptionLink>
 					<OptionLink to='/user/projects'>Projects</OptionLink>

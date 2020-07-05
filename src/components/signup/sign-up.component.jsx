@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { authUser } from '../../redux/user/user.actions';
 import FormInput from '../form-input/form-input.component';
-import { Button } from 'semantic-ui-react';
+import { Button, Header } from 'semantic-ui-react';
 
 import {
 	Container,
@@ -111,6 +111,16 @@ const SignUp = ({ history, authUser, isLoading, errorMessage }) => {
 						{' '}
 						Sign Up{' '}
 					</Button>
+					<Header as='h3' content='Or' inverted />
+					<Link to='/auth/demo'>
+						<Button
+							icon='sign in'
+							size='large'
+							content='Demo-Login!'
+							inverted
+							color='green'
+						/>
+					</Link>
 				</form>
 				{errorMessage && (
 					<div
