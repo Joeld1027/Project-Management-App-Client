@@ -1,7 +1,13 @@
 import axios from 'axios';
-import { getAllProjects } from '../redux/projects/projects.actions';
-import { getAllTasks } from '../redux/tasks/tasks.actions';
-import { getAllUsers } from '../redux/user/user.actions';
+import {
+	getAllProjects
+} from '../redux/projects/projects.actions';
+import {
+	getAllTasks
+} from '../redux/tasks/tasks.actions';
+import {
+	getAllUsers
+} from '../redux/user/user.actions';
 
 export function setTokenHeader(token) {
 	if (token) {
@@ -15,7 +21,7 @@ export function setTokenHeader(token) {
 
 export function apiCall(method, path, data) {
 	return new Promise((resolve, reject) => {
-		return axios[method]("http://localhost:5000" + path, data)
+		return axios[method](path, data)
 			.then((res) => {
 				return resolve(res.data);
 			})
